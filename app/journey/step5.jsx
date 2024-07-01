@@ -1,34 +1,32 @@
 import { StyleSheet, TouchableOpacity } from "react-native";
 import { Text, View } from "@/components/Themed";
-import { TextInput } from 'react-native';
 import { router, useLocalSearchParams } from "expo-router";
-import { useState, useEffect } from 'react';
+import { TextInput } from "react-native";
+import { useState } from "react";
 
-export default function Journey2Step() {
+export default function Journey4Step() {
+  const [dislikedActivities, setDislikedActivities] = useState("");
   let { data } = useLocalSearchParams();
   data = data ? JSON.parse(data) : {};
 
-  const [duration, setDuration] = useState("")
-
-  function handleGoStep3() {
-    data.duration = duration
+  function handleGoStep6() {
+    data.dislikedActivities = dislikedActivities;
     router.push({
-      pathname: "/journey/step3",
+      pathname: "/journey/step6",
       params: { data: JSON.stringify(data) }
     });
   }
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Step 2 - Trip duration</Text>
+      <Text style={styles.title}>Step 5 - Disliked Activities</Text>
       <TextInput 
-      onChangeText={setDuration} 
-      value={duration}
-      placeholder="Whats your trip duration"/>
-      <TouchableOpacity onPress={handleGoStep3}>
-        <Text>Go to step 3</Text>
+      onChangeText={setDislikedActivities} 
+      value={dislikedActivities}
+      placeholder="Preferences for the trip?"/>
+      <TouchableOpacity onPress={handleGoStep6}>
+        <Text>Go to step 6</Text>
       </TouchableOpacity>
-     
       <View
         style={styles.separator}
         lightColor="#eee"

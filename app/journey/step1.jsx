@@ -5,13 +5,13 @@ import { router } from "expo-router";
 import { useState, useEffect } from 'react';
 
 export default function Journey1Step() {
-  const [preferences, setPreferences] = useState("")
+  const [location, setLocation] = useState("")
   let data = {
-    preferences: "",
+    location: "",
   }
 
   function handleGoStep2() {
-    data.preferences = preferences
+    data.location = location
     router.push({
       pathname: "/journey/step2",
       params: { data: JSON.stringify(data) }
@@ -20,11 +20,11 @@ export default function Journey1Step() {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Step 1 - Preferences</Text>
+      <Text style={styles.title}>Step 1 - Location</Text>
       <TextInput 
-      onChangeText={setPreferences} 
-      value={preferences}
-      placeholder="Type your preferences"/>
+      onChangeText={setLocation} 
+      value={location}
+      placeholder="Type your location"/>
       <TouchableOpacity onPress={handleGoStep2}>
         <Text>Go to step 2</Text>
       </TouchableOpacity>

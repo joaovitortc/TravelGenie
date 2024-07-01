@@ -1,34 +1,32 @@
 import { StyleSheet, TouchableOpacity } from "react-native";
 import { Text, View } from "@/components/Themed";
-import { TextInput } from 'react-native';
 import { router, useLocalSearchParams } from "expo-router";
-import { useState, useEffect } from 'react';
+import { TextInput } from "react-native";
+import { useState } from "react";
 
-export default function Journey2Step() {
+export default function Journey4Step() {
+  const [party, setParty] = useState("");
   let { data } = useLocalSearchParams();
   data = data ? JSON.parse(data) : {};
 
-  const [duration, setDuration] = useState("")
-
-  function handleGoStep3() {
-    data.duration = duration
+  function handleGoStep6() {
+    data.party = party;
     router.push({
-      pathname: "/journey/step3",
+      pathname: "/journey/results",
       params: { data: JSON.stringify(data) }
     });
   }
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Step 2 - Trip duration</Text>
+      <Text style={styles.title}>Step 6 - Party Size</Text>
       <TextInput 
-      onChangeText={setDuration} 
-      value={duration}
-      placeholder="Whats your trip duration"/>
-      <TouchableOpacity onPress={handleGoStep3}>
-        <Text>Go to step 3</Text>
+      onChangeText={setParty} 
+      value={party}
+      placeholder="Preferences for the trip?"/>
+      <TouchableOpacity onPress={handleGoStep6}>
+        <Text>Go to step 6</Text>
       </TouchableOpacity>
-     
       <View
         style={styles.separator}
         lightColor="#eee"

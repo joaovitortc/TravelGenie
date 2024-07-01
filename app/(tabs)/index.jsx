@@ -1,6 +1,8 @@
 import { StyleSheet, TouchableOpacity } from "react-native";
 import { Text, View } from "@/components/Themed";
 import { router } from "expo-router";
+
+
 export default function TabOneScreen() {
   function handleStartJourney() {
     router.push("/journey/step1");
