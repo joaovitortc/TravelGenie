@@ -1,8 +1,6 @@
 // api.js
-import Constants from 'expo-constants';
 import config from '../config'; 
 
-const API_URL = 'https://api.openai.com/v1';
 const API_KEY = config.OPEN_API_KEY
 
 console.log("API KEY:", API_KEY);
