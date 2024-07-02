@@ -99,7 +99,9 @@ export default function Journey1Step() {
       <TouchableOpacity
         style={styles.locationButton}
         onPress={handleUseCurrentLocation}>
-        <Text style={styles.locationButtonText}>Use my current location</Text>
+        <Text style={styles.locationButtonText}>
+          Use my current location 📍
+        </Text>
       </TouchableOpacity>
       <Text style={styles.orStyle}>or</Text>
       <TextInput
@@ -158,12 +160,15 @@ const styles = StyleSheet.create({
   titlecontainer: {
     flexDirection: "row",
     alignItems: "center",
+    justifyContent: "flex-start",
+    alignSelf: "flex-start",
+    paddingLeft: 32,
     marginBottom: 20,
     backgroundColor: secondary,
   },
   circle: {
-    width: 50,
-    height: 50,
+    width: 45,
+    height: 45,
     borderRadius: 25,
     backgroundColor: primary,
     justifyContent: "center",
@@ -171,20 +176,19 @@ const styles = StyleSheet.create({
   },
   number: {
     color: white,
-    fontSize: 30,
+    fontSize: 25,
     fontWeight: "bold",
   },
   title: {
-    fontSize: 30,
+    fontSize: 25,
     fontWeight: "bold",
-    marginLeft: 15,
+    marginLeft: 20,
   },
   paragraph: {
-    fontSize: 16,
+    fontSize: 14,
     color: black,
     marginBottom: 80,
     width: "80%",
-    textAlign: "center",
   },
   separator: {
     marginVertical: 30,
@@ -212,36 +216,37 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
     width: "80%",
     backgroundColor: white,
+    fontSize: 14,
   },
   navigationButtonBack: {
     borderColor: lowkey,
     borderWidth: 2,
-    padding: 15,
+    padding: 10,
     borderRadius: 30,
-    width: "40%",
+    width: "45%",
     marginTop: 80,
     flexDirection: "row",
     justifyContent: "space-around",
   },
   navigationButtonTextBack: {
     color: lowkey,
-    fontSize: 16,
+    fontSize: 14,
     fontWeight: "bold",
     textAlign: "center",
     padding: 5,
   },
   navigationButtonNext: {
     backgroundColor: button,
-    padding: 15,
+    padding: 10,
     borderRadius: 30,
-    width: "40%",
+    width: "45%",
     marginTop: 80,
     flexDirection: "row",
     justifyContent: "space-around",
   },
   navigationButtonTextNext: {
     color: black,
-    fontSize: 16,
+    fontSize: 14,
     fontWeight: "bold",
     textAlign: "center",
     padding: 5,
@@ -255,7 +260,7 @@ const styles = StyleSheet.create({
   },
   locationButtonText: {
     color: black,
-    fontSize: 16,
+    fontSize: 14,
     fontWeight: "bold",
     paddingLeft: 15,
     paddingRight: 15,
@@ -265,6 +270,7 @@ const styles = StyleSheet.create({
     color: black,
     marginBottom: 20,
     fontWeight: "bold",
+    fontSize: 14,
   },
   navigationbuttons: {
     flexDirection: "row",
@@ -276,7 +282,7 @@ const styles = StyleSheet.create({
   },
   navigationButtonTextSkip: {
     color: lowkey,
-    fontSize: 16,
+    fontSize: 14,
     textDecorationLine: "underline",
   },
 });
