@@ -1,28 +1,51 @@
-import { StyleSheet } from 'react-native';
-import { Text, View } from '@/components/Themed';
+// app/Profile.jsx
+import React from "react";
+import { View, Text, TextInput, Button, StyleSheet } from "react-native";
 
-export default function TabTwoScreen() {
+const Profile = () => {
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Tab Two</Text>
-      <View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" />
+      <View style={styles.avatar}>
+        <Text style={styles.avatarText}>👤</Text>
+      </View>
+      <TextInput style={styles.input} placeholder="Your full name" />
+      <TextInput style={styles.input} placeholder="Your email address" />
+      <TextInput style={styles.input} placeholder="Where are you located?" />
+      <Button title="Save" onPress={() => alert("Hello")} color="#D89A2B" />
     </View>
   );
-}
+};
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "#F0F4F8",
+    padding: 20,
   },
-  title: {
-    fontSize: 20,
-    fontWeight: 'bold',
+  avatar: {
+    backgroundColor: "#CBD2E0",
+    borderRadius: 50,
+    width: 100,
+    height: 100,
+    justifyContent: "center",
+    alignItems: "center",
+    marginBottom: 20,
   },
-  separator: {
-    marginVertical: 30,
-    height: 1,
-    width: '80%',
+  avatarText: {
+    fontSize: 50,
+    color: "#FFFFFF",
+  },
+  input: {
+    height: 40,
+    borderColor: "gray",
+    borderWidth: 1,
+    borderRadius: 10,
+    marginBottom: 20,
+    paddingHorizontal: 10,
+    width: "80%",
   },
 });
+
+export default Profile;
