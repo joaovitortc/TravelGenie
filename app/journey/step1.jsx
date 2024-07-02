@@ -3,6 +3,16 @@ import { Text, View } from "@/components/Themed";
 import { TextInput } from "react-native";
 import { router } from "expo-router";
 import { useState, useEffect } from "react";
+import {
+  primary,
+  secondary,
+  button,
+  lowkey,
+  positive,
+  negative,
+  white,
+  textcolor,
+} from "../../constants/ThemeVariables";
 
 export default function Journey1Step() {
   const [location, setLocation] = useState("");
@@ -20,8 +30,12 @@ export default function Journey1Step() {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.number}>1</Text>
-      <Text style={styles.title}>Location</Text>
+      <View style={styles.titlecontainer}>
+        <View style={styles.circle}>
+          <Text style={styles.number}>1</Text>
+        </View>
+        <Text style={styles.title}>Location</Text>
+      </View>
       <TextInput
         onChangeText={setLocation}
         value={location}
@@ -44,15 +58,31 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: "center",
     justifyContent: "center",
+    backgroundColor: secondary,
+  },
+  titlecontainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    marginBottom: 20,
+    backgroundColor: secondary,
+  },
+  circle: {
+    width: 50,
+    height: 50,
+    borderRadius: 25,
+    backgroundColor: primary,
+    justifyContent: "center",
+    alignItems: "center",
   },
   number: {
+    color: white,
     fontSize: 30,
     fontWeight: "bold",
-    color: "blue",
   },
   title: {
-    fontSize: 20,
+    fontSize: 30,
     fontWeight: "bold",
+    marginLeft: 15,
   },
   separator: {
     marginVertical: 30,
