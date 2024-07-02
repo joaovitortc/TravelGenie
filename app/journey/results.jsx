@@ -1,36 +1,52 @@
 import React, { useState, useEffect } from "react";
-import { ScrollView, Text, View } from "react-native";
-import { useLocalSearchParams } from "expo-router";
+import { ScrollView, Text, TouchableOpacity, View } from "react-native";
 import callOpenAI from "../openai";
+import { router, useLocalSearchParams } from "expo-router";
 
 export default function Results() {
-  const [response, setResponse] = useState(null);
+  //const [response, setResponse] = useState(null);
   let { data } = useLocalSearchParams();
   data = data ? JSON.parse(data) : {};
 
-  useEffect(() => {
-    const generatedPrompt = createPrompt(data);
+  const response = {
+    title: "Travel Plan for Paris",
+    plan: [
+      {
+        place: "Louvre Museum",
+        time: "10am-2pm",
+        what_to_do: "Visit one of the most famous museums in the world, housing thousands of works of art.",
+      },
+      {
+        place: "Eiffel Tower",
+        time: "3pm-5pm",
+        what_to_do: "Visit the iconic landmark and enjoy panoramic views of the city.",
+      },
+    ],
+  }
 
-    console.log("Generated Prompt is: ", generatedPrompt);
+  // useEffect(() => {
+  //   const generatedPrompt = createPrompt(data);
 
-    const handleRequest = async () => {
-      if (!generatedPrompt) return;
+  //   console.log("Generated Prompt is: ", generatedPrompt);
 
-      let result = await callOpenAI(generatedPrompt);
+  //   const handleRequest = async () => {
+  //     if (!generatedPrompt) return;
+
+  //     let result = await callOpenAI(generatedPrompt);
       
-      if (result) {
-        console.log("Result is: ", result);
-        try {
-          const parsedResult = JSON.parse(result); // Ensure the result is parsed
-          setResponse(parsedResult); // Set the response from OpenAI
-        } catch (error) {
-          console.error("Error parsing result:", error);
-        }
-      }
-    };
+  //     if (result) {
+  //       console.log("Result is: ", result);
+  //       try {
+  //         const parsedResult = JSON.parse(result); // Ensure the result is parsed
+  //         setResponse(parsedResult); // Set the response from OpenAI
+  //       } catch (error) {
+  //         console.error("Error parsing result:", error);
+  //       }
+  //     }
+  //   };
 
-    handleRequest();
-  }, []); // Empty dependency array ensures this effect runs once on mount
+  //   handleRequest();
+  // }, []); // Empty dependency array ensures this effect runs once on mount
 
   return (
     <ScrollView style={{ flex: 1 }}>
@@ -44,6 +60,13 @@ export default function Results() {
               <Text>What to do: {item.what_to_do}</Text>
             </View>
           ))}
+          <TouchableOpacity 
+          onPress={() =>  router.push({
+          pathname: "/profile",
+          params: { data: JSON.stringify(response) }
+          })}>
+            <Text style={{color: 'white'}}>Save</Text>
+          </TouchableOpacity>
         </View>
       ) : (
         <Text>Loading...</Text>
