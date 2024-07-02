@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { View, Text, FlatList } from 'react-native';
 import { db, auth } from '../firebase';
 import { collection, doc, getDoc } from 'firebase/firestore';
-import Plan from '@/components/Plan';
+import PlanCard from '@/components/PlanCard';
 
 const Plans = () => {
   const [plans, setPlans] = useState([]);
@@ -56,7 +56,7 @@ const Plans = () => {
   data={plans}
   keyExtractor={(item, index) => index.toString()}
   renderItem={({ item }) => (
-    <Plan title={item.title} plan={item.plan}/>
+    <PlanCard title={item.title} plan={item.plan} index={1}/>
   )}
 />
     </View>

@@ -1,18 +1,26 @@
-// Plan.jsx
-import React, { useState } from "react";
-import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
+// plan.jsx
+import React, {useState} from "react";
+import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
+import { useLocalSearchParams } from "expo-router";
 
-export default function Plan({ title, plan }) {
-  console.log("Regular Card receiving: ", title, plan);
+export default function Plan() {
+  const { plan: planStr, title } = useLocalSearchParams();
   const [expandedIndex, setExpandedIndex] = useState(null);
+
+  let plan;
+  try {
+    plan = JSON.parse(planStr);
+  } catch (error) {
+    console.error("Error parsing plan: ", error);
+    plan = [];
+  }
 
   const toggleExpanded = (index) => {
     setExpandedIndex(expandedIndex === index ? null : index);
   };
-
-  plan.map((item, index) => {
-    console.log("Plan: ", item);
-  });
+  
+  console.log("Plan from plancontainer: ", plan);
+  console.log("Title from plancontainer: ", title);
 
   return (
     <View style={styles.container}>
@@ -20,7 +28,6 @@ export default function Plan({ title, plan }) {
       {plan && plan.length > 0 ? (
         plan.map((item, index) => (
           <TouchableOpacity key={index} onPress={() => toggleExpanded(index)}>
-            <Text>aaaaaaaa</Text>
             <View
               style={[
                 styles.card,
@@ -100,3 +107,4 @@ const styles = StyleSheet.create({
     color: "#666",
   },
 });
+
