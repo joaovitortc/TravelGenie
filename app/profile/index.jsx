@@ -1,12 +1,19 @@
 // profile.jsx
-import React, { useState, useEffect } from "react";
-import { View, TextInput, Button, Text } from "react-native";
+import React, { useState } from "react";
+import {
+  View,
+  TextInput,
+  Button,
+  Text,
+  StyleSheet,
+  TouchableOpacity,
+} from "react-native";
 import { auth, db } from "../firebase";
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
 } from "firebase/auth";
-import { doc, getDoc, setDoc, updateDoc, arrayUnion } from "firebase/firestore";
+import { doc, getDoc, setDoc, updateDoc } from "firebase/firestore";
 import { router, useLocalSearchParams } from "expo-router";
 
 const Profile = () => {
@@ -17,33 +24,6 @@ const Profile = () => {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [isSignUp, setIsSignUp] = useState(true); // Toggle between sign-up and log-in
-
-  if (auth.currentUser) { 
-    console.log("User was already previously signed-in");
-
-    async function addPlans() {
-      const user = auth.currentUser;
-
-      // Check if plans exist for this user
-      const userDoc = await getDoc(doc(db, "users", user.uid));
-      if (userDoc.exists()) {
-        const currentPlans = userDoc.data().plans || [];
-
-        // Append new plan to the current plans array
-        const updatedPlans = [...currentPlans, data];
-
-        // Update the document with the updated plans array
-        await updateDoc(doc(db, "users", user.uid), {
-          plans: updatedPlans,
-        });
-      }
-
-      router.push("/plans");
-    }
-
-    addPlans();
-  } 
-  else {
 
   const handleAuth = async () => {
     try {
@@ -81,6 +61,9 @@ const Profile = () => {
           await updateDoc(doc(db, "users", user.uid), {
             plans: updatedPlans,
           });
+        } else {
+          // If user somehow signed in without existing plans
+          await setDoc(doc(db, "users", user.uid), { plans: [data || {}] });
         }
       }
 
@@ -91,23 +74,78 @@ const Profile = () => {
   };
 
   return (
-    <View>
-      <TextInput placeholder="Email" value={email} onChangeText={setEmail} />
+    <View style={styles.container}>
       <TextInput
+        style={styles.input}
+        placeholder="Email"
+        value={email}
+        onChangeText={setEmail}
+      />
+      <TextInput
+        style={styles.input}
         placeholder="Password"
         value={password}
         onChangeText={setPassword}
         secureTextEntry
       />
-      <Button title={isSignUp ? "Sign Up" : "Log In"} onPress={handleAuth} />
-      {error ? <Text>{error}</Text> : null}
-      <Button
-        title={isSignUp ? "Switch to Log In" : "Switch to Sign Up"}
+      <TouchableOpacity style={styles.button} onPress={handleAuth}>
+        <Text style={styles.buttonText}>{isSignUp ? "Sign Up" : "Log In"}</Text>
+      </TouchableOpacity>
+      {error ? <Text style={styles.errorText}>{error}</Text> : null}
+      <TouchableOpacity
+        style={styles.switchButton}
         onPress={() => setIsSignUp(!isSignUp)}
-      />
+      >
+        <Text style={styles.switchButtonText}>
+          {isSignUp ? "Switch to Log In" : "Switch to Sign Up"}
+        </Text>
+      </TouchableOpacity>
     </View>
   );
 };
-}
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: "center",
+    padding: 20,
+    backgroundColor: "#E6EFFC",
+  },
+  input: {
+    height: 50,
+    borderColor: "#ddd",
+    borderWidth: 1,
+    borderRadius: 30,
+    marginBottom: 20,
+    paddingHorizontal: 15,
+    backgroundColor: "#fff",
+  },
+  button: {
+    height: 50,
+    backgroundColor: "#F3A61E",
+    justifyContent: "center",
+    alignItems: "center",
+    borderRadius: 30,
+    marginBottom: 20,
+    marginTop: 30,
+  },
+  buttonText: {
+    color: "#000000",
+    fontSize: 18,
+    fontWeight: "bold",
+  },
+  errorText: {
+    color: "red",
+    marginBottom: 20,
+    textAlign: "center",
+  },
+  switchButton: {
+    alignItems: "center",
+  },
+  switchButtonText: {
+    color: "#000000",
+    fontSize: 16,
+  },
+});
 
 export default Profile;

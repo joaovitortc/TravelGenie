@@ -30,12 +30,14 @@ const ProgressBar = ({ currentStep, totalSteps }) => {
   );
 };
 
-export default function Journey1Step() {
+export default function Journey4Step() {
   const [location, setLocation] = useState("");
   const [customActivity, setCustomActivity] = useState("");
-  const currentStep = 1;
+  const currentStep = 4;
   const totalSteps = 6;
   const [selectedActivities, setSelectedActivities] = useState([]);
+  let { data } = useLocalSearchParams();
+  data = data ? JSON.parse(data) : {};
 
   const toggleActivity = (activity) => {
     setSelectedActivities((prevSelected) =>
@@ -50,15 +52,12 @@ export default function Journey1Step() {
     if (customActivity.trim()) {
       activitiesToSubmit.push(customActivity.trim());
     }
-    console.log("Selected Activities:", activitiesToSubmit);
+    data.activities = activitiesToSubmit.join(' ');
+    console.log("Activities: ", data.activities);
+
     router.push({
       pathname: "/journey/step5",
-      params: {
-        data: JSON.stringify({
-          location,
-          selectedActivities: activitiesToSubmit,
-        }),
-      },
+      params: { data: JSON.stringify(data) }
     });
   };
 

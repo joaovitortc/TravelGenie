@@ -30,14 +30,16 @@ const ProgressBar = ({ currentStep, totalSteps }) => {
   );
 };
 
-export default function Journey1Step() {
+export default function Journey5Step() {
   const [location, setLocation] = useState("");
   const [customDislikedActivity, setCustomDislikedActivity] = useState("");
-  const currentStep = 1;
+  const currentStep = 5;
   const totalSteps = 6;
   const [selectedDislikedActivities, setSelectedDislikedActivities] = useState(
     []
   );
+  let { data } = useLocalSearchParams();
+  data = data ? JSON.parse(data) : {};
 
   const toggleDislikedActivity = (activity) => {
     setSelectedDislikedActivities((prevSelected) =>
@@ -52,15 +54,12 @@ export default function Journey1Step() {
     if (customDislikedActivity.trim()) {
       dislikedActivitiesToSubmit.push(customDislikedActivity.trim());
     }
-    console.log("Disliked Activities:", dislikedActivitiesToSubmit);
+    
+    data.dislikedActivities = dislikedActivitiesToSubmit.join(' ');
+    console.log("Disliked Activities:", data.dislikedActivities);
     router.push({
       pathname: "/journey/step6",
-      params: {
-        data: JSON.stringify({
-          location,
-          dislikedActivities: dislikedActivitiesToSubmit,
-        }),
-      },
+      params: { data: JSON.stringify(data) }
     });
   };
 

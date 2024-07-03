@@ -4,9 +4,9 @@ import { db, auth } from '../firebase';
 import { collection, doc, getDoc } from 'firebase/firestore';
 import PlanCard from '@/components/PlanCard';
 import { router } from 'expo-router';
+import Loading from '@/components/Loading';
 
-
-const Plans = () => {
+export default function Plans() {
   const [plans, setPlans] = useState([]);
   const [loading, setLoading] = useState(true);
   const [empty, setEmpty] = useState(false);
@@ -57,7 +57,7 @@ const Plans = () => {
   if (loading) {
     return (
       <View>
-        <Text>Loading plans...</Text>
+        <Loading title={"Loading"}/>
       </View>
     );
   }
@@ -79,12 +79,10 @@ const Plans = () => {
   data={plans}
   keyExtractor={(item, index) => index.toString()}
   renderItem={({ item,index }) => (
-    <PlanCard title={item.title} plan={item.plan} index={1}/>
+    <PlanCard title={item.title} plan={item.plan} index={index}/>
   )}/> : <Text>No plans saved yet</Text>}
     
 
     </View>
   );
 };
-
-export default Plans;

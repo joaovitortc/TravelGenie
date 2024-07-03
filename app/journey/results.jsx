@@ -2,12 +2,13 @@ import React, { useState, useEffect } from "react";
 import { ScrollView, Text, TouchableOpacity, View } from "react-native";
 import callOpenAI from "../openai";
 import { router, useLocalSearchParams } from "expo-router";
+import Loading from "@/components/Loading"
 
 export default function Results() {
   const [response, setResponse] = useState(null);
   let { data } = useLocalSearchParams();
   data = data ? JSON.parse(data) : {};
-
+  console.log(data)
   // const response = {
   //   title: "Travel Plan for Paris",
   //   plan: [
@@ -69,7 +70,7 @@ export default function Results() {
           </TouchableOpacity>
         </View>
       ) : (
-        <Text>Loading...</Text>
+        <Loading title="Loading plan"/>
       )}
     </ScrollView>
   );
@@ -81,8 +82,8 @@ function createPrompt(data) {
 Create a travel plan based on user information:
 Instructions:
 - Generate a travel itinerary for ${data.location} within ${data.budget} budget, 
-avoiding these type of activities ${data.dislikedActivities},
-having in mind the user's preference for activities ${data.activities} and size of party ${data.party}.
+avoiding these type of activities: (${data.dislikedActivities}),
+having in mind the user's preference for activities: (${data.activities}) and size of party ${data.party}.
 For the duration of ${data.duration}
 
 - For each day of the trip, suggest:
