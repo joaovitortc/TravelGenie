@@ -32,32 +32,40 @@ const ProgressBar = ({ currentStep, totalSteps }) => {
 
 export default function Journey1Step() {
   const [location, setLocation] = useState("");
+  const [customDislikedActivity, setCustomDislikedActivity] = useState("");
   const currentStep = 1;
   const totalSteps = 6;
-  let data = {
-    location: "",
-  };
+  const [selectedDislikedActivities, setSelectedDislikedActivities] = useState(
+    []
+  );
 
-  function handleGoNextStep() {
-    data.location = location;
-    router.push({
-      pathname: "/journey/step6",
-      params: { data: JSON.stringify(data) },
-    });
-  }
-
-  function handleGobackAStep() {
-    router.back("/");
-  }
-
-  const [selectedActivities, setSelectedActivities] = useState([]);
-
-  const toggleActivity = (activity) => {
-    setSelectedActivities((prevSelected) =>
+  const toggleDislikedActivity = (activity) => {
+    setSelectedDislikedActivities((prevSelected) =>
       prevSelected.includes(activity)
         ? prevSelected.filter((item) => item !== activity)
         : [...prevSelected, activity]
     );
+  };
+
+  const handleGoNextStep = () => {
+    let dislikedActivitiesToSubmit = [...selectedDislikedActivities];
+    if (customDislikedActivity.trim()) {
+      dislikedActivitiesToSubmit.push(customDislikedActivity.trim());
+    }
+    console.log("Disliked Activities:", dislikedActivitiesToSubmit);
+    router.push({
+      pathname: "/journey/step6",
+      params: {
+        data: JSON.stringify({
+          location,
+          dislikedActivities: dislikedActivitiesToSubmit,
+        }),
+      },
+    });
+  };
+
+  const handleGobackAStep = () => {
+    router.back("/");
   };
 
   return (
@@ -76,7 +84,7 @@ export default function Journey1Step() {
 
       <ScrollView contentContainerStyle={styles.activitiesContainer}>
         {activities.map((activity, index) => {
-          const isSelected = selectedActivities.includes(activity.name);
+          const isSelected = selectedDislikedActivities.includes(activity.name);
           return (
             <TouchableOpacity
               key={index}
@@ -84,7 +92,7 @@ export default function Journey1Step() {
                 styles.activityButton,
                 isSelected && styles.activityButtonSelected,
               ]}
-              onPress={() => toggleActivity(activity.name)}
+              onPress={() => toggleDislikedActivity(activity.name)}
             >
               <Ionicons
                 name={activity.icon}
@@ -106,8 +114,8 @@ export default function Journey1Step() {
 
       <Text style={styles.orStyle}>or</Text>
       <TextInput
-        onChangeText={setLocation}
-        value={location}
+        onChangeText={setCustomDislikedActivity}
+        value={customDislikedActivity}
         placeholder="Type your favorite activity..."
         style={styles.input}
       />
@@ -227,6 +235,7 @@ const styles = StyleSheet.create({
     flexWrap: "wrap",
     justifyContent: "space-between",
     marginBottom: 20,
+    paddingBottom: 100, // Augmentez cette valeur pour plus de hauteur
   },
   activityButton: {
     width: "30%",

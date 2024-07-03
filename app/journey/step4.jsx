@@ -32,24 +32,9 @@ const ProgressBar = ({ currentStep, totalSteps }) => {
 
 export default function Journey1Step() {
   const [location, setLocation] = useState("");
+  const [customActivity, setCustomActivity] = useState("");
   const currentStep = 1;
   const totalSteps = 6;
-  let data = {
-    location: "",
-  };
-
-  function handleGoNextStep() {
-    data.location = location;
-    router.push({
-      pathname: "/journey/step5",
-      params: { data: JSON.stringify(data) },
-    });
-  }
-
-  function handleGobackAStep() {
-    router.back("/");
-  }
-
   const [selectedActivities, setSelectedActivities] = useState([]);
 
   const toggleActivity = (activity) => {
@@ -58,6 +43,27 @@ export default function Journey1Step() {
         ? prevSelected.filter((item) => item !== activity)
         : [...prevSelected, activity]
     );
+  };
+
+  const handleGoNextStep = () => {
+    let activitiesToSubmit = [...selectedActivities];
+    if (customActivity.trim()) {
+      activitiesToSubmit.push(customActivity.trim());
+    }
+    console.log("Selected Activities:", activitiesToSubmit);
+    router.push({
+      pathname: "/journey/step5",
+      params: {
+        data: JSON.stringify({
+          location,
+          selectedActivities: activitiesToSubmit,
+        }),
+      },
+    });
+  };
+
+  const handleGobackAStep = () => {
+    router.back("/");
   };
 
   return (
@@ -106,8 +112,8 @@ export default function Journey1Step() {
 
       <Text style={styles.orStyle}>or</Text>
       <TextInput
-        onChangeText={setLocation}
-        value={location}
+        onChangeText={setCustomActivity}
+        value={customActivity}
         placeholder="Type your favorite activity..."
         style={styles.input}
       />
