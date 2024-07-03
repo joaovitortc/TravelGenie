@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, FlatList } from 'react-native';
+import { View, Text, FlatList, TouchableOpacity } from 'react-native';
 import { db, auth } from '../firebase';
 import { collection, doc, getDoc } from 'firebase/firestore';
 import Plan from '@/components/Plan';
+import { router } from 'expo-router';
 
 const Plans = () => {
   const [plans, setPlans] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [empty, setEmpty] = useState(false);
 
   useEffect(() => {
     const fetchPlans = async () => {
@@ -33,8 +35,9 @@ const Plans = () => {
         setPlans(userData.plans);
         setLoading(false);
       } catch (error) {
-        console.error('Error fetching plans:', error);
+        console.log('Error fetching plans:', error);
         setLoading(false);
+        setEmpty(true);
       }
     };
 
@@ -49,16 +52,27 @@ const Plans = () => {
     );
   }
 
+  if(empty) {
+    return(
+    <View>
+    <Text>No plans saved yet</Text>
+    <TouchableOpacity onPress={() => router.back()}>
+        <Text>Go back to home page</Text>
+    </TouchableOpacity>
+    </View>
+    )
+  }
+
   return (
     <View>
-      <Text>User's Plans:</Text>
-      <FlatList
+      {plans ? <FlatList
   data={plans}
   keyExtractor={(item, index) => index.toString()}
   renderItem={({ item }) => (
     <Plan title={item.title} plan={item.plan}/>
-  )}
-/>
+  )}/> : <Text>No plans saved yet</Text>}
+    
+
     </View>
   );
 };

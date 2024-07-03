@@ -18,6 +18,33 @@ const Profile = () => {
   const [error, setError] = useState("");
   const [isSignUp, setIsSignUp] = useState(true); // Toggle between sign-up and log-in
 
+  if (auth.currentUser) { 
+    console.log("User was already previously signed-in");
+
+    async function addPlans() {
+      const user = auth.currentUser;
+
+      // Check if plans exist for this user
+      const userDoc = await getDoc(doc(db, "users", user.uid));
+      if (userDoc.exists()) {
+        const currentPlans = userDoc.data().plans || [];
+
+        // Append new plan to the current plans array
+        const updatedPlans = [...currentPlans, data];
+
+        // Update the document with the updated plans array
+        await updateDoc(doc(db, "users", user.uid), {
+          plans: updatedPlans,
+        });
+      }
+
+      router.push("/plans");
+    }
+
+    addPlans();
+  } 
+  else {
+
   const handleAuth = async () => {
     try {
       if (isSignUp) {
@@ -54,9 +81,6 @@ const Profile = () => {
           await updateDoc(doc(db, "users", user.uid), {
             plans: updatedPlans,
           });
-        } else {
-          // If user somehow signed in without existing plans
-          await setDoc(doc(db, "users", user.uid), { plans: [data || {}] });
         }
       }
 
@@ -84,5 +108,6 @@ const Profile = () => {
     </View>
   );
 };
+}
 
 export default Profile;
