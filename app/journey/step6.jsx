@@ -12,7 +12,7 @@ export default function Journey4Step() {
   function handleGoStep6() {
     data.party = party;
     router.push({
-      pathname: "/journey/generatedPlan",
+      pathname: "/journey/results",
       params: { data: JSON.stringify(data) },
     });
   }

@@ -1,14 +1,15 @@
 import React, { useState, useEffect } from "react";
-import { ScrollView, Text, TouchableOpacity, View } from "react-native";
+import { ScrollView, Text, TouchableOpacity, View, StyleSheet } from "react-native";
 import callOpenAI from "../openai";
 import { router, useLocalSearchParams } from "expo-router";
-import Loading from "@/components/Loading"
+import Loading from "@/components/Loading";
 
 export default function Results() {
   const [response, setResponse] = useState(null);
+  const [regenerate, setRegenerate] = useState("");
   let { data } = useLocalSearchParams();
   data = data ? JSON.parse(data) : {};
-  console.log(data)
+  console.log(data);
   // const response = {
   //   title: "Travel Plan for Paris",
   //   plan: [
@@ -34,7 +35,7 @@ export default function Results() {
       if (!generatedPrompt) return;
 
       let result = await callOpenAI(generatedPrompt);
-      
+
       if (result) {
         console.log("Result is: ", result);
         try {
@@ -47,37 +48,93 @@ export default function Results() {
     };
 
     handleRequest();
-  }, []); // Empty dependency array ensures this effect runs once on mount
+  }, [regenerate]); // Empty dependency array ensures this effect runs once on mount
 
   return (
     <>
-    {response ? (
-    <ScrollView style={{ flex: 1 }}>
-        <View>
-          <Text style={{ fontSize: 30 }}>{response.title}</Text>
-          {response.plan.map((item, index) => (
-            <View key={index}>
-              <Text>Place: {item.place}</Text>
-              <Text>Time: {item.time}</Text>
-              <Text>What to do: {item.what_to_do}</Text>
-            </View>
-          ))}
-          <TouchableOpacity 
-          onPress={() =>  router.push({
-          pathname: "/profile",
-          params: { data: JSON.stringify(response) }
-          })}>
-            <Text style={{color: 'white'}}>Save</Text>
-          </TouchableOpacity>
-        </View>
-       
-    </ScrollView>
-    ) : (
-      <Loading title="Loading plan"/>
-    )}
-  </>
-  );
+      {response ? (
+        <ScrollView style={{ flex: 1 }}>
+          <View style={styles.container}>
+          {/* <View>
+            {response.plan.map((item, index) => (
+              <View key={index}>
+                <Text>Place: {item.place}</Text>
+                <Text>Time: {item.time}</Text>
+                <Text>What to do: {item.what_to_do}</Text>
+              </View>
+            ))}
+            <TouchableOpacity
+              onPress={() =>
+                router.push({
+                  pathname: "/profile",
+                  params: { data: JSON.stringify(response) },
+                })
+              }
+            >
+              <Text style={{ color: "white" }}>Save</Text>
+            </TouchableOpacity>
+          </View> */}
 
+          <Text style={styles.title}>All Done!</Text>
+          <Text style={styles.subtitle}>{response.title}</Text>
+
+          <View style={styles.timeline}>
+            {response.plan.map((item, index) => (
+              <View key={index} style={styles.timelineItem}>
+                <Text style={styles.time}>{item.time}</Text>
+                <View style={styles.timelineContent}>
+                  {index !== response.plan.length - 1 && (
+                    <View style={styles.line} />
+                  )}
+                  <View style={styles.circle} />
+                  <Text style={styles.activityPlace}>{item.place}</Text>
+                  {/* <Ionicons name="chevron-down" size={24} color="black" /> */}
+                </View>
+              </View>
+            ))}
+          </View>
+
+          {response.tip ? (
+            <View style={styles.tipContainer}>
+              <Text style={styles.tipTitle}>Tip!</Text>
+              <Text style={styles.tipText}>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+                eiusmod tempor incididunt ut labore et.
+              </Text>
+            </View>
+          ) : null}
+
+          <Text style={styles.regenerateText}>
+            To get a new plan for your trip, click on{" "}
+            <Text style={styles.highlight}>Regenerate</Text> button
+          </Text>
+
+          <TouchableOpacity style={styles.regenerateButton} onPress={() => {
+            setRegenerate(regenerate + "1")
+          }}>
+            <Text style={styles.buttonText}>Regenerate</Text>
+          </TouchableOpacity>
+
+          <View style={styles.buttonContainer}>
+            <TouchableOpacity style={styles.editButton}>
+              <Text style={styles.editButtonText}>Edit details</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.saveButton} onPress={() =>
+                router.push({
+                  pathname: "/profile",
+                  params: { data: JSON.stringify(response) },
+                })
+              }>
+              <Text style={styles.saveButtonText}>Save plan</Text>
+            </TouchableOpacity>
+          </View>
+          </View>
+        </ScrollView>
+      ) : (
+        <Loading title="Loading plan" />
+      )}
+    </>
+  );
 }
 
 function createPrompt(data) {
@@ -96,12 +153,11 @@ For the duration of ${data.duration}
 
 Please format the response as an object with the specified structure. 
 Please don't include any additional information, only an object. No backticks.
-For the image, give me a link to a picture of the location.
+For the time, don't give me half an hour starts-ends. It should be fixed times like 1pm-2pm. Don't do 1:30-2:30 kind of thing.
 
 Response example: 
 {
     "title": "Travel Plan for Paris",
-    "image": "https://example.com/paris.jpg",
     "plan": [
         {
             "place": {Louvre Museum},
@@ -119,3 +175,140 @@ Response example:
 
 `;
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: "#F8FAFF",
+    padding: 20,
+  },
+  title: {
+    fontSize: 24,
+    fontWeight: "bold",
+    marginBottom: 10,
+    color: '#28A745'
+  },
+  subtitle: {
+    fontSize: 16,
+    color: "#007BFF",
+    marginBottom: 5,
+  },
+  date: {
+    fontSize: 14,
+    color: "#888",
+    marginBottom: 20,
+  },
+  timeline: {
+    marginBottom: 10,
+    marginTop:10,
+    
+  },
+  timelineItem: {
+    flexDirection: "row",
+    alignItems: "center",
+    marginBottom: 40,
+    marginTop: 10,
+  },
+  time: {
+    width: 75,
+    fontSize: 12,
+    fontWeight: "bold",
+    marginRight: 10,
+  },
+  timelineContent: {
+    flexDirection: "row",
+    alignItems: "center",
+  },
+
+  line: {
+    position: "absolute",
+    top: 40,
+    left: 8,
+    height: "100%",
+    width: 2,
+    backgroundColor: "#007BFF",
+  },
+
+  circle: {
+    width: 15,
+    height: 15,
+    borderRadius: 20,
+
+    marginRight: 10,
+    borderColor: "#1D80C3",
+    borderWidth: 2,
+  },
+  activityPlace: {
+    flex: 1,
+    fontSize: 16,
+    fontWeight: "bold",
+  },
+  tipContainer: {
+    backgroundColor: "#E9F1FB",
+    padding: 15,
+    borderRadius: 10,
+    marginBottom: 0,
+  },
+  tipTitle: {
+    fontSize: 16,
+    fontWeight: "bold",
+    marginBottom: 5,
+  },
+  tipText: {
+    fontSize: 14,
+    color: "#555",
+  },
+  regenerateText: {
+    textAlign: "left",
+    marginTop: 20,
+    fontSize: 14,
+  },
+  regenerateButton: {
+    padding: 15,
+    borderRadius: 30,
+    alignItems: "center",
+    marginBottom: 15,
+    marginTop: 10,
+    borderColor: "#F3A61E",
+    borderWidth: 2,
+  },
+  buttonText: {
+    color: "#000",
+    fontSize: 16,
+  },
+  buttonContainer: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    marginBottom: 80,
+  },
+  editButton: {
+    flex: 1,
+    borderColor: "#000",
+    borderWidth: 1,
+    padding: 15,
+    borderRadius: 30,
+    alignItems: "center",
+    marginRight: 10,
+  },
+  editButtonText: {
+    color: "#000",
+    fontSize: 16,
+  },
+  saveButton: {
+    flex: 1,
+    backgroundColor: "#28A745",
+    padding: 15,
+    borderRadius: 30,
+    alignItems: "center",
+  },
+  saveButtonText: {
+    color: "#FFF",
+    fontSize: 16,
+  },
+
+  highlight: {
+    color: "#000",
+    fontWeight: "bold",
+  },
+});
+

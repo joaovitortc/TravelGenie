@@ -2,6 +2,7 @@
 import React, {useState} from "react";
 import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
 import { useLocalSearchParams } from "expo-router";
+import NoPlansScreen from "@/components/NoPlansScreen";
 
 export default function Plan() {
   const { plan: planStr, title } = useLocalSearchParams();
@@ -50,7 +51,7 @@ export default function Plan() {
           </TouchableOpacity>
         ))
       ) : (
-        <Text style={styles.noPlansText}>No plans available</Text>
+        <NoPlansScreen/>
       )}
     </View>
   );

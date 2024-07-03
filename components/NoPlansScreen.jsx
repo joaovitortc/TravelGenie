@@ -1,7 +1,7 @@
 import React from "react";
 import { View, Text, StyleSheet, Image } from "react-native";
 
-const MyPlansScreen = () => {
+export default function NoPlansScreen() {
   const plans = []; // Assuming you fetch the plans and it is empty for now
 
   return (
@@ -11,7 +11,7 @@ const MyPlansScreen = () => {
         <View style={styles.emptyStateContainer}>
           {
             <Image
-              source={require("../../assets/images/travel_genie_logo.png")}
+              source={require("../assets/images/travel_genie_logo.png")}
               style={styles.image}
             />
           }
@@ -57,4 +57,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default MyPlansScreen;
+
