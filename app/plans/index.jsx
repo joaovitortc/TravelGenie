@@ -2,9 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { View, Text, FlatList, TouchableOpacity } from 'react-native';
 import { db, auth } from '../firebase';
 import { collection, doc, getDoc } from 'firebase/firestore';
-import Plan from '@/components/Plan';
-import { router } from 'expo-router';
 import PlanCard from '@/components/PlanCard';
+import { router } from 'expo-router';
+
 
 const Plans = () => {
   const [plans, setPlans] = useState([]);
@@ -31,10 +31,19 @@ const Plans = () => {
         if (!userData.plans || !Array.isArray(userData.plans)) {
           throw new Error('Plans data is missing or not an array');
         }
+        
+        const cleanedPlans = Array.isArray(userData.plans) ? userData.plans.filter(plan => Object.keys(plan).length !== 0) : [];
+        console.log("User's plans:", cleanedPlans);
+       
+        if(cleanedPlans.length === 0) {
+          setEmpty(true);
+          setLoading(false);
+          return;
+        } else {
+          setPlans(cleanedPlans);
+          setLoading(false);
+        }
 
-        console.log("User's plans:", userData.plans);
-        setPlans(userData.plans);
-        setLoading(false);
       } catch (error) {
         console.log('Error fetching plans:', error);
         setLoading(false);
@@ -69,8 +78,8 @@ const Plans = () => {
       {plans ? <FlatList
   data={plans}
   keyExtractor={(item, index) => index.toString()}
-  renderItem={({ item }) => (
-    <Plan title={item.title} plan={item.plan}/>
+  renderItem={({ item,index }) => (
+    <PlanCard title={item.title} plan={item.plan} index={1}/>
   )}/> : <Text>No plans saved yet</Text>}
     
 
