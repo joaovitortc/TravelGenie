@@ -50,8 +50,9 @@ export default function Results() {
   }, []); // Empty dependency array ensures this effect runs once on mount
 
   return (
+    <>
+    {response ? (
     <ScrollView style={{ flex: 1 }}>
-      {response ? (
         <View>
           <Text style={{ fontSize: 30 }}>{response.title}</Text>
           {response.plan.map((item, index) => (
@@ -69,12 +70,14 @@ export default function Results() {
             <Text style={{color: 'white'}}>Save</Text>
           </TouchableOpacity>
         </View>
-      ) : (
-        <Loading title="Loading plan"/>
-      )}
+       
     </ScrollView>
+    ) : (
+      <Loading title="Loading plan"/>
+    )}
+  </>
   );
-  
+
 }
 
 function createPrompt(data) {
