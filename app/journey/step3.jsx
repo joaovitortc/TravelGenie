@@ -31,10 +31,12 @@ const ProgressBar = ({ currentStep, totalSteps }) => {
 
 export default function Journey1Step() {
   const [location, setLocation] = useState("");
+  const [selectedBudget, setSelectedBudget] = useState(null);
   const currentStep = 3;
   const totalSteps = 6;
   let data = {
     location: "",
+    budget: "",
   };
 
   useEffect(() => {
@@ -74,8 +76,9 @@ export default function Journey1Step() {
 
   function handleGoNextStep() {
     data.location = location;
+    data.budget = selectedBudget;
     router.push({
-      pathname: "/journey/step3",
+      pathname: "/journey/step4",
       params: { data: JSON.stringify(data) },
     });
   }
@@ -83,6 +86,18 @@ export default function Journey1Step() {
   function handleGobackAStep() {
     router.back("/");
   }
+
+  const budgetOptions = [
+    "Free",
+    "0-10",
+    "10-50",
+    "50-100",
+    "100-200",
+    "200-500",
+    "500-1000",
+    "1000-2000",
+    "2000+",
+  ];
 
   return (
     <View style={styles.container}>
@@ -97,6 +112,33 @@ export default function Journey1Step() {
         How much are you willing to spend on this trip?
       </Text>
 
+      <View style={styles.moneyContainer}>
+        {budgetOptions.map((option, index) => (
+          <TouchableOpacity
+            key={index}
+            style={[
+              styles.moneyButton,
+              selectedBudget === option && { backgroundColor: button },
+            ]}
+            onPress={() => setSelectedBudget(option)}>
+            <Text
+              style={[
+                styles.moneyText,
+                selectedBudget === option && { color: black },
+              ]}>
+              {option}
+            </Text>
+          </TouchableOpacity>
+        ))}
+      </View>
+
+      <Text style={styles.orStyle}>or</Text>
+      <TextInput
+        onChangeText={setLocation}
+        value={location}
+        placeholder="Type the amount.."
+        style={styles.input}
+      />
       <View style={styles.navigationbuttons}>
         <TouchableOpacity
           onPress={handleGobackAStep}
@@ -205,6 +247,31 @@ const styles = StyleSheet.create({
     backgroundColor: white,
     fontSize: 14,
   },
+  moneyButton: {
+    backgroundColor: white,
+    padding: 10,
+    borderRadius: 18,
+    marginBottom: 20,
+    width: "30%",
+  },
+  moneyText: {
+    color: black,
+    fontSize: 11,
+    fontWeight: "bold",
+    textAlign: "center",
+  },
+  moneyContainer: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    flexWrap: "wrap",
+    width: "80%",
+  },
+  orStyle: {
+    color: black,
+    marginBottom: 20,
+    fontWeight: "bold",
+    fontSize: 14,
+  },
   navigationButtonBack: {
     borderColor: lowkey,
     borderWidth: 2,
@@ -237,27 +304,6 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     textAlign: "center",
     padding: 5,
-  },
-  locationButton: {
-    backgroundColor: button,
-    padding: 10,
-    borderRadius: 18,
-    marginBottom: 20,
-    width: "80%",
-  },
-  locationButtonText: {
-    color: black,
-    fontSize: 14,
-    fontWeight: "bold",
-    paddingLeft: 15,
-    paddingRight: 15,
-    textAlign: "center",
-  },
-  orStyle: {
-    color: black,
-    marginBottom: 20,
-    fontWeight: "bold",
-    fontSize: 14,
   },
   navigationbuttons: {
     flexDirection: "row",
