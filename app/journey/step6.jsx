@@ -22,9 +22,8 @@ const ProgressBar = ({ currentStep, totalSteps }) => {
 };
 
 export default function Journey1Step() {
-  const [location] = useState("");
   const [selectedAmount, setSelectedAmount] = useState(null);
-  const [selectedAge, setSelectedAge] = useState(null);
+  const [selectedAges, setSelectedAges] = useState([]);
   const currentStep = 6;
   const totalSteps = 6;
   let data = {
@@ -34,7 +33,7 @@ export default function Journey1Step() {
 
   function handleGoNextStep() {
     data.amount = selectedAmount;
-    data.age = selectedAge;
+    data.age = selectedAges;
     router.push({
       pathname: "/journey/results",
       params: { data: JSON.stringify(data) },
@@ -59,18 +58,18 @@ export default function Journey1Step() {
       </View>
       <Text style={styles.paragraph}>How many are you?</Text>
 
-      <View style={styles.moneyContainer}>
+      <View style={styles.amountContainer}>
         {amountOptions.map((option, index) => (
           <TouchableOpacity
             key={index}
             style={[
-              styles.moneyButton,
+              styles.amountButton,
               selectedAmount === option && { backgroundColor: button },
             ]}
             onPress={() => setSelectedAmount(option)}>
             <Text
               style={[
-                styles.moneyText,
+                styles.amountText,
                 selectedAmount === option && { color: black },
               ]}>
               {option}
@@ -79,23 +78,31 @@ export default function Journey1Step() {
         ))}
       </View>
 
-      <Text style={styles.paragraph}>
-        What is the age range? You can select multiple
-      </Text>
+      <View style={styles.paragraph2}>
+        <Text style={styles.paragraph}>
+          What is the age range? You can select multiple
+        </Text>
+      </View>
 
-      <View style={styles.moneyContainer}>
+      <View style={styles.ageContainer}>
         {ageOptions.map((option, index) => (
           <TouchableOpacity
             key={index}
             style={[
-              styles.moneyButton,
-              selectedAge === option && { backgroundColor: button },
+              styles.ageButton,
+              selectedAges.includes(option) && { backgroundColor: button },
             ]}
-            onPress={() => setSelectedAge(option)}>
+            onPress={() => {
+              if (selectedAges.includes(option)) {
+                setSelectedAges(selectedAges.filter((age) => age !== option)); // Deselect
+              } else {
+                setSelectedAges([...selectedAges, option]); // Select
+              }
+            }}>
             <Text
               style={[
-                styles.moneyText,
-                selectedAge === option && { color: black },
+                styles.ageText,
+                selectedAges.includes(option) && { color: black },
               ]}>
               {option}
             </Text>
@@ -183,6 +190,9 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     width: "80%",
   },
+  paragraph2: {
+    paddingTop: 20,
+  },
   separator: {
     marginVertical: 30,
     height: 1,
@@ -193,38 +203,48 @@ const styles = StyleSheet.create({
     height: 10,
     backgroundColor: "#e0e0e0",
     borderRadius: 5,
-    marginBottom: 70,
+    marginBottom: 40,
     overflow: "hidden",
   },
   progressBar: {
     height: "100%",
     backgroundColor: primary,
   },
-  input: {
-    height: 40,
-    borderRadius: 15,
-    borderWidth: 1,
-    borderColor: white,
-    marginBottom: 20,
-    paddingHorizontal: 10,
-    width: "80%",
-    backgroundColor: white,
-    fontSize: 14,
-  },
-  moneyButton: {
+  amountButton: {
     backgroundColor: white,
     padding: 10,
     borderRadius: 18,
     marginBottom: 20,
-    width: "30%",
+    marginHorizontal: 2,
+    width: "20%",
   },
-  moneyText: {
+  amountText: {
     color: black,
     fontSize: 11,
     fontWeight: "bold",
     textAlign: "center",
   },
-  moneyContainer: {
+  amountContainer: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    flexWrap: "wrap",
+    width: "80%",
+  },
+  ageButton: {
+    backgroundColor: white,
+    padding: 10,
+    borderRadius: 18,
+    marginBottom: 20,
+    marginHorizontal: 2,
+    width: "30%",
+  },
+  ageText: {
+    color: black,
+    fontSize: 11,
+    fontWeight: "bold",
+    textAlign: "center",
+  },
+  ageContainer: {
     flexDirection: "row",
     justifyContent: "space-between",
     flexWrap: "wrap",
@@ -242,7 +262,7 @@ const styles = StyleSheet.create({
     padding: 10,
     borderRadius: 30,
     width: "45%",
-    marginTop: 80,
+    marginTop: 40,
     flexDirection: "row",
     justifyContent: "space-around",
   },
@@ -258,7 +278,7 @@ const styles = StyleSheet.create({
     padding: 10,
     borderRadius: 30,
     width: "45%",
-    marginTop: 80,
+    marginTop: 40,
     flexDirection: "row",
     justifyContent: "space-around",
   },
