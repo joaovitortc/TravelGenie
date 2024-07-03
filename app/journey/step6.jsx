@@ -125,7 +125,7 @@ export default function Journey1Step() {
         <TouchableOpacity
           onPress={handleGoNextStep}
           style={styles.navigationButtonNext}>
-          <Text style={styles.navigationButtonTextNext}>Next</Text>
+          <Text style={styles.navigationButtonTextNext}>Done!</Text>
           <Ionicons
             name="arrow-forward-outline"
             size={20}
