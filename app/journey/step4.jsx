@@ -206,8 +206,8 @@ const styles = StyleSheet.create({
   paragraph: {
     fontSize: 15,
     color: black,
-    marginBottom: 80,
-    width: "80%",
+    marginBottom: 25,
+    width: "75%",
     fontWeight: "bold",
   },
   separator: {
@@ -266,7 +266,7 @@ const styles = StyleSheet.create({
     borderRadius: 15,
     borderWidth: 1,
     borderColor: white,
-    marginBottom: 20,
+    marginBottom: -40,
     paddingHorizontal: 10,
     width: "80%",
     backgroundColor: white,
@@ -322,7 +322,9 @@ const styles = StyleSheet.create({
   },
   orStyle: {
     color: black,
-    marginBottom: 20,
+    paddingBottom: 10,
+    paddingTop: 10,
+    marginBottom: 0,
     fontWeight: "bold",
     fontSize: 14,
   },
