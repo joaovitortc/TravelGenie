@@ -30,22 +30,12 @@ export default function TabOneScreen() {
         <View style={styles.footerButtons}>
           <TouchableOpacity
             style={styles.footerButton}
-<<<<<<< HEAD
             onPress={() =>  router.push("/profile/page")}>
-=======
-            onPress={() => navigation.navigate("Profile")}
-          >
->>>>>>> origin/Development
             <Text style={styles.footerButtonText}>Profile</Text>
           </TouchableOpacity>
           <TouchableOpacity
             style={styles.footerButton}
-<<<<<<< HEAD
             onPress={() =>  router.push("/plans")}>
-=======
-            onPress={() => navigation.navigate("MyPlans")}
-          >
->>>>>>> origin/Development
             <Text style={styles.footerButtonText}>My Plans</Text>
           </TouchableOpacity>
         </View>
