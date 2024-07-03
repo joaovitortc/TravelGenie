@@ -121,7 +121,7 @@ export default function Journey1Step() {
             style={styles.timeInput}
             keyboardType="numeric"
             maxLength={2}
-            placeholder="HH"
+            placeholder="00"
             value={startHour}
             onChangeText={(text) => validateHour(text, setStartHour)}
             onBlur={handleInputBlur}
@@ -132,7 +132,7 @@ export default function Journey1Step() {
             style={styles.timeInput}
             keyboardType="numeric"
             maxLength={2}
-            placeholder="MM"
+            placeholder="00"
             value={startMinute}
             onChangeText={(text) => validateMinute(text, setStartMinute)}
             onBlur={handleInputBlur}
@@ -141,7 +141,7 @@ export default function Journey1Step() {
           <View style={styles.ampmContainer}>
             <TouchableOpacity
               style={[
-                styles.ampmButton,
+                styles.amButton,
                 startAMPM === "AM" ? styles.ampmButtonSelected : null,
               ]}
               onPress={() => handleToggleAMPM("start", "AM")}>
@@ -149,7 +149,7 @@ export default function Journey1Step() {
             </TouchableOpacity>
             <TouchableOpacity
               style={[
-                styles.ampmButton,
+                styles.pmButton,
                 startAMPM === "PM" ? styles.ampmButtonSelected : null,
               ]}
               onPress={() => handleToggleAMPM("start", "PM")}>
@@ -158,8 +158,8 @@ export default function Journey1Step() {
           </View>
         </View>
         <View style={styles.timeLabels}>
-          <Text style={styles.timeLabelText}>Hour</Text>
-          <Text style={styles.timeLabelText}>Minute</Text>
+          <Text style={styles.timeLabelTextH}>Hour</Text>
+          <Text style={styles.timeLabelTextM}>Minute</Text>
         </View>
 
         <Text style={[styles.label, { marginTop: 20 }]}>End time</Text>
@@ -168,7 +168,7 @@ export default function Journey1Step() {
             style={styles.timeInput}
             keyboardType="numeric"
             maxLength={2}
-            placeholder="HH"
+            placeholder="00"
             value={endHour}
             onChangeText={(text) => validateHour(text, setEndHour)}
             onBlur={handleInputBlur}
@@ -179,7 +179,7 @@ export default function Journey1Step() {
             style={styles.timeInput}
             keyboardType="numeric"
             maxLength={2}
-            placeholder="MM"
+            placeholder="00"
             value={endMinute}
             onChangeText={(text) => validateMinute(text, setEndMinute)}
             onBlur={handleInputBlur}
@@ -188,7 +188,7 @@ export default function Journey1Step() {
           <View style={styles.ampmContainer}>
             <TouchableOpacity
               style={[
-                styles.ampmButton,
+                styles.amButton,
                 endAMPM === "AM" ? styles.ampmButtonSelected : null,
               ]}
               onPress={() => handleToggleAMPM("end", "AM")}>
@@ -196,7 +196,7 @@ export default function Journey1Step() {
             </TouchableOpacity>
             <TouchableOpacity
               style={[
-                styles.ampmButton,
+                styles.pmButton,
                 endAMPM === "PM" ? styles.ampmButtonSelected : null,
               ]}
               onPress={() => handleToggleAMPM("end", "PM")}>
@@ -205,8 +205,8 @@ export default function Journey1Step() {
           </View>
         </View>
         <View style={styles.timeLabels}>
-          <Text style={styles.timeLabelText}>Hour</Text>
-          <Text style={styles.timeLabelText}>Minute</Text>
+          <Text style={styles.timeLabelTextH}>Hour</Text>
+          <Text style={styles.timeLabelTextM}>Minute</Text>
         </View>
       </View>
 
@@ -311,11 +311,15 @@ const styles = StyleSheet.create({
   timeContainer: {
     width: "80%",
     marginBottom: 20,
+    alignItems: "center",
   },
   label: {
-    fontSize: 16,
+    fontSize: 14,
     color: black,
     marginBottom: 5,
+    justifyContent: "flex-start",
+    alignSelf: "flex-start",
+    paddingLeft: 15,
   },
   timeInputRow: {
     flexDirection: "row",
@@ -323,55 +327,73 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   timeInput: {
-    height: 40,
-    borderRadius: 5,
+    height: 70,
+    borderRadius: 15,
     borderWidth: 1,
     borderColor: white,
     marginHorizontal: 5,
     paddingHorizontal: 10,
-    width: 50,
+    width: 80,
     backgroundColor: white,
     textAlign: "center",
-    fontSize: 14,
+    fontSize: 30,
+    fontWeight: "bold",
   },
   colon: {
     fontSize: 24,
     color: black,
+    fontWeight: "bold",
+    paddingLeft: 5,
+    paddingRight: 5,
   },
   ampmContainer: {
-    flexDirection: "row",
+    flexDirection: "column",
     marginLeft: 10,
   },
-  ampmButton: {
-    paddingVertical: 5,
+  amButton: {
+    paddingVertical: 10,
     paddingHorizontal: 15,
-    borderRadius: 5,
+    borderTopLeftRadius: 20,
+    borderTopRightRadius: 20,
     marginHorizontal: 5,
     backgroundColor: white,
-    borderColor: button,
+    borderColor: white,
+    borderWidth: 1,
+  },
+  pmButton: {
+    paddingVertical: 10,
+    paddingHorizontal: 15,
+    borderBottomLeftRadius: 20,
+    borderBottomRightRadius: 20,
+    marginHorizontal: 5,
+    backgroundColor: white,
+    borderColor: white,
     borderWidth: 1,
   },
   ampmButtonSelected: {
     backgroundColor: button,
+    borderColor: button,
   },
   ampmText: {
     color: black,
-    fontSize: 14,
+    fontSize: 12,
+    fontWeight: "bold",
   },
   timeLabels: {
     flexDirection: "row",
+    justifyContent: "flex-start",
+    alignSelf: "flex-start",
+    paddingLeft: 10,
   },
-  timeLabelText: {
+  timeLabelTextH: {
     fontSize: 12,
     color: black,
     marginLeft: 10,
     marginBottom: 10,
   },
-  timeLabels: {
-    flexDirection: "row",
-  },
-  timeLabelText: {
+  timeLabelTextM: {
     fontSize: 12,
+    paddingLeft: 62,
     color: black,
     marginLeft: 10,
     marginBottom: 10,
