@@ -41,7 +41,7 @@ export default function Journey1Step() {
   function handleGoNextStep() {
     data.location = location;
     router.push({
-      pathname: "/journey/step6",
+      pathname: "/journey/signin",
       params: { data: JSON.stringify(data) },
     });
   }
