@@ -13,17 +13,18 @@ export default function Journey4Step() {
     data.dislikedActivities = dislikedActivities;
     router.push({
       pathname: "/journey/step6",
-      params: { data: JSON.stringify(data) }
+      params: { data: JSON.stringify(data) },
     });
   }
 
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Step 5 - Disliked Activities</Text>
-      <TextInput 
-      onChangeText={setDislikedActivities} 
-      value={dislikedActivities}
-      placeholder="Preferences for the trip?"/>
+      <TextInput
+        onChangeText={setDislikedActivities}
+        value={dislikedActivities}
+        placeholder="Preferences for the trip?"
+      />
       <TouchableOpacity onPress={handleGoStep6}>
         <Text>Go to step 6</Text>
       </TouchableOpacity>
