@@ -82,6 +82,13 @@ const styles = StyleSheet.create({
     fontSize: 25,
     fontWeight: "bold",
   },
+
+  navigationText: {
+    color: "#1D80C3",
+    fontSize: 25,
+    fontWeight: "bold",
+  },
+
   footer: {
     marginTop: 40,
     alignItems: "center",
