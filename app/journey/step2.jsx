@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import {
   StyleSheet,
   TouchableOpacity,
@@ -30,10 +30,23 @@ const ProgressBar = ({ currentStep, totalSteps }) => {
 
 export default function Journey1Step() {
   const [location, setLocation] = useState("");
+  const [startHour, setStartHour] = useState("");
+  const [startMinute, setStartMinute] = useState("");
+  const [startAMPM, setStartAMPM] = useState("AM");
+  const [endHour, setEndHour] = useState("");
+  const [endMinute, setEndMinute] = useState("");
+  const [endAMPM, setEndAMPM] = useState("AM");
+
   const currentStep = 2;
   const totalSteps = 6;
   let data = {
     location: "",
+    startHour,
+    startMinute,
+    startAMPM,
+    endHour,
+    endMinute,
+    endAMPM,
   };
 
   function handleGoNextStep() {
@@ -48,6 +61,10 @@ export default function Journey1Step() {
     router.back("/");
   }
 
+  function toggleAMPM(timeOfDay, setTimeOfDay) {
+    setTimeOfDay((prev) => (prev === "AM" ? "PM" : "AM"));
+  }
+
   return (
     <View style={styles.container}>
       <ProgressBar currentStep={currentStep} totalSteps={totalSteps} />
@@ -58,6 +75,70 @@ export default function Journey1Step() {
         <Text style={styles.title}>Trip Duration</Text>
       </View>
       <Text style={styles.paragraph}>How long should your trip take?</Text>
+
+      <View style={styles.timeContainer}>
+        <Text style={styles.label}>Starting time</Text>
+        <View style={styles.timeInputRow}>
+          <TextInput
+            style={styles.timeInput}
+            keyboardType="numeric"
+            maxLength={2}
+            placeholder="00"
+            value={startHour}
+            onChangeText={setStartHour}
+          />
+          <Text style={styles.colon}>:</Text>
+          <TextInput
+            style={styles.timeInput}
+            keyboardType="numeric"
+            maxLength={2}
+            placeholder="00"
+            value={startMinute}
+            onChangeText={setStartMinute}
+          />
+          <TouchableOpacity
+            style={[
+              styles.ampmButton,
+              startAMPM === "AM" ? styles.ampmButtonSelected : null,
+            ]}
+            onPress={() => toggleAMPM(startAMPM, setStartAMPM)}>
+            <Text style={styles.ampmText}>{startAMPM}</Text>
+          </TouchableOpacity>
+        </View>
+        <Text style={styles.timeLabel}>Hour</Text>
+        <Text style={styles.timeLabel}>Minute</Text>
+
+        <Text style={[styles.label, { marginTop: 20 }]}>End time</Text>
+        <View style={styles.timeInputRow}>
+          <TextInput
+            style={styles.timeInput}
+            keyboardType="numeric"
+            maxLength={2}
+            placeholder="00"
+            value={endHour}
+            onChangeText={setEndHour}
+          />
+          <Text style={styles.colon}>:</Text>
+          <TextInput
+            style={styles.timeInput}
+            keyboardType="numeric"
+            maxLength={2}
+            placeholder="00"
+            value={endMinute}
+            onChangeText={setEndMinute}
+          />
+          <TouchableOpacity
+            style={[
+              styles.ampmButton,
+              endAMPM === "AM" ? styles.ampmButtonSelected : null,
+            ]}
+            onPress={() => toggleAMPM(endAMPM, setEndAMPM)}>
+            <Text style={styles.ampmText}>{endAMPM}</Text>
+          </TouchableOpacity>
+        </View>
+        <Text style={styles.timeLabel}>Hour</Text>
+        <Text style={styles.timeLabel}>Minute</Text>
+      </View>
 
       <View style={styles.navigationbuttons}>
         <TouchableOpacity
@@ -136,8 +217,9 @@ const styles = StyleSheet.create({
   paragraph: {
     fontSize: 14,
     color: black,
-    marginBottom: 80,
+    marginBottom: 30,
     width: "80%",
+    textAlign: "center",
   },
   separator: {
     marginVertical: 30,
@@ -156,16 +238,60 @@ const styles = StyleSheet.create({
     height: "100%",
     backgroundColor: primary,
   },
-  input: {
+  timeContainer: {
+    width: "80%",
+    marginBottom: 20,
+  },
+  label: {
+    fontSize: 16,
+    color: black,
+    marginBottom: 5,
+  },
+  timeInputRow: {
+    flexDirection: "row",
+    alignItems: "center",
+    marginBottom: 10,
+  },
+  timeInput: {
     height: 40,
-    borderRadius: 15,
+    borderRadius: 5,
     borderWidth: 1,
     borderColor: white,
-    marginBottom: 20,
+    marginHorizontal: 5,
     paddingHorizontal: 10,
-    width: "80%",
+    width: 50,
     backgroundColor: white,
+    textAlign: "center",
     fontSize: 14,
+  },
+  colon: {
+    fontSize: 18,
+    marginHorizontal: 5,
+  },
+  ampmButton: {
+    height: 40,
+    borderRadius: 5,
+    borderWidth: 1,
+    borderColor: white,
+    marginHorizontal: 5,
+    paddingHorizontal: 10,
+    width: 50,
+    backgroundColor: white,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  ampmButtonSelected: {
+    backgroundColor: button,
+  },
+  ampmText: {
+    fontSize: 14,
+    color: black,
+  },
+  timeLabel: {
+    fontSize: 12,
+    color: black,
+    marginLeft: 10,
+    marginBottom: 10,
   },
   navigationButtonBack: {
     borderColor: lowkey,
@@ -173,7 +299,7 @@ const styles = StyleSheet.create({
     padding: 10,
     borderRadius: 30,
     width: "45%",
-    marginTop: 80,
+    marginTop: 20,
     flexDirection: "row",
     justifyContent: "space-around",
   },
@@ -189,7 +315,7 @@ const styles = StyleSheet.create({
     padding: 10,
     borderRadius: 30,
     width: "45%",
-    marginTop: 80,
+    marginTop: 20,
     flexDirection: "row",
     justifyContent: "space-around",
   },
@@ -199,27 +325,6 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     textAlign: "center",
     padding: 5,
-  },
-  locationButton: {
-    backgroundColor: button,
-    padding: 10,
-    borderRadius: 18,
-    marginBottom: 20,
-    width: "80%",
-  },
-  locationButtonText: {
-    color: black,
-    fontSize: 14,
-    fontWeight: "bold",
-    paddingLeft: 15,
-    paddingRight: 15,
-    textAlign: "center",
-  },
-  orStyle: {
-    color: black,
-    marginBottom: 20,
-    fontWeight: "bold",
-    fontSize: 14,
   },
   navigationbuttons: {
     flexDirection: "row",
