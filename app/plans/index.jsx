@@ -4,6 +4,7 @@ import { db, auth } from '../firebase';
 import { collection, doc, getDoc } from 'firebase/firestore';
 import Plan from '@/components/Plan';
 import { router } from 'expo-router';
+import PlanCard from '@/components/PlanCard';
 
 const Plans = () => {
   const [plans, setPlans] = useState([]);
