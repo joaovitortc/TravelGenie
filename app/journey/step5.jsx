@@ -39,8 +39,27 @@ export default function Journey1Step() {
     []
   );
 
+<<<<<<< HEAD
   const toggleDislikedActivity = (activity) => {
     setSelectedDislikedActivities((prevSelected) =>
+=======
+  function handleGoNextStep() {
+    data.location = location;
+    router.push({
+      pathname: "/journey/signin",
+      params: { data: JSON.stringify(data) },
+    });
+  }
+
+  function handleGobackAStep() {
+    router.back("/");
+  }
+
+  const [selectedActivities, setSelectedActivities] = useState([]);
+
+  const toggleActivity = (activity) => {
+    setSelectedActivities((prevSelected) =>
+>>>>>>> df97144b80a0dde5836a67e853cfae40d81e0311
       prevSelected.includes(activity)
         ? prevSelected.filter((item) => item !== activity)
         : [...prevSelected, activity]
