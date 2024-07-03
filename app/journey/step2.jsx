@@ -5,7 +5,7 @@ import {
   Text,
   View,
   TextInput,
-  Alert,
+  Keyboard,
 } from "react-native";
 import { router } from "expo-router";
 import { Ionicons } from "@expo/vector-icons";
@@ -61,8 +61,46 @@ export default function Journey1Step() {
     router.back("/");
   }
 
-  function toggleAMPM(timeOfDay, setTimeOfDay) {
-    setTimeOfDay((prev) => (prev === "AM" ? "PM" : "AM"));
+  function handleToggleAMPM(type, value) {
+    if (type === "start") {
+      setStartAMPM(value);
+    } else {
+      setEndAMPM(value);
+    }
+  }
+
+  function handleInputBlur() {
+    Keyboard.dismiss();
+  }
+
+  function validateHour(value, setHour) {
+    const hour = parseInt(value, 10);
+    if (!isNaN(hour)) {
+      if (hour > 12) {
+        setHour("12");
+      } else if (hour < 0) {
+        setHour("00");
+      } else {
+        setHour(value);
+      }
+    } else {
+      setHour("");
+    }
+  }
+
+  function validateMinute(value, setMinute) {
+    const minute = parseInt(value, 10);
+    if (!isNaN(minute)) {
+      if (minute > 59) {
+        setMinute("59");
+      } else if (minute < 0) {
+        setMinute("00");
+      } else {
+        setMinute(value);
+      }
+    } else {
+      setMinute("");
+    }
   }
 
   return (
@@ -83,30 +121,46 @@ export default function Journey1Step() {
             style={styles.timeInput}
             keyboardType="numeric"
             maxLength={2}
-            placeholder="00"
+            placeholder="HH"
             value={startHour}
-            onChangeText={setStartHour}
+            onChangeText={(text) => validateHour(text, setStartHour)}
+            onBlur={handleInputBlur}
+            returnKeyType="done"
           />
           <Text style={styles.colon}>:</Text>
           <TextInput
             style={styles.timeInput}
             keyboardType="numeric"
             maxLength={2}
-            placeholder="00"
+            placeholder="MM"
             value={startMinute}
-            onChangeText={setStartMinute}
+            onChangeText={(text) => validateMinute(text, setStartMinute)}
+            onBlur={handleInputBlur}
+            returnKeyType="done"
           />
-          <TouchableOpacity
-            style={[
-              styles.ampmButton,
-              startAMPM === "AM" ? styles.ampmButtonSelected : null,
-            ]}
-            onPress={() => toggleAMPM(startAMPM, setStartAMPM)}>
-            <Text style={styles.ampmText}>{startAMPM}</Text>
-          </TouchableOpacity>
+          <View style={styles.ampmContainer}>
+            <TouchableOpacity
+              style={[
+                styles.ampmButton,
+                startAMPM === "AM" ? styles.ampmButtonSelected : null,
+              ]}
+              onPress={() => handleToggleAMPM("start", "AM")}>
+              <Text style={styles.ampmText}>AM</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={[
+                styles.ampmButton,
+                startAMPM === "PM" ? styles.ampmButtonSelected : null,
+              ]}
+              onPress={() => handleToggleAMPM("start", "PM")}>
+              <Text style={styles.ampmText}>PM</Text>
+            </TouchableOpacity>
+          </View>
         </View>
-        <Text style={styles.timeLabel}>Hour</Text>
-        <Text style={styles.timeLabel}>Minute</Text>
+        <View style={styles.timeLabels}>
+          <Text style={styles.timeLabelText}>Hour</Text>
+          <Text style={styles.timeLabelText}>Minute</Text>
+        </View>
 
         <Text style={[styles.label, { marginTop: 20 }]}>End time</Text>
         <View style={styles.timeInputRow}>
@@ -114,30 +168,46 @@ export default function Journey1Step() {
             style={styles.timeInput}
             keyboardType="numeric"
             maxLength={2}
-            placeholder="00"
+            placeholder="HH"
             value={endHour}
-            onChangeText={setEndHour}
+            onChangeText={(text) => validateHour(text, setEndHour)}
+            onBlur={handleInputBlur}
+            returnKeyType="done"
           />
           <Text style={styles.colon}>:</Text>
           <TextInput
             style={styles.timeInput}
             keyboardType="numeric"
             maxLength={2}
-            placeholder="00"
+            placeholder="MM"
             value={endMinute}
-            onChangeText={setEndMinute}
+            onChangeText={(text) => validateMinute(text, setEndMinute)}
+            onBlur={handleInputBlur}
+            returnKeyType="done"
           />
-          <TouchableOpacity
-            style={[
-              styles.ampmButton,
-              endAMPM === "AM" ? styles.ampmButtonSelected : null,
-            ]}
-            onPress={() => toggleAMPM(endAMPM, setEndAMPM)}>
-            <Text style={styles.ampmText}>{endAMPM}</Text>
-          </TouchableOpacity>
+          <View style={styles.ampmContainer}>
+            <TouchableOpacity
+              style={[
+                styles.ampmButton,
+                endAMPM === "AM" ? styles.ampmButtonSelected : null,
+              ]}
+              onPress={() => handleToggleAMPM("end", "AM")}>
+              <Text style={styles.ampmText}>AM</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={[
+                styles.ampmButton,
+                endAMPM === "PM" ? styles.ampmButtonSelected : null,
+              ]}
+              onPress={() => handleToggleAMPM("end", "PM")}>
+              <Text style={styles.ampmText}>PM</Text>
+            </TouchableOpacity>
+          </View>
         </View>
-        <Text style={styles.timeLabel}>Hour</Text>
-        <Text style={styles.timeLabel}>Minute</Text>
+        <View style={styles.timeLabels}>
+          <Text style={styles.timeLabelText}>Hour</Text>
+          <Text style={styles.timeLabelText}>Minute</Text>
+        </View>
       </View>
 
       <View style={styles.navigationbuttons}>
@@ -265,29 +335,42 @@ const styles = StyleSheet.create({
     fontSize: 14,
   },
   colon: {
-    fontSize: 18,
-    marginHorizontal: 5,
+    fontSize: 24,
+    color: black,
+  },
+  ampmContainer: {
+    flexDirection: "row",
+    marginLeft: 10,
   },
   ampmButton: {
-    height: 40,
+    paddingVertical: 5,
+    paddingHorizontal: 15,
     borderRadius: 5,
-    borderWidth: 1,
-    borderColor: white,
     marginHorizontal: 5,
-    paddingHorizontal: 10,
-    width: 50,
     backgroundColor: white,
-    justifyContent: "center",
-    alignItems: "center",
+    borderColor: button,
+    borderWidth: 1,
   },
   ampmButtonSelected: {
     backgroundColor: button,
   },
   ampmText: {
-    fontSize: 14,
     color: black,
+    fontSize: 14,
   },
-  timeLabel: {
+  timeLabels: {
+    flexDirection: "row",
+  },
+  timeLabelText: {
+    fontSize: 12,
+    color: black,
+    marginLeft: 10,
+    marginBottom: 10,
+  },
+  timeLabels: {
+    flexDirection: "row",
+  },
+  timeLabelText: {
     fontSize: 12,
     color: black,
     marginLeft: 10,
