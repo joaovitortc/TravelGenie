@@ -94,9 +94,9 @@ export default function Journey1Step() {
             ]}
             onPress={() => {
               if (selectedAges.includes(option)) {
-                setSelectedAges(selectedAges.filter((age) => age !== option)); // Deselect
+                setSelectedAges(selectedAges.filter((age) => age !== option));
               } else {
-                setSelectedAges([...selectedAges, option]); // Select
+                setSelectedAges([...selectedAges, option]);
               }
             }}>
             <Text
