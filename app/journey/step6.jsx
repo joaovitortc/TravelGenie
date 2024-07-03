@@ -12,18 +12,19 @@ export default function Journey4Step() {
   function handleGoStep6() {
     data.party = party;
     router.push({
-      pathname: "/journey/results",
-      params: { data: JSON.stringify(data) }
+      pathname: "/journey/generatedPlan",
+      params: { data: JSON.stringify(data) },
     });
   }
 
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Step 6 - Party Size</Text>
-      <TextInput 
-      onChangeText={setParty} 
-      value={party}
-      placeholder="Preferences for the trip?"/>
+      <TextInput
+        onChangeText={setParty}
+        value={party}
+        placeholder="Preferences for the trip?"
+      />
       <TouchableOpacity onPress={handleGoStep6}>
         <Text>Go to step 6</Text>
       </TouchableOpacity>
