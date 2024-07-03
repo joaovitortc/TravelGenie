@@ -17,7 +17,7 @@ export default function TabOneScreen() {
 
       {
         <Image
-          source={require("../../assets/images/genie_logo.png")}
+          source={require("../../assets/images/travel_genie_logo.png")}
           style={styles.image}
         />
       }
@@ -30,12 +30,14 @@ export default function TabOneScreen() {
         <View style={styles.footerButtons}>
           <TouchableOpacity
             style={styles.footerButton}
-            onPress={() => navigation.navigate("Profile")}>
+            onPress={() => navigation.navigate("Profile")}
+          >
             <Text style={styles.footerButtonText}>Profile</Text>
           </TouchableOpacity>
           <TouchableOpacity
             style={styles.footerButton}
-            onPress={() => navigation.navigate("MyPlans")}>
+            onPress={() => navigation.navigate("MyPlans")}
+          >
             <Text style={styles.footerButtonText}>My Plans</Text>
           </TouchableOpacity>
         </View>
@@ -68,18 +70,25 @@ const styles = StyleSheet.create({
   },
   button: {
     backgroundColor: button,
-    paddingVertical: 15,
+    paddingVertical: 20,
     paddingHorizontal: 30,
     borderRadius: 10,
     position: "absolute",
-    top: 180,
+    top: 130,
     borderRadius: 30,
   },
   buttonText: {
     color: "#000",
-    fontSize: 16,
+    fontSize: 25,
     fontWeight: "bold",
   },
+
+  navigationText: {
+    color: "#1D80C3",
+    fontSize: 25,
+    fontWeight: "bold",
+  },
+
   footer: {
     marginTop: 40,
     alignItems: "center",
