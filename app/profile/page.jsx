@@ -18,11 +18,16 @@ import { updateProfile } from "firebase/auth";
 import { router, Stack } from "expo-router";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { black, button, primary, white } from "@/constants/ThemeVariables";
+import { signOut } from 'firebase/auth';
 
 const Profile = ({ showActionSheetWithOptions }) => {
-  if (!auth.currentUser) {
-    router.push("/profile");
-  }
+
+  useEffect(() => {
+    if (!auth.currentUser) {
+      router.push("/profile");
+    }
+  }, [auth]);
+  
 
   const [name, setName] = useState(
     auth.currentUser
@@ -172,7 +177,14 @@ const Profile = ({ showActionSheetWithOptions }) => {
       </TouchableOpacity>
       <TouchableOpacity
         style={styles.logoutButton}
-        onPress={() => router.push("/")}
+        onPress={async() => {
+          try {
+            await signOut(auth);
+            router.push("/") // Redirect to the login screen after logout
+          } catch (error) {
+            console.error("Error signing out: ", error);
+          }}
+        }
       >
         <Text style={styles.logoutButtonText}>Log out</Text>
       </TouchableOpacity>
