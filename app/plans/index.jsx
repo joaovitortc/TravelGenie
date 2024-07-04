@@ -138,7 +138,7 @@ export default function Plans() {
   }
 
   return (
-    <ScrollView style={styles.container}>
+    <View style={styles.container}>
       <Stack.Screen
       options={{
         headerShown: false,
@@ -178,7 +178,7 @@ export default function Plans() {
           </View>
         </View>
       </View>
-    </ScrollView>
+    </View>
   );
 }
 
