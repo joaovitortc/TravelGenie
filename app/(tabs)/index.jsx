@@ -1,7 +1,13 @@
 import { StyleSheet, TouchableOpacity, Image } from "react-native";
 import { Text, View } from "@/components/Themed";
 import { router } from "expo-router";
-import { black, button, primary, white } from "@/constants/ThemeVariables";
+import {
+  black,
+  button,
+  primary,
+  white,
+  lowkey,
+} from "@/constants/ThemeVariables";
 
 export default function TabOneScreen() {
   function handleStartJourney() {
@@ -28,21 +34,18 @@ export default function TabOneScreen() {
         <View style={styles.footerButtons}>
           <TouchableOpacity
             style={styles.footerButton}
-            onPress={() => router.push("/profile/page")}
-          >
+            onPress={() => router.push("/profile/page")}>
             <Text style={styles.footerButtonText}>Profile</Text>
           </TouchableOpacity>
           <TouchableOpacity
             style={styles.footerButton}
-            onPress={() => router.push("/plans")}
-          >
+            onPress={() => router.push("/plans")}>
             <Text style={styles.footerButtonText}>My Plans</Text>
           </TouchableOpacity>
         </View>
         <TouchableOpacity
           style={styles.loginLink}
-          onPress={() => router.push("/profile")}
-        >
+          onPress={() => router.push("/profile")}>
           <Text style={styles.loginLinkText}>Create an account or log in</Text>
         </TouchableOpacity>
       </View>
@@ -63,7 +66,7 @@ const styles = StyleSheet.create({
     textAlign: "center",
     marginBottom: 20,
     fontWeight: "bold",
-    marginTop: 30, // Added this line to move the text higher
+    marginBottom: 50,
   },
   link: {
     color: primary,
@@ -112,7 +115,7 @@ const styles = StyleSheet.create({
   },
   loginLinkText: {
     fontSize: 14,
-    color: primary,
+    color: lowkey,
     textAlign: "center",
     textDecorationLine: "underline",
   },
