@@ -8,7 +8,7 @@ import {
   ScrollView,
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
-import { router, useLocalSearchParams } from "expo-router";
+import { router, useLocalSearchParams, Stack } from "expo-router";
 import {
   primary,
   secondary,
@@ -78,6 +78,11 @@ export default function Journey5Step() {
 
   return (
     <View style={styles.container}>
+      <Stack.Screen
+      options={{
+        headerShown: false,
+      }}
+      />
       <ProgressBar currentStep={currentStep} totalSteps={totalSteps} />
       <View style={styles.titlecontainer}>
         <View style={styles.circle}>
