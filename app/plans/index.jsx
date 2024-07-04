@@ -98,14 +98,14 @@ export default function Plans() {
 
   if (loading) {
     return (
-      <View>
+      <>
         <Stack.Screen
       options={{
         headerShown: false,
       }}
       />
         <Loading title={"Loading"} />
-      </View>
+      </>
     );
   }
 
