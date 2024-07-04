@@ -106,6 +106,11 @@ const Profile = () => {
 
     return (
       <View style={styles.container}>
+        <Stack.Screen
+      options={{
+        headerShown: false,
+      }}
+      />
         <Text style={styles.label}>Email</Text>
         <TextInput
           style={styles.input}
