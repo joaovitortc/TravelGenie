@@ -16,9 +16,10 @@ export default function PlanCard({ title, plan, index, onDelete }) {
         })
       }>
       <Image
-        source={{ uri: images[index % images.length] }}
+        source={require("../assets/images/travel_genie_logo.png")}
         style={styles.image}
       />
+
       <View style={styles.textContainer}>
         <Text style={styles.name}>{title}</Text>
       </View>
@@ -72,21 +73,3 @@ const styles = StyleSheet.create({
     marginLeft: "auto", // Align the icon to the right
   },
 });
-
-const images = [
-  "https://cdn.britannica.com/22/922-050-6D3067E8/Guild-houses-Lys-River-Belgium-Ghent.jpg",
-  "https://cdn.britannica.com/22/922-050-6D3067E8/Guild-houses-Lys-River-Belgium-Ghent.jpg",
-  "https://example.com/image3.jpg",
-  "https://example.com/image4.jpg",
-  "https://example.com/image5.jpg",
-  "https://example.com/image6.jpg",
-  "https://example.com/image7.jpg",
-  "https://example.com/image8.jpg",
-  "https://example.com/image9.jpg",
-  "https://example.com/image10.jpg",
-  "https://example.com/image11.jpg",
-  "https://example.com/image12.jpg",
-  "https://example.com/image13.jpg",
-  "https://example.com/image14.jpg",
-  "https://example.com/image15.jpg",
-];

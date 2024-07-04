@@ -16,7 +16,11 @@ import {
   secondary,
   lowkey,
 } from "@/constants/ThemeVariables";
+
+import { Ionicons } from "@expo/vector-icons";
+
 import { router, Stack } from "expo-router";
+
 
 export default function Plan() {
   const { plan: planStr, title } = useLocalSearchParams();
@@ -58,17 +62,59 @@ export default function Plan() {
                 styles.card,
                 expandedIndex === index && styles.expandedCard,
               ]}>
-              <View style={styles.cardContent}>
-                <Text style={styles.place}>{item.place}</Text>
-                <Text style={styles.time}>{item.time}</Text>
+              <View
+                style={[
+                  styles.cardContent,
+                  expandedIndex === index
+                    ? styles.expandedCardContent
+                    : styles.collapsedCardContent,
+                ]}>
+                <View style={styles.titleAndIcon}>
+                  <Text style={styles.place}>{item.place}</Text>
+                  <View style={styles.actionsContainer}>
+                    <Ionicons
+                      name={
+                        expandedIndex === index
+                          ? "close-outline"
+                          : "chevron-down-outline"
+                      }
+                      size={24}
+                      color={black}
+                    />
+                  </View>
+                </View>
+                <View style={styles.flexIconsAndText}>
+                  <Ionicons
+                    name="time-outline"
+                    size={20}
+                    color={lowkey}
+                    paddingTop={5}
+                  />
+                  <Text style={styles.lowkeyStyling}>{item.time}</Text>
+                </View>
                 {expandedIndex === index && (
-                  <Text style={styles.description}>{item.what_to_do}</Text>
+                  <>
+                    <View style={styles.flexIconsAndText}>
+                      <Ionicons
+                        name="navigate-outline"
+                        size={20}
+                        color={lowkey}
+                        paddingTop={5}
+                      />
+                      <Text style={styles.lowkeyStyling}>{item.address}</Text>
+                    </View>
+                    <View style={styles.flexIconsAndText}>
+                      <Ionicons
+                        name="cash-outline"
+                        size={20}
+                        color={lowkey}
+                        paddingTop={5}
+                      />
+                      <Text style={styles.lowkeyStyling}>{item.price}</Text>
+                    </View>
+                    <Text style={styles.description}>{item.what_to_do}</Text>
+                  </>
                 )}
-              </View>
-              <View style={styles.actionsContainer}>
-                <Text style={styles.arrow}>
-                  {expandedIndex === index ? "▲" : "▼"}
-                </Text>
               </View>
             </View>
           </TouchableOpacity>
@@ -97,6 +143,7 @@ const styles = StyleSheet.create({
     flex: 1,
     paddingHorizontal: 20,
     paddingTop: 20,
+    backgroundColor: white,
   },
   title: {
     fontSize: 24,
@@ -120,15 +167,27 @@ const styles = StyleSheet.create({
   },
   cardContent: {
     flex: 1,
+    borderRadius: 10,
+  },
+  flexIconsAndText: {
+    flexDirection: "row",
+    alignItems: "center",
+    marginTop: 5,
+  },
+  titleAndIcon: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
   },
   place: {
     fontSize: 18,
     fontWeight: "bold",
   },
-  time: {
+  lowkeyStyling: {
     fontSize: 14,
     color: lowkey,
     marginTop: 5,
+    paddingLeft: 5,
   },
   description: {
     marginTop: 10,
@@ -144,7 +203,6 @@ const styles = StyleSheet.create({
     fontSize: 16,
     color: lowkey,
   },
-
   footer: {
     marginTop: 40,
     alignItems: "center",
