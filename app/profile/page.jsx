@@ -194,13 +194,13 @@ const Profile = ({ showActionSheetWithOptions }) => {
       <View style={styles.buttonContainer}>
         <TouchableOpacity
           style={styles.footerButton}
-          onPress={() => router.back("/")}>
+          onPress={() => router.push("/")}>
           <Text style={styles.footerButtonText}>Home</Text>
         </TouchableOpacity>
         <TouchableOpacity
           style={styles.footerButton}
           onPress={() => router.push("/plans")}>
-          <Text style={styles.footerButtonText}>My Plan</Text>
+          <Text style={styles.footerButtonText}>My Plans</Text>
         </TouchableOpacity>
       </View>
     </View>

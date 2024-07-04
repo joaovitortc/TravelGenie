@@ -213,6 +213,14 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     marginHorizontal: 10,
   },
+  footerButton: {
+    borderColor: button,
+    borderWidth: 1,
+    borderRadius: 20,
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    marginHorizontal: 10,
+  },
   footerButtonText: {
     color: black,
     fontSize: 16,

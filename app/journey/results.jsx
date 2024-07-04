@@ -276,7 +276,7 @@ Response example:
             "address":   Av. Gustave Eiffel, 75007 Paris, France
         }
         // Add more entries as needed for the duration of the trip
-      "tip": "Remember to bring snacks to keep up with your budget!"
+      "tip": Something to keep in mind for the trip, e.g "Remember to bring snacks to keep up with your budget!"
     ]
 }
 

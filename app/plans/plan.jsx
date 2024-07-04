@@ -125,8 +125,11 @@ export default function Plan() {
 
       <View style={styles.footer}>
         <View style={styles.footerButtons}>
-          <Link href="/" style={styles.footerButton}>
-          <Text style={styles.footerButtonText}>Home</Text></Link>
+        <TouchableOpacity
+            style={styles.footerButton}
+            onPress={() => router.back()}>
+            <Text style={styles.footerButtonText}>Back</Text>
+          </TouchableOpacity>
           <TouchableOpacity
             style={styles.footerButton}
             onPress={() => router.push("/profile/page")}>
@@ -142,7 +145,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     paddingHorizontal: 20,
-    paddingTop: 20,
+    paddingTop: 40,
     backgroundColor: white,
   },
   title: {
@@ -219,6 +222,14 @@ const styles = StyleSheet.create({
     borderColor: button,
     borderWidth: 1,
     borderRadius: 30,
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    marginHorizontal: 10,
+  },
+  footerButtonn: {
+    borderColor: button,
+    borderWidth: 1,
+    borderRadius: 20,
     paddingVertical: 10,
     paddingHorizontal: 20,
     marginHorizontal: 10,
