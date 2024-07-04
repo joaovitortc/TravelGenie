@@ -24,6 +24,7 @@ export default function Results() {
   const [response, setResponse] = useState(null);
   const [regenerate, setRegenerate] = useState("");
   const [expandedIndex, setExpandedIndex] = useState(null);
+  const [regenerating, setRegenerating] = useState(false); // [1
   let { data } = useLocalSearchParams();
   data = data ? JSON.parse(data) : {};
   console.log(data);
@@ -58,6 +59,7 @@ export default function Results() {
         try {
           const parsedResult = JSON.parse(result); // Ensure the result is parsed
           setResponse(parsedResult); // Set the response from OpenAI
+          setRegenerating(false); // Set regenerating to false
         } catch (error) {
           console.error("Error parsing result:", error);
         }
@@ -193,10 +195,10 @@ export default function Results() {
               style={styles.regenerateButton}
               onPress={() => {
                 setRegenerate(regenerate + "1");
-
+                setRegenerating(true);
               }}>
 
-              <Text style={styles.buttonText}>Regenerate</Text>
+              <Text style={styles.buttonText}>{regenerating ? "Regenerating..." : "Regenerate"}</Text>
             </TouchableOpacity>
 
             <View style={styles.buttonContainer}>
@@ -383,7 +385,6 @@ const styles = StyleSheet.create({
     marginTop: 10,
     borderColor: button,
     borderWidth: 2,
-    backgroundColor: button,
     width: "100%",
   },
   buttonText: {
