@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { StyleSheet, TouchableOpacity, Text, View } from "react-native";
 import { router } from "expo-router";
 import { Ionicons } from "@expo/vector-icons";
@@ -26,23 +26,25 @@ export default function Journey1Step() {
   const [selectedAges, setSelectedAges] = useState([]);
   const currentStep = 6;
   const totalSteps = 6;
-  let data = {
-    location: "",
-    budget: "",
-  };
 
-  function handleGoNextStep() {
-    data.amount = selectedAmount;
-    data.age = selectedAges;
+  const handleGoNextStep = () => {
+    console.log("Number of people:", selectedAmount);
+    console.log("Age ranges:", selectedAges);
+
+    let data = {
+      amount: selectedAmount,
+      age: selectedAges,
+    };
+
     router.push({
       pathname: "/journey/results",
       params: { data: JSON.stringify(data) },
     });
-  }
+  };
 
-  function handleGobackAStep() {
+  const handleGobackAStep = () => {
     router.back("/");
-  }
+  };
 
   const amountOptions = ["1", "2", "3", "4", "5", "6", "7-10", "10+"];
   const ageOptions = ["0-10", "11-15", "16-20", "21-30", "31-50", "51-80"];
@@ -66,12 +68,14 @@ export default function Journey1Step() {
               styles.amountButton,
               selectedAmount === option && { backgroundColor: button },
             ]}
-            onPress={() => setSelectedAmount(option)}>
+            onPress={() => setSelectedAmount(option)}
+          >
             <Text
               style={[
                 styles.amountText,
                 selectedAmount === option && { color: black },
-              ]}>
+              ]}
+            >
               {option}
             </Text>
           </TouchableOpacity>
@@ -98,12 +102,14 @@ export default function Journey1Step() {
               } else {
                 setSelectedAges([...selectedAges, option]);
               }
-            }}>
+            }}
+          >
             <Text
               style={[
                 styles.ageText,
                 selectedAges.includes(option) && { color: black },
-              ]}>
+              ]}
+            >
               {option}
             </Text>
           </TouchableOpacity>
@@ -113,7 +119,8 @@ export default function Journey1Step() {
       <View style={styles.navigationbuttons}>
         <TouchableOpacity
           onPress={handleGobackAStep}
-          style={styles.navigationButtonBack}>
+          style={styles.navigationButtonBack}
+        >
           <Ionicons
             name="arrow-back-outline"
             size={20}
@@ -124,7 +131,8 @@ export default function Journey1Step() {
         </TouchableOpacity>
         <TouchableOpacity
           onPress={handleGoNextStep}
-          style={styles.navigationButtonNext}>
+          style={styles.navigationButtonNext}
+        >
           <Text style={styles.navigationButtonTextNext}>Done!</Text>
           <Ionicons
             name="arrow-forward-outline"
@@ -136,7 +144,8 @@ export default function Journey1Step() {
       </View>
       <TouchableOpacity
         onPress={handleGoNextStep}
-        style={styles.navigationButtonSkip}>
+        style={styles.navigationButtonSkip}
+      >
         <Text style={styles.navigationButtonTextSkip}>Skip this step</Text>
       </TouchableOpacity>
 
