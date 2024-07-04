@@ -52,12 +52,12 @@ export default function Journey4Step() {
     if (customActivity.trim()) {
       activitiesToSubmit.push(customActivity.trim());
     }
-    data.activities = activitiesToSubmit.join(' ');
+    data.activities = activitiesToSubmit.join(" ");
     console.log("Activities: ", data.activities);
 
     router.push({
       pathname: "/journey/step5",
-      params: { data: JSON.stringify(data) }
+      params: { data: JSON.stringify(data) },
     });
   };
 
@@ -75,7 +75,7 @@ export default function Journey4Step() {
         <Text style={styles.title}>Activities</Text>
       </View>
       <Text style={styles.paragraph}>
-        Choose activities you would <Text style={styles.highlight}>like</Text>{" "}
+        Choose activities you would <Text style={styles.highlight}>LIKE</Text>{" "}
         to do
       </Text>
 
@@ -89,8 +89,7 @@ export default function Journey4Step() {
                 styles.activityButton,
                 isSelected && styles.activityButtonSelected,
               ]}
-              onPress={() => toggleActivity(activity.name)}
-            >
+              onPress={() => toggleActivity(activity.name)}>
               <Ionicons
                 name={activity.icon}
                 size={30}
@@ -100,8 +99,7 @@ export default function Journey4Step() {
                 style={[
                   styles.activityText,
                   isSelected && styles.activityTextSelected,
-                ]}
-              >
+                ]}>
                 {activity.name}
               </Text>
             </TouchableOpacity>
@@ -119,8 +117,7 @@ export default function Journey4Step() {
       <View style={styles.navigationbuttons}>
         <TouchableOpacity
           onPress={handleGobackAStep}
-          style={styles.navigationButtonBack}
-        >
+          style={styles.navigationButtonBack}>
           <Ionicons
             name="arrow-back-outline"
             size={20}
@@ -131,8 +128,7 @@ export default function Journey4Step() {
         </TouchableOpacity>
         <TouchableOpacity
           onPress={handleGoNextStep}
-          style={styles.navigationButtonNext}
-        >
+          style={styles.navigationButtonNext}>
           <Text style={styles.navigationButtonTextNext}>Next</Text>
           <Ionicons
             name="arrow-forward-outline"
@@ -144,8 +140,7 @@ export default function Journey4Step() {
       </View>
       <TouchableOpacity
         onPress={handleGoNextStep}
-        style={styles.navigationButtonSkip}
-      >
+        style={styles.navigationButtonSkip}>
         <Text style={styles.navigationButtonTextSkip}>Skip this step</Text>
       </TouchableOpacity>
 
@@ -209,11 +204,10 @@ const styles = StyleSheet.create({
     marginLeft: 20,
   },
   paragraph: {
-    fontSize: 15,
+    fontSize: 14,
     color: black,
-    marginBottom: 25,
-    width: "75%",
-    fontWeight: "bold",
+    marginBottom: 15,
+    width: "80%",
   },
   separator: {
     marginVertical: 30,
@@ -259,7 +253,7 @@ const styles = StyleSheet.create({
     height: 10,
     backgroundColor: "#e0e0e0",
     borderRadius: 5,
-    marginBottom: 70,
+    marginBottom: 40,
     overflow: "hidden",
   },
   progressBar: {

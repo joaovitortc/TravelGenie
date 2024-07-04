@@ -1,4 +1,3 @@
-import React, { useState, useEffect } from "react";
 import {
   StyleSheet,
   TouchableOpacity,
@@ -7,8 +6,11 @@ import {
   TextInput,
   ScrollView,
 } from "react-native";
+
 import { Ionicons } from "@expo/vector-icons";
+
 import { router, useLocalSearchParams } from "expo-router";
+import { useState } from "react";
 import {
   primary,
   secondary,
@@ -29,22 +31,15 @@ const ProgressBar = ({ currentStep, totalSteps }) => {
 };
 
 export default function Journey5Step() {
+  const [location, setLocation] = useState("");
   const [customDislikedActivity, setCustomDislikedActivity] = useState("");
   const currentStep = 5;
   const totalSteps = 6;
   const [selectedDislikedActivities, setSelectedDislikedActivities] = useState(
     []
   );
-  const [isNextButtonEnabled, setIsNextButtonEnabled] = useState(false); // State to manage button enable/disable
   let { data } = useLocalSearchParams();
   data = data ? JSON.parse(data) : {};
-
-  useEffect(() => {
-    setIsNextButtonEnabled(
-      selectedDislikedActivities.length > 0 ||
-        customDislikedActivity.trim().length > 0
-    ); // Enable the button if any disliked activity is selected or custom activity is not empty
-  }, [selectedDislikedActivities, customDislikedActivity]);
 
   const toggleDislikedActivity = (activity) => {
     setSelectedDislikedActivities((prevSelected) =>
@@ -54,12 +49,9 @@ export default function Journey5Step() {
     );
   };
 
-  const handleGoNextStep = (skip = false) => {
-    if (!isNextButtonEnabled && !skip) {
-      return;
-    }
+  const handleGoNextStep = () => {
     let dislikedActivitiesToSubmit = [...selectedDislikedActivities];
-    if (customDislikedActivity.trim() && !skip) {
+    if (customDislikedActivity.trim()) {
       dislikedActivitiesToSubmit.push(customDislikedActivity.trim());
     }
 
@@ -99,8 +91,7 @@ export default function Journey5Step() {
                 styles.activityButton,
                 isSelected && styles.activityButtonSelected,
               ]}
-              onPress={() => toggleDislikedActivity(activity.name)}
-            >
+              onPress={() => toggleDislikedActivity(activity.name)}>
               <Ionicons
                 name={activity.icon}
                 size={30}
@@ -110,8 +101,7 @@ export default function Journey5Step() {
                 style={[
                   styles.activityText,
                   isSelected && styles.activityTextSelected,
-                ]}
-              >
+                ]}>
                 {activity.name}
               </Text>
             </TouchableOpacity>
@@ -129,8 +119,7 @@ export default function Journey5Step() {
       <View style={styles.navigationbuttons}>
         <TouchableOpacity
           onPress={handleGobackAStep}
-          style={styles.navigationButtonBack}
-        >
+          style={styles.navigationButtonBack}>
           <Ionicons
             name="arrow-back-outline"
             size={20}
@@ -140,33 +129,20 @@ export default function Journey5Step() {
           <Text style={styles.navigationButtonTextBack}>Back</Text>
         </TouchableOpacity>
         <TouchableOpacity
-          onPress={() => handleGoNextStep(false)}
-          style={[
-            styles.navigationButtonNext,
-            { backgroundColor: isNextButtonEnabled ? button : "#ccc" }, // Change color if not enabled
-          ]}
-          disabled={!isNextButtonEnabled} // Disable button if not enabled
-        >
-          <Text
-            style={[
-              styles.navigationButtonTextNext,
-              { color: isNextButtonEnabled ? black : "#888" },
-            ]}
-          >
-            Next
-          </Text>
+          onPress={handleGoNextStep}
+          style={styles.navigationButtonNext}>
+          <Text style={styles.navigationButtonTextNext}>Next</Text>
           <Ionicons
             name="arrow-forward-outline"
             size={20}
-            color={isNextButtonEnabled ? black : "#888"}
+            color={black}
             paddingTop={5}
           />
         </TouchableOpacity>
       </View>
       <TouchableOpacity
-        onPress={() => handleGoNextStep(true)}
-        style={styles.navigationButtonSkip}
-      >
+        onPress={handleGoNextStep}
+        style={styles.navigationButtonSkip}>
         <Text style={styles.navigationButtonTextSkip}>Skip this step</Text>
       </TouchableOpacity>
 
@@ -230,11 +206,10 @@ const styles = StyleSheet.create({
     marginLeft: 20,
   },
   paragraph: {
-    fontSize: 15,
+    fontSize: 14,
     color: black,
-    marginBottom: 25,
-    width: "75%",
-    fontWeight: "bold",
+    marginBottom: 15,
+    width: "80%",
   },
   separator: {
     marginVertical: 30,
@@ -253,6 +228,7 @@ const styles = StyleSheet.create({
     flexWrap: "wrap",
     justifyContent: "space-between",
     marginBottom: 20,
+    paddingBottom: 100, // Augmentez cette valeur pour plus de hauteur
   },
   activityButton: {
     width: "30%",
@@ -281,7 +257,7 @@ const styles = StyleSheet.create({
     height: 10,
     backgroundColor: "#e0e0e0",
     borderRadius: 5,
-    marginBottom: 70,
+    marginBottom: 40,
     overflow: "hidden",
   },
   progressBar: {
@@ -293,7 +269,7 @@ const styles = StyleSheet.create({
     borderRadius: 15,
     borderWidth: 1,
     borderColor: white,
-    marginBottom: 20,
+    marginBottom: -40,
     paddingHorizontal: 10,
     width: "80%",
     backgroundColor: white,
@@ -317,6 +293,7 @@ const styles = StyleSheet.create({
     padding: 5,
   },
   navigationButtonNext: {
+    backgroundColor: button,
     padding: 10,
     borderRadius: 30,
     width: "45%",
@@ -325,6 +302,7 @@ const styles = StyleSheet.create({
     justifyContent: "space-around",
   },
   navigationButtonTextNext: {
+    color: black,
     fontSize: 14,
     fontWeight: "bold",
     textAlign: "center",
@@ -349,6 +327,7 @@ const styles = StyleSheet.create({
     color: black,
     paddingBottom: 10,
     paddingTop: 10,
+
     marginBottom: 0,
     fontWeight: "bold",
     fontSize: 14,
