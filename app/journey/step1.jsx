@@ -134,12 +134,6 @@ export default function Journey1Step() {
           />
         </TouchableOpacity>
       </View>
-      <TouchableOpacity
-        onPress={handleGoNextStep}
-        style={styles.navigationButtonSkip}>
-        <Text style={styles.navigationButtonTextSkip}>Skip this step</Text>
-      </TouchableOpacity>
-
       <View
         style={styles.separator}
         lightColor="#eee"
