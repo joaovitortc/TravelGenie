@@ -165,6 +165,12 @@ const Profile = ({ showActionSheetWithOptions }) => {
       <TouchableOpacity style={styles.saveButton} onPress={handleSave}>
         <Text style={styles.saveButtonText}>Save</Text>
       </TouchableOpacity>
+      <TouchableOpacity
+        style={styles.logoutButton}
+        onPress={() => router.push("/")}
+      >
+        <Text style={styles.logoutButtonText}>Log out</Text>
+      </TouchableOpacity>
       <View style={styles.buttonContainer}>
         <TouchableOpacity
           style={styles.homeButton}
@@ -243,6 +249,19 @@ const styles = StyleSheet.create({
   },
   saveButtonText: {
     color: "#FFFFFF",
+    fontWeight: "bold",
+  },
+  logoutButton: {
+    backgroundColor: "#F0F4FA",
+    borderColor: "#A9A9A9",
+    borderWidth: 1,
+    borderRadius: 20,
+    paddingVertical: 10,
+    paddingHorizontal: 40,
+    marginTop: 20,
+  },
+  logoutButtonText: {
+    color: "#A9A9A9",
     fontWeight: "bold",
   },
   buttonContainer: {
