@@ -15,7 +15,7 @@ import {
 import { db, auth, storage } from "../firebase"; // Import your Firebase configuration
 import { doc, updateDoc, getDoc } from "firebase/firestore";
 import { updateProfile } from "firebase/auth";
-import { router } from "expo-router";
+import { router, Stack } from "expo-router";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { black, button, primary, white } from "@/constants/ThemeVariables";
 
@@ -133,6 +133,11 @@ const Profile = ({ showActionSheetWithOptions }) => {
 
   return (
     <View style={styles.container}>
+      <Stack.Screen
+      options={{
+        headerShown: false,
+      }}
+      />
       <Text style={styles.title}>Profile</Text>
       <TouchableOpacity
         onPress={chooseImage}

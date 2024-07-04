@@ -16,7 +16,7 @@ import {
   secondary,
   lowkey,
 } from "@/constants/ThemeVariables";
-import { router } from "expo-router";
+import { router, Stack } from "expo-router";
 
 export default function Plan() {
   const { plan: planStr, title } = useLocalSearchParams();
@@ -44,6 +44,11 @@ export default function Plan() {
 
   return (
     <ScrollView style={styles.container}>
+      <Stack.Screen
+      options={{
+        headerShown: false,
+      }}
+      />
       <Text style={styles.title}>{title}</Text>
       {plan && plan.length > 0 ? (
         plan.map((item, index) => (

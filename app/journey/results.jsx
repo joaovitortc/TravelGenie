@@ -88,6 +88,8 @@ export default function Results() {
                   )}
                   <View style={styles.circle} />
                   <Text style={styles.activityPlace}>{item.place}</Text>
+                  <Text style={styles.activityPlace}>{item.price}</Text>
+                  <Text style={styles.activityPlace}>{item.address}</Text>
                   {/* <Ionicons name="chevron-down" size={24} color="black" /> */}
                 </View>
               </View>
@@ -98,8 +100,7 @@ export default function Results() {
             <View style={styles.tipContainer}>
               <Text style={styles.tipTitle}>Tip!</Text>
               <Text style={styles.tipText}>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                eiusmod tempor incididunt ut labore et.
+                {response.tip}
               </Text>
             </View>
           ) : null}
@@ -146,12 +147,14 @@ avoiding these type of activities: (${data.dislikedActivities}),
 having in mind the user's preference for activities: (${data.activities}) and size of party ${data.amount}, 
 take into consideration that there will be people from the ${data.age} range.
 The duration of the trip will be ${data.startHour}:${data.startMinute}${data.startAMPM} - ${data.endHour}:${data.endMinute}${data.endAMPM}. 
-Don't use half hours to schedule anything, use some time between the activities to take into account the travel time between them.
+Don't use broken times. I want only fixed o'clock start and ends activities within the range.
 
 - For each day of the trip, suggest:
   - Place: Provide details about the recommended locations.
   - Time: Recommend the best time or duration to visit each place.
   - What to do: Suggest activities or attractions aligned with the user's interests.
+  - Price: Estimated price, try to match user's overall budget
+  - Adress: Specific address of attraction
 
 Please format the response as an object with the specified structure. 
 Please don't include any additional information, only an object. No backticks.
@@ -164,14 +167,19 @@ Response example:
         {
             "place": {Louvre Museum},
             "time": {10am-2pm},
-            "what_to_do": {Visit one of the most famous museums in the world, housing thousands of works of art.}
+            "what_to_do": {Visit one of the most famous museums in the world, housing thousands of works of art.},
+            "price": {20 euros},
+            "address":  75001 Paris, France
         },
         {
             "place": {Eiffel Tower},
             "time": {3pm-5pm},
-            "what_to_do": {Visit the iconic landmark and enjoy panoramic views of the city.}
+            "what_to_do": {Visit the iconic landmark and enjoy panoramic views of the city.},
+            "price": Free,
+            "address":   Av. Gustave Eiffel, 75007 Paris, France
         }
         // Add more entries as needed for the duration of the trip
+      "tip": "Remember to bring snacks to keep up with your budget!"
     ]
 }
 
