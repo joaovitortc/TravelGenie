@@ -1,7 +1,13 @@
 import React, { useState, useEffect } from "react";
-import { ScrollView, Text, TouchableOpacity, View, StyleSheet } from "react-native";
+import {
+  ScrollView,
+  Text,
+  TouchableOpacity,
+  View,
+  StyleSheet,
+} from "react-native";
 import callOpenAI from "../openai";
-import { router, useLocalSearchParams } from "expo-router";
+import { router, useLocalSearchParams, Stack } from "expo-router";
 import Loading from "@/components/Loading";
 
 export default function Results() {
@@ -54,8 +60,13 @@ export default function Results() {
     <>
       {response ? (
         <ScrollView style={{ flex: 1 }}>
+          <Stack.Screen
+            options={{
+              headerShown: false,
+            }}
+          />
           <View style={styles.container}>
-          {/* <View>
+            {/* <View>
             {response.plan.map((item, index) => (
               <View key={index}>
                 <Text>Place: {item.place}</Text>
@@ -75,64 +86,77 @@ export default function Results() {
             </TouchableOpacity>
           </View> */}
 
-          <Text style={styles.title}>All Done!</Text>
-          <Text style={styles.subtitle}>{response.title}</Text>
+            <Text style={styles.title}>All Done!</Text>
+            <Text style={styles.subtitle}>{response.title}</Text>
 
-          <View style={styles.timeline}>
-            {response.plan.map((item, index) => (
-              <View key={index} style={styles.timelineItem}>
-                <Text style={styles.time}>{item.time}</Text>
-                <View style={styles.timelineContent}>
-                  {index !== response.plan.length - 1 && (
-                    <View style={styles.line} />
-                  )}
-                  <View style={styles.circle} />
-                  <Text style={styles.activityPlace}>{item.place}</Text>
-                  <Text style={styles.activityPlace}>{item.price}</Text>
-                  <Text style={styles.activityPlace}>{item.address}</Text>
-                  {/* <Ionicons name="chevron-down" size={24} color="black" /> */}
+            <View style={styles.timeline}>
+              {response.plan.map((item, index) => (
+                <View key={index} style={styles.timelineItem}>
+                  <Text style={styles.time}>{item.time}</Text>
+                  <View style={styles.timelineContent}>
+                    {index !== response.plan.length - 1 && (
+                      <View style={styles.line} />
+                    )}
+                    <View style={styles.circle} />
+                    <Text style={styles.activityPlace}>{item.place}</Text>
+                    <Text style={styles.activityPlace}>{item.price}</Text>
+                    <Text style={styles.activityPlace}>{item.address}</Text>
+                    {/* <Ionicons name="chevron-down" size={24} color="black" /> */}
+                  </View>
                 </View>
-              </View>
-            ))}
-          </View>
-
-          {response.tip ? (
-            <View style={styles.tipContainer}>
-              <Text style={styles.tipTitle}>Tip!</Text>
-              <Text style={styles.tipText}>
-                {response.tip}
-              </Text>
+              ))}
             </View>
-          ) : null}
 
-          <Text style={styles.regenerateText}>
-            To get a new plan for your trip, click on{" "}
-            <Text style={styles.highlight}>Regenerate</Text> button
-          </Text>
+            {response.tip ? (
+              <View style={styles.tipContainer}>
+                <Text style={styles.tipTitle}>Tip!</Text>
+                <Text style={styles.tipText}>{response.tip}</Text>
+              </View>
+            ) : null}
 
-          <TouchableOpacity style={styles.regenerateButton} onPress={() => {
-            setRegenerate(regenerate + "1")
-          }}>
-            <Text style={styles.buttonText}>Regenerate</Text>
-          </TouchableOpacity>
+            <Text style={styles.regenerateText}>
+              To get a new plan for your trip, click on{" "}
+              <Text style={styles.highlight}>Regenerate</Text> button
+            </Text>
 
-          <View style={styles.buttonContainer}>
-            <TouchableOpacity style={styles.editButton}>
-              <Text style={styles.editButtonText}>Edit details</Text>
+            <TouchableOpacity
+              style={styles.regenerateButton}
+              onPress={() => {
+                setRegenerate(regenerate + "1");
+              }}
+            >
+              <Text style={styles.buttonText}>Regenerate</Text>
             </TouchableOpacity>
-            <TouchableOpacity style={styles.saveButton} onPress={() =>
-                router.push({
-                  pathname: "/profile",
-                  params: { data: JSON.stringify(response) },
-                })
-              }>
-              <Text style={styles.saveButtonText}>Save plan</Text>
-            </TouchableOpacity>
-          </View>
+
+            <View style={styles.buttonContainer}>
+              <TouchableOpacity
+                style={styles.editButton}
+                onPress={() => router.push("/(tabs)")}
+              >
+                <Text style={styles.editButtonText}>Home</Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                style={styles.saveButton}
+                onPress={() =>
+                  router.push({
+                    pathname: "/profile",
+                    params: { data: JSON.stringify(response) },
+                  })
+                }
+              >
+                <Text style={styles.saveButtonText}>Save plan</Text>
+              </TouchableOpacity>
+            </View>
           </View>
         </ScrollView>
-      ) : (
-        <Loading title="Loading plan" />
+      ) : (<>
+          <Stack.Screen
+            options={{
+              headerShown: false,
+            }}
+          />
+          <Loading title="Loading plan" />
+            </>
       )}
     </>
   );
@@ -196,7 +220,7 @@ const styles = StyleSheet.create({
     fontSize: 24,
     fontWeight: "bold",
     marginBottom: 10,
-    color: '#28A745'
+    color: "#28A745",
   },
   subtitle: {
     fontSize: 16,
@@ -210,8 +234,7 @@ const styles = StyleSheet.create({
   },
   timeline: {
     marginBottom: 10,
-    marginTop:10,
-    
+    marginTop: 10,
   },
   timelineItem: {
     flexDirection: "row",
@@ -321,4 +344,3 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
   },
 });
-

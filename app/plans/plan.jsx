@@ -6,7 +6,7 @@ import {
   TouchableOpacity,
   StyleSheet,
 } from "react-native";
-import { useLocalSearchParams } from "expo-router";
+import { useLocalSearchParams, Link } from "expo-router";
 import NoPlansScreen from "@/components/NoPlansScreen";
 import {
   black,
@@ -79,11 +79,8 @@ export default function Plan() {
 
       <View style={styles.footer}>
         <View style={styles.footerButtons}>
-          <TouchableOpacity
-            style={styles.footerButton}
-            onPress={() => router.back("/")}>
-            <Text style={styles.footerButtonText}>Home</Text>
-          </TouchableOpacity>
+          <Link href="/" style={styles.footerButton}>
+          <Text style={styles.footerButtonText}>Home</Text></Link>
           <TouchableOpacity
             style={styles.footerButton}
             onPress={() => router.push("/profile/page")}>
