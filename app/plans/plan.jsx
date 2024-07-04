@@ -6,7 +6,7 @@ import {
   TouchableOpacity,
   StyleSheet,
 } from "react-native";
-import { useLocalSearchParams } from "expo-router";
+import { useLocalSearchParams, Link } from "expo-router";
 import NoPlansScreen from "@/components/NoPlansScreen";
 import {
   black,
@@ -16,8 +16,11 @@ import {
   secondary,
   lowkey,
 } from "@/constants/ThemeVariables";
-import { router } from "expo-router";
+
 import { Ionicons } from "@expo/vector-icons";
+
+import { router, Stack } from "expo-router";
+
 
 export default function Plan() {
   const { plan: planStr, title } = useLocalSearchParams();
@@ -45,6 +48,11 @@ export default function Plan() {
 
   return (
     <ScrollView style={styles.container}>
+      <Stack.Screen
+      options={{
+        headerShown: false,
+      }}
+      />
       <Text style={styles.title}>{title}</Text>
       {plan && plan.length > 0 ? (
         plan.map((item, index) => (
@@ -117,11 +125,8 @@ export default function Plan() {
 
       <View style={styles.footer}>
         <View style={styles.footerButtons}>
-          <TouchableOpacity
-            style={styles.footerButton}
-            onPress={() => router.back("/")}>
-            <Text style={styles.footerButtonText}>Home</Text>
-          </TouchableOpacity>
+          <Link href="/" style={styles.footerButton}>
+          <Text style={styles.footerButtonText}>Home</Text></Link>
           <TouchableOpacity
             style={styles.footerButton}
             onPress={() => router.push("/profile/page")}>

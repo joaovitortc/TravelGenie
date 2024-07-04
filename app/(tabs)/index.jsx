@@ -5,7 +5,7 @@ import { black, button, primary, white } from "@/constants/ThemeVariables";
 
 export default function TabOneScreen() {
   function handleStartJourney() {
-    console.log("Handle start journey")
+    console.log("Handle start journey");
     router.push("/journey/step1");
   }
 
@@ -16,30 +16,35 @@ export default function TabOneScreen() {
         away. Let TravelGenie plan it for you!
       </Text>
 
-      {
-        <Image
-          source={require("../../assets/images/travel_genie_logo.png")}
-          style={styles.image}
-        />
-      }
+      <Image
+        source={require("../../assets/images/travel_genie_logo.png")}
+        style={styles.image}
+      />
       <TouchableOpacity style={styles.button} onPress={handleStartJourney}>
         <Text style={styles.buttonText}>Get Started</Text>
       </TouchableOpacity>
 
       <View style={styles.footer}>
-        <Text style={styles.footerText}>Already have an account?</Text>
         <View style={styles.footerButtons}>
           <TouchableOpacity
             style={styles.footerButton}
-            onPress={() =>  router.push("/profile/page")}>
+            onPress={() => router.push("/profile/page")}
+          >
             <Text style={styles.footerButtonText}>Profile</Text>
           </TouchableOpacity>
           <TouchableOpacity
             style={styles.footerButton}
-            onPress={() =>  router.push("/plans")}>
+            onPress={() => router.push("/plans")}
+          >
             <Text style={styles.footerButtonText}>My Plans</Text>
           </TouchableOpacity>
         </View>
+        <TouchableOpacity
+          style={styles.loginLink}
+          onPress={() => router.push("/profile")}
+        >
+          <Text style={styles.loginLinkText}>Create an account or log in</Text>
+        </TouchableOpacity>
       </View>
     </View>
   );
@@ -58,6 +63,7 @@ const styles = StyleSheet.create({
     textAlign: "center",
     marginBottom: 20,
     fontWeight: "bold",
+    marginTop: 30, // Added this line to move the text higher
   },
   link: {
     color: primary,
@@ -71,33 +77,22 @@ const styles = StyleSheet.create({
     backgroundColor: button,
     paddingVertical: 20,
     paddingHorizontal: 30,
-    borderRadius: 10,
+    borderRadius: 30,
     position: "absolute",
     top: 130,
-    borderRadius: 30,
   },
   buttonText: {
     color: "#000",
     fontSize: 25,
     fontWeight: "bold",
   },
-
-  navigationText: {
-    color: "#1D80C3",
-    fontSize: 25,
-    fontWeight: "bold",
-  },
-
   footer: {
     marginTop: 40,
     alignItems: "center",
   },
-  footerText: {
-    fontSize: 14,
-    marginBottom: 10,
-  },
   footerButtons: {
     flexDirection: "row",
+    marginBottom: 20,
   },
   footerButton: {
     borderColor: button,
@@ -111,5 +106,14 @@ const styles = StyleSheet.create({
     color: black,
     fontSize: 16,
     fontWeight: "bold",
+  },
+  loginLink: {
+    marginTop: 10,
+  },
+  loginLinkText: {
+    fontSize: 14,
+    color: primary,
+    textAlign: "center",
+    textDecorationLine: "underline",
   },
 });

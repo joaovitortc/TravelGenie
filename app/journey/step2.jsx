@@ -7,7 +7,7 @@ import {
   TextInput,
   Keyboard,
 } from "react-native";
-import { router, useLocalSearchParams } from "expo-router";
+import { router, useLocalSearchParams, Stack } from "expo-router";
 import { Ionicons } from "@expo/vector-icons";
 import {
   primary,
@@ -104,6 +104,11 @@ export default function Journey1Step() {
 
   return (
     <View style={styles.container}>
+      <Stack.Screen
+      options={{
+        headerShown: false,
+      }}
+      />
       <ProgressBar currentStep={currentStep} totalSteps={totalSteps} />
       <View style={styles.titlecontainer}>
         <View style={styles.circle}>

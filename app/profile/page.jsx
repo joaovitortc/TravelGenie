@@ -3,7 +3,6 @@ import {
   View,
   Text,
   TextInput,
-  Button,
   StyleSheet,
   TouchableOpacity,
   Image,
@@ -16,8 +15,9 @@ import {
 import { db, auth, storage } from "../firebase"; // Import your Firebase configuration
 import { doc, updateDoc, getDoc } from "firebase/firestore";
 import { updateProfile } from "firebase/auth";
-import { router } from "expo-router";
+import { router, Stack } from "expo-router";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
+import { black, button, primary, white } from "@/constants/ThemeVariables";
 
 const Profile = ({ showActionSheetWithOptions }) => {
   if (!auth.currentUser) {
@@ -133,6 +133,11 @@ const Profile = ({ showActionSheetWithOptions }) => {
 
   return (
     <View style={styles.container}>
+      <Stack.Screen
+      options={{
+        headerShown: false,
+      }}
+      />
       <Text style={styles.title}>Profile</Text>
       <TouchableOpacity
         onPress={chooseImage}
@@ -173,16 +178,16 @@ const Profile = ({ showActionSheetWithOptions }) => {
       </TouchableOpacity>
       <View style={styles.buttonContainer}>
         <TouchableOpacity
-          style={styles.homeButton}
-          onPress={() => router.push("/")}
+          style={styles.footerButton}
+          onPress={() => router.back("/")}
         >
-          <Text style={styles.homeButtonText}>Home</Text>
+          <Text style={styles.footerButtonText}>Home</Text>
         </TouchableOpacity>
         <TouchableOpacity
-          style={styles.planButton}
+          style={styles.footerButton}
           onPress={() => router.push("/plans")}
         >
-          <Text style={styles.planButtonText}>My Plan</Text>
+          <Text style={styles.footerButtonText}>My Plan</Text>
         </TouchableOpacity>
       </View>
     </View>
@@ -270,34 +275,20 @@ const styles = StyleSheet.create({
     width: "80%",
     marginTop: 20,
   },
-  homeButton: {
-    flex: 1,
-    backgroundColor: "#fff",
-    borderColor: "#F3A61E",
+  footerButton: {
+    borderColor: button,
     borderWidth: 1,
-    justifyContent: "center",
-    alignItems: "center",
     borderRadius: 30,
-    height: 50,
-    marginHorizontal: 5,
-  },
-  homeButtonText: {
-    color: "#000000",
-    fontSize: 18,
-    fontWeight: "bold",
-  },
-  planButton: {
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    marginHorizontal: 10,
     flex: 1,
-    backgroundColor: "#F3A61E",
-    justifyContent: "center",
     alignItems: "center",
-    borderRadius: 30,
-    height: 50,
-    marginHorizontal: 5,
+    justifyContent: "center",
   },
-  planButtonText: {
-    color: "#000000",
-    fontSize: 18,
+  footerButtonText: {
+    color: black,
+    fontSize: 16,
     fontWeight: "bold",
   },
 });

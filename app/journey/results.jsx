@@ -7,7 +7,7 @@ import {
   StyleSheet,
 } from "react-native";
 import callOpenAI from "../openai";
-import { router, useLocalSearchParams } from "expo-router";
+import { router, useLocalSearchParams, Stack } from "expo-router";
 import Loading from "@/components/Loading";
 import {
   primary,
@@ -75,6 +75,11 @@ export default function Results() {
     <>
       {response ? (
         <ScrollView style={{ flex: 1 }}>
+          <Stack.Screen
+            options={{
+              headerShown: false,
+            }}
+          />
           <View style={styles.container}>
             {/* <View>
             {response.plan.map((item, index) => (
@@ -98,6 +103,7 @@ export default function Results() {
 
             <Text style={styles.title}>All Done!</Text>
             <Text style={styles.subtitle}>{response.title}</Text>
+
 
             {response.plan.map((item, index) => (
               <TouchableOpacity
@@ -170,6 +176,7 @@ export default function Results() {
               </TouchableOpacity>
             ))}
 
+
             {response.tip ? (
               <View style={styles.tipContainer}>
                 <Text style={styles.tipTitle}>Tip!</Text>
@@ -186,13 +193,17 @@ export default function Results() {
               style={styles.regenerateButton}
               onPress={() => {
                 setRegenerate(regenerate + "1");
+
               }}>
+
               <Text style={styles.buttonText}>Regenerate</Text>
             </TouchableOpacity>
 
             <View style={styles.buttonContainer}>
-              <TouchableOpacity style={styles.editButton}>
-                <Text style={styles.editButtonText}>Edit details</Text>
+              <TouchableOpacity style={styles.editButton} onPress={() => router.push("/(tabs)")}
+              >
+                <Text style={styles.editButtonText}>Home</Text>
+
               </TouchableOpacity>
               <TouchableOpacity
                 style={styles.saveButton}
@@ -201,14 +212,22 @@ export default function Results() {
                     pathname: "/profile",
                     params: { data: JSON.stringify(response) },
                   })
+
                 }>
+
                 <Text style={styles.saveButtonText}>Save plan</Text>
               </TouchableOpacity>
             </View>
           </View>
         </ScrollView>
-      ) : (
-        <Loading title="Loading plan" />
+      ) : (<>
+          <Stack.Screen
+            options={{
+              headerShown: false,
+            }}
+          />
+          <Loading title="Loading plan" />
+            </>
       )}
     </>
   );

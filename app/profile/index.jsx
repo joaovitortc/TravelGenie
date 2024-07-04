@@ -7,7 +7,7 @@ import {
   signInWithEmailAndPassword,
 } from "firebase/auth";
 import { doc, getDoc, setDoc, updateDoc, arrayUnion } from "firebase/firestore";
-import { router, useLocalSearchParams } from "expo-router";
+import { router, useLocalSearchParams, Stack} from "expo-router";
 
 const Profile = () => {
   let { data } = useLocalSearchParams();
@@ -92,6 +92,11 @@ const Profile = () => {
 
   return (
     <View>
+      <Stack.Screen
+      options={{
+        headerShown: false,
+      }}
+      />
       <TextInput placeholder="Email" value={email} onChangeText={setEmail} />
       <TextInput
         placeholder="Password"

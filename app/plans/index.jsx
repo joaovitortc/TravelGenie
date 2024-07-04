@@ -10,7 +10,7 @@ import {
 import { db, auth } from "../firebase";
 import { doc, getDoc, updateDoc } from "firebase/firestore";
 import PlanCard from "@/components/PlanCard";
-import { router } from "expo-router";
+import { router, Stack} from "expo-router";
 import Loading from "@/components/Loading";
 import {
   black,
@@ -98,15 +98,25 @@ export default function Plans() {
 
   if (loading) {
     return (
-      <View>
+      <>
+        <Stack.Screen
+      options={{
+        headerShown: false,
+      }}
+      />
         <Loading title={"Loading"} />
-      </View>
+      </>
     );
   }
 
   if (empty) {
     return (
       <View>
+        <Stack.Screen
+      options={{
+        headerShown: false,
+      }}
+      />
         <Text style={styles.title}>My plans</Text>
         <Text>No plans saved yet</Text>
         <View style={styles.footer}>
@@ -129,6 +139,11 @@ export default function Plans() {
 
   return (
     <ScrollView style={styles.container}>
+      <Stack.Screen
+      options={{
+        headerShown: false,
+      }}
+      />
       <Text style={styles.title}>My plans</Text>
       <View>
         {plans ? (
