@@ -31,7 +31,6 @@ const ProgressBar = ({ currentStep, totalSteps }) => {
 };
 
 export default function Journey4Step() {
-  const [location, setLocation] = useState("");
   const [customActivity, setCustomActivity] = useState("");
   const currentStep = 4;
   const totalSteps = 6;

@@ -31,7 +31,6 @@ const ProgressBar = ({ currentStep, totalSteps }) => {
 };
 
 export default function Journey5Step() {
-  const [location, setLocation] = useState("");
   const [customDislikedActivity, setCustomDislikedActivity] = useState("");
   const currentStep = 5;
   const totalSteps = 6;
@@ -57,6 +56,7 @@ export default function Journey5Step() {
 
     data.dislikedActivities = dislikedActivitiesToSubmit.join(" ");
     console.log("Disliked Activities:", data.dislikedActivities);
+    console.log("Data from step 5:" , data)
     router.push({
       pathname: "/journey/step6",
       params: { data: JSON.stringify(data) },
