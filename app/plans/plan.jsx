@@ -1,7 +1,22 @@
 import React, { useState } from "react";
-import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
+import {
+  ScrollView,
+  View,
+  Text,
+  TouchableOpacity,
+  StyleSheet,
+} from "react-native";
 import { useLocalSearchParams } from "expo-router";
 import NoPlansScreen from "@/components/NoPlansScreen";
+import {
+  black,
+  button,
+  primary,
+  white,
+  secondary,
+  lowkey,
+} from "@/constants/ThemeVariables";
+import { router } from "expo-router";
 
 export default function Plan() {
   const { plan: planStr, title } = useLocalSearchParams();
@@ -28,7 +43,7 @@ export default function Plan() {
   console.log("Title from plancontainer: ", title);
 
   return (
-    <View style={styles.container}>
+    <ScrollView style={styles.container}>
       <Text style={styles.title}>{title}</Text>
       {plan && plan.length > 0 ? (
         plan.map((item, index) => (
@@ -46,9 +61,6 @@ export default function Plan() {
                 )}
               </View>
               <View style={styles.actionsContainer}>
-                <TouchableOpacity onPress={() => handleDelete(index)}>
-                  <Text style={styles.deleteButton}>Delete</Text>
-                </TouchableOpacity>
                 <Text style={styles.arrow}>
                   {expandedIndex === index ? "▲" : "▼"}
                 </Text>
@@ -59,7 +71,22 @@ export default function Plan() {
       ) : (
         <NoPlansScreen />
       )}
-    </View>
+
+      <View style={styles.footer}>
+        <View style={styles.footerButtons}>
+          <TouchableOpacity
+            style={styles.footerButton}
+            onPress={() => router.back("/")}>
+            <Text style={styles.footerButtonText}>Home</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={styles.footerButton}
+            onPress={() => router.push("/profile/page")}>
+            <Text style={styles.footerButtonText}>Profile</Text>
+          </TouchableOpacity>
+        </View>
+      </View>
+    </ScrollView>
   );
 }
 
@@ -73,7 +100,9 @@ const styles = StyleSheet.create({
     fontSize: 24,
     fontWeight: "bold",
     marginBottom: 10,
-    color: "blue",
+    color: black,
+    paddingTop: 20,
+    paddingBottom: 20,
   },
   card: {
     flexDirection: "row",
@@ -82,10 +111,10 @@ const styles = StyleSheet.create({
     padding: 15,
     marginBottom: 10,
     borderRadius: 8,
-    backgroundColor: "#f0f0f0",
+    backgroundColor: white,
   },
   expandedCard: {
-    backgroundColor: "#e0e0e0",
+    backgroundColor: secondary,
   },
   cardContent: {
     flex: 1,
@@ -96,7 +125,7 @@ const styles = StyleSheet.create({
   },
   time: {
     fontSize: 14,
-    color: "#666",
+    color: lowkey,
     marginTop: 5,
   },
   description: {
@@ -106,15 +135,37 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
   },
-  deleteButton: {
-    color: "red",
-    marginRight: 10,
-  },
   arrow: {
     fontSize: 20,
   },
   noPlansText: {
     fontSize: 16,
-    color: "#666",
+    color: lowkey,
+  },
+
+  footer: {
+    marginTop: 40,
+    alignItems: "center",
+    marginBottom: 20,
+  },
+  footerText: {
+    fontSize: 14,
+    marginBottom: 10,
+  },
+  footerButtons: {
+    flexDirection: "row",
+  },
+  footerButton: {
+    borderColor: button,
+    borderWidth: 1,
+    borderRadius: 30,
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    marginHorizontal: 10,
+  },
+  footerButtonText: {
+    color: black,
+    fontSize: 16,
+    fontWeight: "bold",
   },
 });
