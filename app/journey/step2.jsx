@@ -29,7 +29,6 @@ const ProgressBar = ({ currentStep, totalSteps }) => {
 };
 
 export default function Journey1Step() {
-  const [location, setLocation] = useState("");
   const [startHour, setStartHour] = useState("");
   const [startMinute, setStartMinute] = useState("");
   const [startAMPM, setStartAMPM] = useState("AM");
@@ -50,7 +49,6 @@ export default function Journey1Step() {
   };
 
   function handleGoNextStep() {
-    data.location = location;
     router.push({
       pathname: "/journey/step3",
       params: { data: JSON.stringify(data) },
@@ -112,7 +110,9 @@ export default function Journey1Step() {
         </View>
         <Text style={styles.title}>Trip Duration</Text>
       </View>
-      <Text style={styles.paragraph}>How long should your trip take?</Text>
+      <Text style={styles.paragraph}>
+        Choose what time you would like to start and end your trip
+      </Text>
 
       <View style={styles.timeContainer}>
         <Text style={styles.label}>Starting time</Text>
@@ -287,9 +287,8 @@ const styles = StyleSheet.create({
   paragraph: {
     fontSize: 14,
     color: black,
-    marginBottom: 30,
+    marginBottom: 25,
     width: "80%",
-    textAlign: "center",
   },
   separator: {
     marginVertical: 30,
@@ -301,7 +300,7 @@ const styles = StyleSheet.create({
     height: 10,
     backgroundColor: "#e0e0e0",
     borderRadius: 5,
-    marginBottom: 70,
+    marginBottom: 40,
     overflow: "hidden",
   },
   progressBar: {
@@ -320,6 +319,7 @@ const styles = StyleSheet.create({
     justifyContent: "flex-start",
     alignSelf: "flex-start",
     paddingLeft: 15,
+    fontWeight: "bold",
   },
   timeInputRow: {
     flexDirection: "row",
