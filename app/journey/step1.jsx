@@ -59,6 +59,7 @@ export default function Journey1Step() {
       return;
     }
 
+    setLocation("Retrieving location...")
     let location = await Location.getCurrentPositionAsync({});
     let address = await Location.reverseGeocodeAsync({
       latitude: location.coords.latitude,
