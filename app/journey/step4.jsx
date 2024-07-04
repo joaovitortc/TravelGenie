@@ -28,11 +28,11 @@ const ProgressBar = ({ currentStep, totalSteps }) => {
   );
 };
 
-export default function Journey5Step() {
-  const [customDislikedActivity, setCustomDislikedActivity] = useState("");
-  const currentStep = 5;
+export default function Journey4Step() {
+  const [customActivity, setCustomActivity] = useState("");
+  const currentStep = 4;
   const totalSteps = 6;
-  const [selectedDislikedActivities, setSelectedDislikedActivities] = useState(
+  const [selectedActivities, setSelectedActivities] = useState(
     []
   );
   const [isNextButtonEnabled, setIsNextButtonEnabled] = useState(false); // State to manage button enable/disable
@@ -41,13 +41,13 @@ export default function Journey5Step() {
 
   useEffect(() => {
     setIsNextButtonEnabled(
-      selectedDislikedActivities.length > 0 ||
-        customDislikedActivity.trim().length > 0
+      selectedActivities.length > 0 ||
+        customActivity.trim().length > 0
     ); // Enable the button if any disliked activity is selected or custom activity is not empty
-  }, [selectedDislikedActivities, customDislikedActivity]);
+  }, [selectedActivities]);
 
-  const toggleDislikedActivity = (activity) => {
-    setSelectedDislikedActivities((prevSelected) =>
+  const toggleActivity = (activity) => {
+    setSelectedActivities((prevSelected) =>
       prevSelected.includes(activity)
         ? prevSelected.filter((item) => item !== activity)
         : [...prevSelected, activity]
@@ -58,13 +58,13 @@ export default function Journey5Step() {
     if (!isNextButtonEnabled && !skip) {
       return;
     }
-    let dislikedActivitiesToSubmit = [...selectedDislikedActivities];
-    if (customDislikedActivity.trim() && !skip) {
-      dislikedActivitiesToSubmit.push(customDislikedActivity.trim());
+    let ActivitiesToSubmit = [...selectedActivities];
+    if (customActivity.trim() && !skip) {
+      ActivitiesToSubmit.push(customActivity.trim());
     }
 
-    data.dislikedActivities = dislikedActivitiesToSubmit.join(" ");
-    console.log("Disliked Activities:", data.dislikedActivities);
+    data.activities = ActivitiesToSubmit.join(" ");
+    //console.log("Disliked Activities:", data.dislikedActivities);
     router.push({
       pathname: "/journey/step5",
       params: { data: JSON.stringify(data) },
@@ -91,7 +91,7 @@ export default function Journey5Step() {
 
       <ScrollView contentContainerStyle={styles.activitiesContainer}>
         {activities.map((activity, index) => {
-          const isSelected = selectedDislikedActivities.includes(activity.name);
+          const isSelected = selectedActivities.includes(activity.name);
           return (
             <TouchableOpacity
               key={index}
@@ -99,7 +99,7 @@ export default function Journey5Step() {
                 styles.activityButton,
                 isSelected && styles.activityButtonSelected,
               ]}
-              onPress={() => toggleDislikedActivity(activity.name)}
+              onPress={() => toggleActivity(activity.name)}
             >
               <Ionicons
                 name={activity.icon}
@@ -121,9 +121,9 @@ export default function Journey5Step() {
 
       <Text style={styles.orStyle}>or</Text>
       <TextInput
-        onChangeText={setCustomDislikedActivity}
-        value={customDislikedActivity}
-        placeholder="Type your disliked activity..."
+        onChangeText={setCustomActivity}
+        value={customActivity}
+        placeholder="Type your desired activity..."
         style={styles.input}
       />
       <View style={styles.navigationbuttons}>

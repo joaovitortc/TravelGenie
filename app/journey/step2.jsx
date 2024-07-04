@@ -7,7 +7,7 @@ import {
   TextInput,
   Keyboard,
 } from "react-native";
-import { router } from "expo-router";
+import { router, useLocalSearchParams } from "expo-router";
 import { Ionicons } from "@expo/vector-icons";
 import {
   primary,
@@ -38,17 +38,18 @@ export default function Journey1Step() {
 
   const currentStep = 2;
   const totalSteps = 6;
-  let data = {
-    location: "",
-    startHour,
-    startMinute,
-    startAMPM,
-    endHour,
-    endMinute,
-    endAMPM,
-  };
+  
+  let { data } = useLocalSearchParams();
+  data = data ? JSON.parse(data) : {};
 
   function handleGoNextStep() {
+    data.startHour = startHour;
+    data.startMinute = startMinute;
+    data.startAMPM = startAMPM;
+    data.endHour = endHour;
+    data.endMinute = endMinute;
+    data.endAMPM = endAMPM;
+    console.log("Data from step2: ", data)
     router.push({
       pathname: "/journey/step3",
       params: { data: JSON.stringify(data) },

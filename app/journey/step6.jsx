@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { StyleSheet, TouchableOpacity, Text, View } from "react-native";
-import { router } from "expo-router";
 import { Ionicons } from "@expo/vector-icons";
+import { router, useLocalSearchParams } from "expo-router";
 import {
   primary,
   secondary,
@@ -26,16 +26,14 @@ export default function Journey1Step() {
   const [selectedAges, setSelectedAges] = useState([]);
   const currentStep = 6;
   const totalSteps = 6;
+  
+  let { data } = useLocalSearchParams();
+  data = data ? JSON.parse(data) : {};
 
-  const handleGoNextStep = () => {
-    console.log("Number of people:", selectedAmount);
-    console.log("Age ranges:", selectedAges);
-
-    let data = {
-      amount: selectedAmount,
-      age: selectedAges,
-    };
-
+  function handleGoNextStep() {
+    data.amount = selectedAmount;
+    data.age = selectedAges.join(" ");
+    console.log(data)
     router.push({
       pathname: "/journey/results",
       params: { data: JSON.stringify(data) },

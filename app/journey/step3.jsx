@@ -7,8 +7,8 @@ import {
   TextInput,
   Alert,
 } from "react-native";
-import { router } from "expo-router";
 import * as Location from "expo-location";
+import { router, useLocalSearchParams } from "expo-router";
 import { Ionicons } from "@expo/vector-icons";
 import {
   primary,
@@ -30,52 +30,14 @@ const ProgressBar = ({ currentStep, totalSteps }) => {
 };
 
 export default function Journey1Step() {
-  const [location, setLocation] = useState("");
   const [selectedBudget, setSelectedBudget] = useState(null);
   const currentStep = 3;
   const totalSteps = 6;
-  let data = {
-    location: "",
-    budget: "",
-  };
-
-  useEffect(() => {
-    (async () => {
-      let { status } = await Location.requestForegroundPermissionsAsync();
-      if (status !== "granted") {
-        Alert.alert(
-          "Permission to access location was denied",
-          "We need location permission to use your current location."
-        );
-      }
-    })();
-  }, []);
-
-  const handleUseCurrentLocation = async () => {
-    let { status } = await Location.getForegroundPermissionsAsync();
-    if (status !== "granted") {
-      Alert.alert(
-        "Permission to access location was denied",
-        "We need location permission to use your current location."
-      );
-      return;
-    }
-
-    let location = await Location.getCurrentPositionAsync({});
-    let address = await Location.reverseGeocodeAsync({
-      latitude: location.coords.latitude,
-      longitude: location.coords.longitude,
-    });
-
-    if (address.length > 0) {
-      setLocation(
-        `${address[0].city}, ${address[0].region}, ${address[0].country}`
-      );
-    }
-  };
-
+  
+  let { data } = useLocalSearchParams();
+  data = data ? JSON.parse(data) : {};
+  
   function handleGoNextStep() {
-    data.location = location;
     data.budget = selectedBudget;
     router.push({
       pathname: "/journey/step4",
@@ -134,8 +96,8 @@ export default function Journey1Step() {
 
       <Text style={styles.orStyle}>or</Text>
       <TextInput
-        onChangeText={setLocation}
-        value={location}
+        onChangeText={setSelectedBudget}
+        value={selectedBudget}
         placeholder="Type the amount.."
         style={styles.input}
       />

@@ -65,6 +65,7 @@ export default function Journey5Step() {
 
     data.dislikedActivities = dislikedActivitiesToSubmit.join(" ");
     console.log("Disliked Activities:", data.dislikedActivities);
+    console.log("Data from step 5:" , data)
     router.push({
       pathname: "/journey/step6",
       params: { data: JSON.stringify(data) },

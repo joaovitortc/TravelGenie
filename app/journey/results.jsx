@@ -141,19 +141,21 @@ function createPrompt(data) {
   return `
 Create a travel plan based on user information:
 Instructions:
-- Generate a travel itinerary for ${data.location} within ${data.budget} budget, 
+- Generate a travel itinerary for ${data.location} within $${data.budget} budget, 
 avoiding these type of activities: (${data.dislikedActivities}),
-having in mind the user's preference for activities: (${data.activities}) and size of party ${data.party}.
-For the duration of ${data.duration}
+having in mind the user's preference for activities: (${data.activities}) and size of party ${data.amount}, 
+take into consideration that there will be people from the ${data.age} range.
+The duration of the trip will be ${data.startHour}:${data.startMinute}${data.startAMPM} - ${data.endHour}:${data.endMinute}${data.endAMPM}. 
+Don't use half hours to schedule anything, use some time between the activities to take into account the travel time between them.
 
 - For each day of the trip, suggest:
   - Place: Provide details about the recommended locations.
   - Time: Recommend the best time or duration to visit each place.
-  - What to do: Suggest activities or attractions aligned with the user's interests (e.g., museums, shopping).
+  - What to do: Suggest activities or attractions aligned with the user's interests.
 
 Please format the response as an object with the specified structure. 
 Please don't include any additional information, only an object. No backticks.
-For the time, don't give me half an hour starts-ends. It should be fixed times like 1pm-2pm. Don't do 1:30-2:30 kind of thing.
+For the time, don't give me half an hour starts-ends. It should be fixed times like 1pm-2pm.
 
 Response example: 
 {
