@@ -1,5 +1,4 @@
-// plan.jsx
-import React, {useState} from "react";
+import React, { useState } from "react";
 import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
 import { useLocalSearchParams } from "expo-router";
 import NoPlansScreen from "@/components/NoPlansScreen";
@@ -7,19 +6,24 @@ import NoPlansScreen from "@/components/NoPlansScreen";
 export default function Plan() {
   const { plan: planStr, title } = useLocalSearchParams();
   const [expandedIndex, setExpandedIndex] = useState(null);
-
-  let plan;
-  try {
-    plan = JSON.parse(planStr);
-  } catch (error) {
-    console.error("Error parsing plan: ", error);
-    plan = [];
-  }
+  const [plan, setPlan] = useState(() => {
+    try {
+      return JSON.parse(planStr);
+    } catch (error) {
+      console.error("Error parsing plan: ", error);
+      return [];
+    }
+  });
 
   const toggleExpanded = (index) => {
     setExpandedIndex(expandedIndex === index ? null : index);
   };
-  
+
+  const handleDelete = (index) => {
+    const updatedPlan = plan.filter((_, i) => i !== index);
+    setPlan(updatedPlan);
+  };
+
   console.log("Plan from plancontainer: ", plan);
   console.log("Title from plancontainer: ", title);
 
@@ -33,8 +37,7 @@ export default function Plan() {
               style={[
                 styles.card,
                 expandedIndex === index && styles.expandedCard,
-              ]}
-            >
+              ]}>
               <View style={styles.cardContent}>
                 <Text style={styles.place}>{item.place}</Text>
                 <Text style={styles.time}>{item.time}</Text>
@@ -42,7 +45,10 @@ export default function Plan() {
                   <Text style={styles.description}>{item.what_to_do}</Text>
                 )}
               </View>
-              <View style={styles.arrowContainer}>
+              <View style={styles.actionsContainer}>
+                <TouchableOpacity onPress={() => handleDelete(index)}>
+                  <Text style={styles.deleteButton}>Delete</Text>
+                </TouchableOpacity>
                 <Text style={styles.arrow}>
                   {expandedIndex === index ? "▲" : "▼"}
                 </Text>
@@ -51,7 +57,7 @@ export default function Plan() {
           </TouchableOpacity>
         ))
       ) : (
-        <NoPlansScreen/>
+        <NoPlansScreen />
       )}
     </View>
   );
@@ -96,9 +102,13 @@ const styles = StyleSheet.create({
   description: {
     marginTop: 10,
   },
-  arrowContainer: {
-    width: 30,
+  actionsContainer: {
+    flexDirection: "row",
     alignItems: "center",
+  },
+  deleteButton: {
+    color: "red",
+    marginRight: 10,
   },
   arrow: {
     fontSize: 20,
@@ -108,4 +118,3 @@ const styles = StyleSheet.create({
     color: "#666",
   },
 });
-
