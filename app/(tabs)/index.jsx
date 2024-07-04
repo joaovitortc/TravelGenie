@@ -5,6 +5,7 @@ import { black, button, primary, white } from "@/constants/ThemeVariables";
 
 export default function TabOneScreen() {
   function handleStartJourney() {
+    console.log("Handle start journey")
     router.push("/journey/step1");
   }
 

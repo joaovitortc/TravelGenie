@@ -1,29 +1,54 @@
-// plan.jsx
-import React, {useState} from "react";
-import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
+import React, { useState } from "react";
+import {
+  ScrollView,
+  View,
+  Text,
+  TouchableOpacity,
+  StyleSheet,
+} from "react-native";
 import { useLocalSearchParams } from "expo-router";
+import NoPlansScreen from "@/components/NoPlansScreen";
+import {
+  black,
+  button,
+  primary,
+  white,
+  secondary,
+  lowkey,
+} from "@/constants/ThemeVariables";
+import { router, Stack } from "expo-router";
 
 export default function Plan() {
   const { plan: planStr, title } = useLocalSearchParams();
   const [expandedIndex, setExpandedIndex] = useState(null);
-
-  let plan;
-  try {
-    plan = JSON.parse(planStr);
-  } catch (error) {
-    console.error("Error parsing plan: ", error);
-    plan = [];
-  }
+  const [plan, setPlan] = useState(() => {
+    try {
+      return JSON.parse(planStr);
+    } catch (error) {
+      console.error("Error parsing plan: ", error);
+      return [];
+    }
+  });
 
   const toggleExpanded = (index) => {
     setExpandedIndex(expandedIndex === index ? null : index);
   };
-  
+
+  const handleDelete = (index) => {
+    const updatedPlan = plan.filter((_, i) => i !== index);
+    setPlan(updatedPlan);
+  };
+
   console.log("Plan from plancontainer: ", plan);
   console.log("Title from plancontainer: ", title);
 
   return (
-    <View style={styles.container}>
+    <ScrollView style={styles.container}>
+      <Stack.Screen
+      options={{
+        headerShown: false,
+      }}
+      />
       <Text style={styles.title}>{title}</Text>
       {plan && plan.length > 0 ? (
         plan.map((item, index) => (
@@ -32,8 +57,7 @@ export default function Plan() {
               style={[
                 styles.card,
                 expandedIndex === index && styles.expandedCard,
-              ]}
-            >
+              ]}>
               <View style={styles.cardContent}>
                 <Text style={styles.place}>{item.place}</Text>
                 <Text style={styles.time}>{item.time}</Text>
@@ -41,7 +65,7 @@ export default function Plan() {
                   <Text style={styles.description}>{item.what_to_do}</Text>
                 )}
               </View>
-              <View style={styles.arrowContainer}>
+              <View style={styles.actionsContainer}>
                 <Text style={styles.arrow}>
                   {expandedIndex === index ? "▲" : "▼"}
                 </Text>
@@ -50,9 +74,24 @@ export default function Plan() {
           </TouchableOpacity>
         ))
       ) : (
-        <Text style={styles.noPlansText}>No plans available</Text>
+        <NoPlansScreen />
       )}
-    </View>
+
+      <View style={styles.footer}>
+        <View style={styles.footerButtons}>
+          <TouchableOpacity
+            style={styles.footerButton}
+            onPress={() => router.back("/")}>
+            <Text style={styles.footerButtonText}>Home</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={styles.footerButton}
+            onPress={() => router.push("/profile/page")}>
+            <Text style={styles.footerButtonText}>Profile</Text>
+          </TouchableOpacity>
+        </View>
+      </View>
+    </ScrollView>
   );
 }
 
@@ -66,7 +105,9 @@ const styles = StyleSheet.create({
     fontSize: 24,
     fontWeight: "bold",
     marginBottom: 10,
-    color: "blue",
+    color: black,
+    paddingTop: 20,
+    paddingBottom: 20,
   },
   card: {
     flexDirection: "row",
@@ -75,10 +116,10 @@ const styles = StyleSheet.create({
     padding: 15,
     marginBottom: 10,
     borderRadius: 8,
-    backgroundColor: "#f0f0f0",
+    backgroundColor: white,
   },
   expandedCard: {
-    backgroundColor: "#e0e0e0",
+    backgroundColor: secondary,
   },
   cardContent: {
     flex: 1,
@@ -89,14 +130,14 @@ const styles = StyleSheet.create({
   },
   time: {
     fontSize: 14,
-    color: "#666",
+    color: lowkey,
     marginTop: 5,
   },
   description: {
     marginTop: 10,
   },
-  arrowContainer: {
-    width: 30,
+  actionsContainer: {
+    flexDirection: "row",
     alignItems: "center",
   },
   arrow: {
@@ -104,7 +145,32 @@ const styles = StyleSheet.create({
   },
   noPlansText: {
     fontSize: 16,
-    color: "#666",
+    color: lowkey,
+  },
+
+  footer: {
+    marginTop: 40,
+    alignItems: "center",
+    marginBottom: 20,
+  },
+  footerText: {
+    fontSize: 14,
+    marginBottom: 10,
+  },
+  footerButtons: {
+    flexDirection: "row",
+  },
+  footerButton: {
+    borderColor: button,
+    borderWidth: 1,
+    borderRadius: 30,
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    marginHorizontal: 10,
+  },
+  footerButtonText: {
+    color: black,
+    fontSize: 16,
+    fontWeight: "bold",
   },
 });
-

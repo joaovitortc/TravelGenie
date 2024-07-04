@@ -13,10 +13,10 @@ import {
   ActionSheetProvider,
   connectActionSheet,
 } from "@expo/react-native-action-sheet";
-import { db, auth, storage} from "../firebase"; // Import your Firebase configuration
+import { db, auth, storage } from "../firebase"; // Import your Firebase configuration
 import { doc, updateDoc, getDoc } from "firebase/firestore";
 import { updateProfile } from "firebase/auth";
-import { router } from "expo-router";
+import { router, Stack } from "expo-router";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 
 const Profile = ({ showActionSheetWithOptions }) => {
@@ -27,7 +27,8 @@ const Profile = ({ showActionSheetWithOptions }) => {
   const [name, setName] = useState(
     auth.currentUser
       ? auth.currentUser.displayName ||
-          auth.currentUser.email.split("@")[0].charAt(0).toUpperCase() + auth.currentUser.email.split("@")[0].slice(1)
+          auth.currentUser.email.split("@")[0].charAt(0).toUpperCase() +
+            auth.currentUser.email.split("@")[0].slice(1)
       : ""
   );
   const [email, setEmail] = useState(auth.currentUser?.email || "");
@@ -43,7 +44,7 @@ const Profile = ({ showActionSheetWithOptions }) => {
       const userDoc = await getDoc(userRef);
       if (userDoc.exists()) {
         const userData = userDoc.data();
-        console.log("User data:", userData);    
+        console.log("User data:", userData);
         setImage(userData.photoURL || null);
         setLocation(userData.location || "Louve-la-Neuve, Belgium");
       }
@@ -57,7 +58,7 @@ const Profile = ({ showActionSheetWithOptions }) => {
     const userRef = doc(db, "users", userId);
 
     let imageUrl = image;
-    if (image && image.startsWith('file:')) {
+    if (image && image.startsWith("file:")) {
       const imageRef = ref(storage, `profileImages/${userId}/${Date.now()}`);
       try {
         const response = await fetch(image);
@@ -132,6 +133,12 @@ const Profile = ({ showActionSheetWithOptions }) => {
 
   return (
     <View style={styles.container}>
+      <Stack.Screen
+      options={{
+        headerShown: false,
+      }}
+      />
+      <Text style={styles.title}>Profile</Text>
       <TouchableOpacity
         onPress={chooseImage}
         style={styles.profilePicContainer}
@@ -160,17 +167,29 @@ const Profile = ({ showActionSheetWithOptions }) => {
         onChangeText={setEmail}
         placeholderTextColor="#A9A9A9"
       />
-      <Text style={styles.label}>Your Location</Text>
-      <TextInput
-        style={styles.input}
-        placeholder="Add your location"
-        value={location}
-        onChangeText={setLocation}
-        placeholderTextColor="#A9A9A9"
-      />
       <TouchableOpacity style={styles.saveButton} onPress={handleSave}>
         <Text style={styles.saveButtonText}>Save</Text>
       </TouchableOpacity>
+      <TouchableOpacity
+        style={styles.logoutButton}
+        onPress={() => router.push("/")}
+      >
+        <Text style={styles.logoutButtonText}>Log out</Text>
+      </TouchableOpacity>
+      <View style={styles.buttonContainer}>
+        <TouchableOpacity
+          style={styles.homeButton}
+          onPress={() => router.push("/")}
+        >
+          <Text style={styles.homeButtonText}>Home</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.planButton}
+          onPress={() => router.push("/plans")}
+        >
+          <Text style={styles.planButtonText}>My Plan</Text>
+        </TouchableOpacity>
+      </View>
     </View>
   );
 };
@@ -182,6 +201,12 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     backgroundColor: "#F0F4FA",
     padding: 20,
+  },
+  title: {
+    fontSize: 24,
+    fontWeight: "bold",
+    marginBottom: 20,
+    textAlign: "center",
   },
   profilePicContainer: {
     marginBottom: 20,
@@ -229,6 +254,55 @@ const styles = StyleSheet.create({
   },
   saveButtonText: {
     color: "#FFFFFF",
+    fontWeight: "bold",
+  },
+  logoutButton: {
+    backgroundColor: "#F0F4FA",
+    borderColor: "#A9A9A9",
+    borderWidth: 1,
+    borderRadius: 20,
+    paddingVertical: 10,
+    paddingHorizontal: 40,
+    marginTop: 20,
+  },
+  logoutButtonText: {
+    color: "#A9A9A9",
+    fontWeight: "bold",
+  },
+  buttonContainer: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    width: "80%",
+    marginTop: 20,
+  },
+  homeButton: {
+    flex: 1,
+    backgroundColor: "#fff",
+    borderColor: "#F3A61E",
+    borderWidth: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    borderRadius: 30,
+    height: 50,
+    marginHorizontal: 5,
+  },
+  homeButtonText: {
+    color: "#000000",
+    fontSize: 18,
+    fontWeight: "bold",
+  },
+  planButton: {
+    flex: 1,
+    backgroundColor: "#F3A61E",
+    justifyContent: "center",
+    alignItems: "center",
+    borderRadius: 30,
+    height: 50,
+    marginHorizontal: 5,
+  },
+  planButtonText: {
+    color: "#000000",
+    fontSize: 18,
     fontWeight: "bold",
   },
 });

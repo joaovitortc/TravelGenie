@@ -7,7 +7,7 @@ import {
   TextInput,
   Alert,
 } from "react-native";
-import { router } from "expo-router";
+import { router, Stack } from "expo-router";
 import * as Location from "expo-location";
 import { Ionicons } from "@expo/vector-icons";
 import {
@@ -86,6 +86,11 @@ export default function Journey1Step() {
 
   return (
     <View style={styles.container}>
+      <Stack.Screen
+      options={{
+        headerShown: false,
+      }}
+      />
       <ProgressBar currentStep={currentStep} totalSteps={totalSteps} />
       <View style={styles.titlecontainer}>
         <View style={styles.circle}>
@@ -134,12 +139,6 @@ export default function Journey1Step() {
           />
         </TouchableOpacity>
       </View>
-      <TouchableOpacity
-        onPress={handleGoNextStep}
-        style={styles.navigationButtonSkip}>
-        <Text style={styles.navigationButtonTextSkip}>Skip this step</Text>
-      </TouchableOpacity>
-
       <View
         style={styles.separator}
         lightColor="#eee"
@@ -200,7 +199,7 @@ const styles = StyleSheet.create({
     height: 10,
     backgroundColor: "#e0e0e0",
     borderRadius: 5,
-    marginBottom: 70,
+    marginBottom: 40,
     overflow: "hidden",
   },
   progressBar: {
