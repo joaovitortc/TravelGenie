@@ -54,10 +54,9 @@
 
   ### Built With
 
-  <div align="center">
  ![React Native](https://img.shields.io/badge/React_Native-61DAFB?style=for-the-badge&logo=react&logoColor=white)
  ![Expo](https://img.shields.io/badge/Expo-000020?style=for-the-badge&logo=expo&logoColor=white)
- </div>
+ 
 
   <p align="right">(<a href="#readme-top">back to top</a>)</p>
 </div>
