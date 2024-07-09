@@ -98,28 +98,13 @@ TravelGenie/
 <!-- USAGE EXAMPLES -->
 ## Usage
 
-This section outlines some of the features of the website.
+<img src="assets/screenshots/Home_Screen.PNG" width="350" height="650" alt="Logo" align="left" />
+<img src="assets/screenshots/Home_Screen.PNG" width="350" height="650" alt="Logo" align="left" />
+<img src="assets/screenshots/Home_Screen.PNG" width="350" height="650" alt="Logo" align="left" />
+<img src="assets/screenshots/Home_Screen.PNG" width="350" height="650" alt="Logo" align="left" />
+<img src="assets/screenshots/Home_Screen.PNG" width="350" height="650" alt="Logo" align="left" />
+<img src="assets/screenshots/Home_Screen.PNG" width="350" height="650" alt="Logo" align="left" />
 
-### Log in system
-The website employs *bcrypt.js* to securely hash and store user passwords in MongoDB. 
-Only registered users are permitted to log in.
-
-<img src="assets/log-in.png" alt="Logo" width="300">
-
-### Url Protection
-I utilized *express-session* to secure endpoints, ensuring that only logged-in users can access certain pages. This also prevents customers from accessing administrator pages.
-
-<img src="assets/unauthorized.png" alt="Logo" >
-
-### Admin
-Administrators have the capability to create, delete, and edit meal kits through the admin panel.
-
-<img src="assets/cru.png" alt="Logo" >
-
-### Cart
-Sessions are used to track user activity, maintaining the contents of the cart even if the user leaves the website. Users can also modify the quantity, add / remove items on their cart. By simulating the placement of an order, and email is sent to the registered user.
-
-<img src="assets/cart.png" alt="Logo" >
 
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
@@ -133,19 +118,10 @@ Distributed under the MIT License. See `LICENSE.txt` for more information.
 
 </br>
 
-<!-- CONTACT -->
-## Contact
-
-- [Portfolio](https://joaocunha.onrender.com)
-- [LinkedIn](https://www.linkedin.com/in/joaovitortc/)
-- [GitHub](https://github.com/joaovitortc)
-
-</br>
-
 <!-- ACKNOWLEDGMENTS -->
 ## Acknowledgments
 
-Special thanks to [Nick Romanidis](https://github.com/nick-romanidis) for guidance and support throughout the development process.
+coantributors
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 </br>
