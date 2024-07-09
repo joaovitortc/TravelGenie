@@ -121,6 +121,10 @@ TravelGenie/
 
 https://github.com/joaovitortc/TravelGenie/assets/144037699/c10c68af-fa4c-42cd-9251-38e45795c57b
 
+or
+
+https://www.youtube.com/watch?v=gG4qAEOTDvg
+
 
 <!-- LICENSE -->
 ## License
