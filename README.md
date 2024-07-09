@@ -13,11 +13,10 @@
   <p align="center">
     Your personalized travel planner powered by AI
     <br />
-    <br />
   </p>
 </div>
 
-<br /><br />
+<br />
 
 <!-- TABLE OF CONTENTS -->
 <details>
@@ -61,42 +60,39 @@
 
   <p align="right">(<a href="#readme-top">back to top</a>)</p>
 </div>
-<br/><br/><br/><br/>
+<br/><br/><br/><br/><br/><br/>
 
 ## File Structure
 
 ```bash
-KuKeen/
+TravelGenie/
 │
 ├── assets/
-│   ├── css/         
+│   ├── fonts/         
 │   ├── images/       
-│   └── togglePassword.js       # Responsible for toggling the passsword visibility
+│   └── screenshots/      
 │
-├── controllers/
-│   ├── cartController.js     
-│   └── generalController.js  
-│   └── loadDataController.js   # Endpoint responsible to restart the database (emergency recovery)
-│   └── mealkitsController.js
+├── app/
+│   ├── (tabs)/                #  where index.jsx can be found, home screen of the application  
+│   └── journey/               #  All the User Journey screens and logic when user press "Get Started"
+│   └── plans/                 #  My Plans and Plan Detail screens
+│   └── profile/               #  Login/Signup and Profile screens
+│   └── firebase.js            #  Responsible for firebase config
+│   └── openai.js              #  Responsible for openai API config
+│   └── ...
 │
-├── modules/
-│   ├── mealKitModel.js          
-│   └── mealkitUtil.js
-│   └── userModel.js        
+├── components/                #  Several component can be found, main ones:
+│   ├── Loading.jsx            
+│   └── PlanCard.jsx
+│   └── NoPlansScreen.jsx
+│   └── ...      
 │
-├── views/
-│   ├── general/                # Contain all the general views (home.ejs, cart.ejs, etc)
-│   ├── layouts/
-│       └── main.ejs            # Layout used in every page (using EJS-Layouts)
-│   ├── mealkits/               # Contain all the mealkit's related views
-│   ├── partials/
-│       ├── footer.ejs
-│       └── mealkits.ejs
-│       └── navbar.ejs
+├── constants/                 #  For colors used several times
 │
-├── .gitignore                  # Git ignore file
-├── README.md                   # Project README file
-└── server.js                   # Project Entry point
+├── .gitignore                 #  Git ignore file
+├── README.md                  #  Project README file
+└── app.json                   #  Configuring Expo
+└── ...
 ```
 
 <!-- USAGE EXAMPLES -->
