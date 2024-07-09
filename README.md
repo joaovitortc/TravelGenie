@@ -98,12 +98,12 @@ TravelGenie/
 <!-- USAGE EXAMPLES -->
 ## Usage
 
-<img src="assets/screenshots/Home_Screen.PNG" width="350" height="650" alt="Logo" align="left" />
-<img src="assets/screenshots/Home_Screen.PNG" width="350" height="650" alt="Logo" align="left" />
-<img src="assets/screenshots/Home_Screen.PNG" width="350" height="650" alt="Logo" align="left" />
-<img src="assets/screenshots/Home_Screen.PNG" width="350" height="650" alt="Logo" align="left" />
-<img src="assets/screenshots/Home_Screen.PNG" width="350" height="650" alt="Logo" align="left" />
-<img src="assets/screenshots/Home_Screen.PNG" width="350" height="650" alt="Logo" align="left" />
+<img src="assets/screenshots/Home_Screen.PNG" width="300" height="650" alt="Logo"/>
+<img src="assets/screenshots/Home_Screen.PNG" width="300" height="650" alt="Logo"/>
+<img src="assets/screenshots/Home_Screen.PNG" width="300" height="650" alt="Logo"/>
+<img src="assets/screenshots/Home_Screen.PNG" width="300" height="650" alt="Logo"/>
+<img src="assets/screenshots/Home_Screen.PNG" width="300" height="650" alt="Logo"/>
+<img src="assets/screenshots/Home_Screen.PNG" width="300" height="650" alt="Logo"/>
 
 
 
