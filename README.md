@@ -101,13 +101,13 @@ TravelGenie/
 <div align="center">
   <img src="assets/screenshots/Step1.jpeg" width="300" height="650" alt="Screenshot 1" style="display: inline-block; margin-right: 10px;">
   <img src="assets/screenshots/Step2.jpeg" width="300" height="650" alt="Screenshot 2" style="display: inline-block; margin-right: 10px;">
-  <img src="assets/screenshots/Home_Screen.PNG" width="300" height="650" alt="Screenshot 3" style="display: inline-block;">
-  <img src="assets/screenshots/Home_Screen.PNG" width="300" height="650" alt="Screenshot 4" style="display: inline-block; margin-right: 10px;">
-  <img src="assets/screenshots/Home_Screen.PNG" width="300" height="650" alt="Screenshot 5" style="display: inline-block; margin-right: 10px;">
-  <img src="assets/screenshots/Home_Screen.PNG" width="300" height="650" alt="Screenshot 6" style="display: inline-block;">
+  <img src="assets/screenshots/Step3.jpeg" width="300" height="650" alt="Screenshot 3" style="display: inline-block;">
+  <img src="assets/screenshots/Step4.jpeg" width="300" height="650" alt="Screenshot 4" style="display: inline-block; margin-right: 10px;">
+  <img src="assets/screenshots/Step5.jpeg" width="300" height="650" alt="Screenshot 5" style="display: inline-block; margin-right: 10px;">
+  <img src="assets/screenshots/Step6.jpeg" width="300" height="650" alt="Screenshot 6" style="display: inline-block;">
+  <img src="assets/screenshots/Loading.jpeg" width="300" height="650" alt="Screenshot 6" style="display: inline-block;">
+  <img src="assets/screenshots/Generated_Plan.jpeg" width="300" height="650" alt="Screenshot 6" style="display: inline-block;">
 </div>
-
-
 
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
