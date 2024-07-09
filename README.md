@@ -41,7 +41,8 @@
 <div>
   <img src="assets/screenshots/Home_Screen.PNG" width="350" height="650" alt="Logo" align="left" />
 
-  TravelGenie is a revolutionary mobile app focused on simplifying travel planning. Utilizing artificial intelligence, TravelGenie generates personalized travel plans tailored to each user's interests and current location. Users can save and revisit their plans, checking details and adjusting them effortlessly. Whether you're exploring new destinations or revisiting familiar ones, TravelGenie enhances your travel experience by providing intuitive, customizable travel plans at your fingertips.
+  <p align="center"> TravelGenie is a revolutionary mobile app focused on simplifying travel planning. Utilizing artificial intelligence, TravelGenie generates personalized travel plans tailored to each user's interests and current location. Users can save and revisit their plans, checking details and adjusting them effortlessly. Whether you're exploring new destinations or revisiting familiar ones, TravelGenie enhances your travel experience by providing intuitive, customizable travel plans at your fingertips.</p>
+  
 
   ### Built With
 
@@ -55,6 +56,7 @@
   <p align="right">(<a href="#readme-top">back to top</a>)</p>
 </div>
 <br/><br/><br/><br/>
+
 ## File Structure
 
 ```bash
