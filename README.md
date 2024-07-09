@@ -13,11 +13,10 @@
   <p align="center">
     Your personalized travel planner powered by AI
     <br />
-    <br />
   </p>
 </div>
 
-<br /><br />
+<br />
 
 <!-- TABLE OF CONTENTS -->
 <details>
@@ -36,100 +35,89 @@
   </ol>
 </details>
 
-
-
-<!-- ABOUT THE PROJECT -->
+  <!-- ABOUT THE PROJECT -->
 ## About The Project
-
 <div>
-  <img src="assets/images/kukeen.png" alt="Logo" width="200" height="200" align="left" />
+  <img src="assets/screenshots/Home_Screen.PNG" width="350" height="650" alt="Logo" align="left" />
 
-  TravelGenie is a revolutionary mobile app focused on simplifying travel planning. Utilizing artificial intelligence, TravelGenie generates personalized travel plans tailored to each user's interests and current location. Users can save and revisit their plans, checking details and adjusting them effortlessly. Whether you're exploring new destinations or revisiting familiar ones, TravelGenie enhances your travel experience by providing intuitive, customizable travel plans at your fingertips.
+  <p align="center"> TravelGenie is a revolutionary mobile app focused on simplifying travel planning. Utilizing artificial intelligence, TravelGenie generates personalized travel plans tailored to each user's interests and current location.<p/>
+    <br/> 
+    Users can:
+    <li>Create new travel plans</li>
+    <li>Regenerate a new plan based on a previous plan</li>
+    <li>Save and revisit their plans</li>
+    <li>Log in, sign-up and edit profile</li>
+    <br/>
+    <p align="center">Whether you're exploring new destinations or revisiting familiar ones, TravelGenie enhances your travel experience by providing intuitive, customizable travel plans at your fingertips.</p>
+  
+
+  ### Built With
+
+ ![React Native](https://img.shields.io/badge/React_Native-61DAFB?style=for-the-badge&logo=react&logoColor=white)
+ ![Expo](https://img.shields.io/badge/Expo-000020?style=for-the-badge&logo=expo&logoColor=white)
+ ![Firebase](https://img.shields.io/badge/Firebase-FFCA28?style=for-the-badge&logo=firebase&logoColor=black)
+ 
+
+  <p align="right">(<a href="#readme-top">back to top</a>)</p>
 </div>
-
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
-
-
-
-### Built With
-
-* ![EJS](https://img.shields.io/badge/EJS-026d3f?style=for-the-badge&logo=ejs&logoColor=white)
-* ![Node.js](https://img.shields.io/badge/Node.js-43853D?style=for-the-badge&logo=node.js&logoColor=white)
-* ![Express](https://img.shields.io/badge/Express.js-404D59?style=for-the-badge)
-* ![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black)
-* ![MongoDB](https://img.shields.io/badge/MongoDB-4EA94B?style=for-the-badge&logo=mongodb&logoColor=white)
-* ![Bootstrap](https://img.shields.io/badge/Bootstrap-563D7C?style=for-the-badge&logo=bootstrap&logoColor=white)
-
-
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
-
+<br/><br/><br/><br/><br/><br/>
 
 ## File Structure
 
 ```bash
-KuKeen/
+TravelGenie/
 │
 ├── assets/
-│   ├── css/         
+│   ├── fonts/         
 │   ├── images/       
-│   └── togglePassword.js       # Responsible for toggling the passsword visibility
+│   └── screenshots/      
 │
-├── controllers/
-│   ├── cartController.js     
-│   └── generalController.js  
-│   └── loadDataController.js   # Endpoint responsible to restart the database (emergency recovery)
-│   └── mealkitsController.js
+├── app/
+│   ├── (tabs)/                #  Where index.jsx can be found, home screen of the application  
+│   └── journey/               #  All the User Journey screens and logic when user press "Get Started"
+│   └── plans/                 #  My Plans and Plan Detail screens
+│   └── profile/               #  Login/Signup and Profile screens
+│   └── firebase.js            #  Responsible for firebase config
+│   └── openai.js              #  Responsible for openai API config
+│   └── ...
 │
-├── modules/
-│   ├── mealKitModel.js          
-│   └── mealkitUtil.js
-│   └── userModel.js        
+├── components/                #  Several components can be found, main ones:
+│   ├── Loading.jsx            
+│   └── PlanCard.jsx
+│   └── NoPlansScreen.jsx
+│   └── ...      
 │
-├── views/
-│   ├── general/                # Contain all the general views (home.ejs, cart.ejs, etc)
-│   ├── layouts/
-│       └── main.ejs            # Layout used in every page (using EJS-Layouts)
-│   ├── mealkits/               # Contain all the mealkit's related views
-│   ├── partials/
-│       ├── footer.ejs
-│       └── mealkits.ejs
-│       └── navbar.ejs
+├── constants/                 #  For colors used several times
 │
-├── .gitignore                  # Git ignore file
-├── README.md                   # Project README file
-└── server.js                   # Project Entry point
+├── .gitignore                 #  Git ignore file
+├── README.md                  #  Project README file
+└── app.json                   #  Configuring Expo
+└── ...
 ```
 
 <!-- USAGE EXAMPLES -->
 ## Usage
 
-This section outlines some of the features of the website.
-
-### Log in system
-The website employs *bcrypt.js* to securely hash and store user passwords in MongoDB. 
-Only registered users are permitted to log in.
-
-<img src="assets/log-in.png" alt="Logo" width="300">
-
-### Url Protection
-I utilized *express-session* to secure endpoints, ensuring that only logged-in users can access certain pages. This also prevents customers from accessing administrator pages.
-
-<img src="assets/unauthorized.png" alt="Logo" >
-
-### Admin
-Administrators have the capability to create, delete, and edit meal kits through the admin panel.
-
-<img src="assets/cru.png" alt="Logo" >
-
-### Cart
-Sessions are used to track user activity, maintaining the contents of the cart even if the user leaves the website. Users can also modify the quantity, add / remove items on their cart. By simulating the placement of an order, and email is sent to the registered user.
-
-<img src="assets/cart.png" alt="Logo" >
+<div align="center">
+  <img src="assets/screenshots/Step1.jpeg" width="300" height="650" alt="Screenshot 1" style="display: inline-block; margin-right: 10px;">
+  <img src="assets/screenshots/Step2.jpeg" width="300" height="650" alt="Screenshot 2" style="display: inline-block; margin-right: 10px;">
+  <img src="assets/screenshots/Step3.jpeg" width="300" height="650" alt="Screenshot 3" style="display: inline-block;">
+  <img src="assets/screenshots/Step4.jpeg" width="300" height="650" alt="Screenshot 4" style="display: inline-block; margin-right: 10px;">
+  <img src="assets/screenshots/Step5.jpeg" width="300" height="650" alt="Screenshot 5" style="display: inline-block; margin-right: 10px;">
+  <img src="assets/screenshots/Step6.jpeg" width="300" height="650" alt="Screenshot 6" style="display: inline-block;">
+  <img src="assets/screenshots/Loading.jpeg" width="300" height="650" alt="Screenshot 6" style="display: inline-block;">
+  <img src="assets/screenshots/Generated_Plan.PNG" width="300" height="650" alt="Screenshot 6" style="display: inline-block;">
+</div>
 
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 </br>
+
+## Video Demo
+
+https://github.com/joaovitortc/TravelGenie/assets/144037699/c10c68af-fa4c-42cd-9251-38e45795c57b
+
 
 <!-- LICENSE -->
 ## License
@@ -138,19 +126,10 @@ Distributed under the MIT License. See `LICENSE.txt` for more information.
 
 </br>
 
-<!-- CONTACT -->
-## Contact
-
-- [Portfolio](https://joaocunha.onrender.com)
-- [LinkedIn](https://www.linkedin.com/in/joaovitortc/)
-- [GitHub](https://github.com/joaovitortc)
-
-</br>
-
 <!-- ACKNOWLEDGMENTS -->
 ## Acknowledgments
 
-Special thanks to [Nick Romanidis](https://github.com/nick-romanidis) for guidance and support throughout the development process.
+coantributors
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 </br>
