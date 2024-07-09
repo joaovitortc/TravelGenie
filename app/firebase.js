@@ -3,9 +3,12 @@ import { initializeApp } from "firebase/app";
 import { getReactNativePersistence, initializeAuth } from "firebase/auth";
 import { getFirestore } from "firebase/firestore";
 import { getStorage } from "firebase/storage";
+import config from '../config'; 
+
+const API_KEY = config.FIREBASE_API_KEY
 
 const firebaseConfig = {
-  apiKey: "AIzaSyCigIWZFCgsrT22HCSOes7LJItv2oj0poc",
+  apiKey: API_KEY,
   authDomain: "travel-genie-c85eb.firebaseapp.com",
   projectId: "travel-genie-c85eb",
   storageBucket: "travel-genie-c85eb.appspot.com",
