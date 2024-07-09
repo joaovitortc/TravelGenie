@@ -14,8 +14,6 @@
     A Travel AI Companion Mobile App
     <br />
     <br />
-    <a href="https://kukeen.onrender.com" target="_blank"><strong>Visit the Websit »</strong></a>
-    <br />
   </p>
 </div>
 
@@ -45,13 +43,8 @@
 
 <img src="assets/images/kukeen.png" alt="Logo" >
 
-Kukeen is a full-stack web application designed to facilitate meal preparation with pre-packaged ingredients. </br>
-
-It allows users to sign up and log in as either customers or administrators. 
-- Customers can purchase mealkits, manage their cart, and perform other related actions,
-- Administrators can perform CRUD (Create, Read, Update, Delete) operations on the mealkits inventory. </br>
-
-The application follows the Model-View-Controller (MVC) pattern for efficient organization and separation of concerns.
+TravelGenie is a revolutionary mobile app focused on simplifying travel planning. 
+Utilizing artificial intelligence, TravelGenie generates personalized travel plans tailored to each user's interests and current location. Users can save and revisit their plans, checking details and adjusting them effortlessly. Whether you're exploring new destinations or revisiting familiar ones, TravelGenie enhances your travel experience by providing intuitive, customizable travel plans at your fingertips.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
