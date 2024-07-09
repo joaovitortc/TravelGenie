@@ -98,26 +98,19 @@ TravelGenie/
 <!-- USAGE EXAMPLES -->
 ## Usage
 
-<div style="display: flex; flex-wrap: wrap;">
-  <div style="flex: 33.33%; padding: 5px;">
-    <img src="assets/screenshots/Home_Screen.PNG" width="300" height="650" alt="Screenshot 1" />
-  </div>
-  <div style="flex: 33.33%; padding: 5px;">
-    <img src="assets/screenshots/Home_Screen.PNG" width="300" height="650" alt="Screenshot 2" />
-  </div>
-  <div style="flex: 33.33%; padding: 5px;">
-    <img src="assets/screenshots/Home_Screen.PNG" width="300" height="650" alt="Screenshot 3" />
-  </div>
-  <div style="flex: 33.33%; padding: 5px;">
-    <img src="assets/screenshots/Home_Screen.PNG" width="300" height="650" alt="Screenshot 4" />
-  </div>
-  <div style="flex: 33.33%; padding: 5px;">
-    <img src="assets/screenshots/Home_Screen.PNG" width="300" height="650" alt="Screenshot 5" />
-  </div>
-  <div style="flex: 33.33%; padding: 5px;">
-    <img src="assets/screenshots/Home_Screen.PNG" width="300" height="650" alt="Screenshot 6" />
-  </div>
+## Usage
+
+<div>
+  <img src="assets/screenshots/Home_Screen.PNG" width="300" height="650" alt="Screenshot 1" style="display: inline-block; margin-right: 10px;">
+  <img src="assets/screenshots/Home_Screen.PNG" width="300" height="650" alt="Screenshot 2" style="display: inline-block; margin-right: 10px;">
+  <img src="assets/screenshots/Home_Screen.PNG" width="300" height="650" alt="Screenshot 3" style="display: inline-block;">
 </div>
+<div>
+  <img src="assets/screenshots/Home_Screen.PNG" width="300" height="650" alt="Screenshot 4" style="display: inline-block; margin-right: 10px;">
+  <img src="assets/screenshots/Home_Screen.PNG" width="300" height="650" alt="Screenshot 5" style="display: inline-block; margin-right: 10px;">
+  <img src="assets/screenshots/Home_Screen.PNG" width="300" height="650" alt="Screenshot 6" style="display: inline-block;">
+</div>
+
 
 
 
