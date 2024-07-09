@@ -10,7 +10,7 @@ import {
 import { db, auth } from "../firebase";
 import { doc, getDoc, updateDoc } from "firebase/firestore";
 import PlanCard from "@/components/PlanCard";
-import { router, Stack} from "expo-router";
+import { router, Stack, Link} from "expo-router";
 import Loading from "@/components/Loading";
 import {
   black,
@@ -98,14 +98,14 @@ export default function Plans() {
 
   if (loading) {
     return (
-      <View>
+      <>
         <Stack.Screen
       options={{
         headerShown: false,
       }}
       />
         <Loading title={"Loading"} />
-      </View>
+      </>
     );
   }
 
@@ -138,7 +138,7 @@ export default function Plans() {
   }
 
   return (
-    <ScrollView style={styles.container}>
+    <View style={styles.container}>
       <Stack.Screen
       options={{
         headerShown: false,
@@ -165,11 +165,8 @@ export default function Plans() {
 
         <View style={styles.footer}>
           <View style={styles.footerButtons}>
-            <TouchableOpacity
-              style={styles.footerButton}
-              onPress={() => router.back("/")}>
-              <Text style={styles.footerButtonText}>Home</Text>
-            </TouchableOpacity>
+            <Link href="/" style={styles.footerButton}>
+            <Text style={styles.footerButtonText}>Home</Text></Link>
             <TouchableOpacity
               style={styles.footerButton}
               onPress={() => router.push("/profile/page")}>
@@ -178,7 +175,7 @@ export default function Plans() {
           </View>
         </View>
       </View>
-    </ScrollView>
+    </View>
   );
 }
 
@@ -212,6 +209,14 @@ const styles = StyleSheet.create({
     borderColor: button,
     borderWidth: 1,
     borderRadius: 30,
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    marginHorizontal: 10,
+  },
+  footerButton: {
+    borderColor: button,
+    borderWidth: 1,
+    borderRadius: 20,
     paddingVertical: 10,
     paddingHorizontal: 20,
     marginHorizontal: 10,

@@ -3,7 +3,6 @@ import {
   View,
   Text,
   TextInput,
-  Button,
   StyleSheet,
   TouchableOpacity,
   Image,
@@ -18,11 +17,22 @@ import { doc, updateDoc, getDoc } from "firebase/firestore";
 import { updateProfile } from "firebase/auth";
 import { router, Stack } from "expo-router";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
+import {
+  primary,
+  secondary,
+  white,
+  lowkey,
+  button,
+  black,
+} from "../../constants/ThemeVariables";
+import { signOut } from "firebase/auth";
 
 const Profile = ({ showActionSheetWithOptions }) => {
-  if (!auth.currentUser) {
-    router.push("/profile");
-  }
+  useEffect(() => {
+    if (!auth.currentUser) {
+      router.push("/profile");
+    }
+  }, [auth]);
 
   const [name, setName] = useState(
     auth.currentUser
@@ -134,15 +144,14 @@ const Profile = ({ showActionSheetWithOptions }) => {
   return (
     <View style={styles.container}>
       <Stack.Screen
-      options={{
-        headerShown: false,
-      }}
+        options={{
+          headerShown: false,
+        }}
       />
       <Text style={styles.title}>Profile</Text>
       <TouchableOpacity
         onPress={chooseImage}
-        style={styles.profilePicContainer}
-      >
+        style={styles.profilePicContainer}>
         {image ? (
           <Image source={{ uri: image }} style={styles.profilePic} />
         ) : (
@@ -157,7 +166,7 @@ const Profile = ({ showActionSheetWithOptions }) => {
         placeholder="Add your name"
         value={name}
         onChangeText={setName}
-        placeholderTextColor="#A9A9A9"
+        placeholderTextColor="lowkey"
       />
       <Text style={styles.label}>Email</Text>
       <TextInput
@@ -165,29 +174,33 @@ const Profile = ({ showActionSheetWithOptions }) => {
         placeholder="Add your email"
         value={email}
         onChangeText={setEmail}
-        placeholderTextColor="#A9A9A9"
+        placeholderTextColor="lowkey"
       />
       <TouchableOpacity style={styles.saveButton} onPress={handleSave}>
         <Text style={styles.saveButtonText}>Save</Text>
       </TouchableOpacity>
       <TouchableOpacity
         style={styles.logoutButton}
-        onPress={() => router.push("/")}
-      >
+        onPress={async () => {
+          try {
+            await signOut(auth);
+            router.push("/"); // Redirect to the login screen after logout
+          } catch (error) {
+            console.error("Error signing out: ", error);
+          }
+        }}>
         <Text style={styles.logoutButtonText}>Log out</Text>
       </TouchableOpacity>
       <View style={styles.buttonContainer}>
         <TouchableOpacity
-          style={styles.homeButton}
-          onPress={() => router.push("/")}
-        >
-          <Text style={styles.homeButtonText}>Home</Text>
+          style={styles.footerButton}
+          onPress={() => router.push("/")}>
+          <Text style={styles.footerButtonText}>Home</Text>
         </TouchableOpacity>
         <TouchableOpacity
-          style={styles.planButton}
-          onPress={() => router.push("/plans")}
-        >
-          <Text style={styles.planButtonText}>My Plan</Text>
+          style={styles.footerButton}
+          onPress={() => router.push("/plans")}>
+          <Text style={styles.footerButtonText}>My Plans</Text>
         </TouchableOpacity>
       </View>
     </View>
@@ -199,7 +212,7 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: "center",
     justifyContent: "center",
-    backgroundColor: "#F0F4FA",
+    backgroundColor: secondary,
     padding: 20,
   },
   title: {
@@ -220,54 +233,58 @@ const styles = StyleSheet.create({
     width: 120,
     height: 120,
     borderRadius: 60,
-    backgroundColor: "#1D80C3",
+    backgroundColor: primary,
     justifyContent: "center",
     alignItems: "center",
   },
   avatarText: {
     fontSize: 50,
-    color: "#FFFFFF",
+    color: white,
   },
   label: {
     alignSelf: "flex-start",
     marginLeft: "10%",
     marginBottom: 5,
     fontWeight: "bold",
-    color: "#1D80C3",
+    color: black,
   },
   input: {
     height: 40,
-    borderColor: "#A9A9A9",
+    borderColor: white,
     borderWidth: 1,
     borderRadius: 20,
     paddingHorizontal: 10,
     marginBottom: 10,
     width: "80%",
-    backgroundColor: "#FFFFFF",
+    backgroundColor: white,
   },
   saveButton: {
-    backgroundColor: "#F3A61E",
+    backgroundColor: button,
     borderRadius: 20,
     paddingVertical: 10,
     paddingHorizontal: 40,
     marginTop: 20,
+    width: "80%",
   },
   saveButtonText: {
-    color: "#FFFFFF",
+    color: black,
     fontWeight: "bold",
+    textAlign: "center",
   },
   logoutButton: {
-    backgroundColor: "#F0F4FA",
-    borderColor: "#A9A9A9",
+    backgroundColor: secondary,
+    borderColor: lowkey,
     borderWidth: 1,
     borderRadius: 20,
     paddingVertical: 10,
     paddingHorizontal: 40,
     marginTop: 20,
+    width: "80%",
   },
   logoutButtonText: {
-    color: "#A9A9A9",
+    color: lowkey,
     fontWeight: "bold",
+    textAlign: "center",
   },
   buttonContainer: {
     flexDirection: "row",
@@ -275,34 +292,21 @@ const styles = StyleSheet.create({
     width: "80%",
     marginTop: 20,
   },
-  homeButton: {
-    flex: 1,
-    backgroundColor: "#fff",
-    borderColor: "#F3A61E",
+  footerButton: {
+    borderColor: button,
     borderWidth: 1,
-    justifyContent: "center",
-    alignItems: "center",
     borderRadius: 30,
-    height: 50,
-    marginHorizontal: 5,
-  },
-  homeButtonText: {
-    color: "#000000",
-    fontSize: 18,
-    fontWeight: "bold",
-  },
-  planButton: {
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    marginHorizontal: 10,
     flex: 1,
-    backgroundColor: "#F3A61E",
-    justifyContent: "center",
     alignItems: "center",
-    borderRadius: 30,
-    height: 50,
-    marginHorizontal: 5,
+    justifyContent: "center",
+    marginTop: 80,
   },
-  planButtonText: {
-    color: "#000000",
-    fontSize: 18,
+  footerButtonText: {
+    color: black,
+    fontSize: 16,
     fontWeight: "bold",
   },
 });

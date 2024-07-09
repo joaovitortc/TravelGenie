@@ -1,12 +1,30 @@
 import React, { useState, useEffect } from "react";
-import { ScrollView, Text, TouchableOpacity, View, StyleSheet } from "react-native";
+import {
+  ScrollView,
+  Text,
+  TouchableOpacity,
+  View,
+  StyleSheet,
+} from "react-native";
 import callOpenAI from "../openai";
-import { router, useLocalSearchParams } from "expo-router";
+import { router, useLocalSearchParams, Stack } from "expo-router";
 import Loading from "@/components/Loading";
+import {
+  primary,
+  secondary,
+  positive,
+  white,
+  lowkey,
+  button,
+  black,
+} from "../../constants/ThemeVariables";
+import { Ionicons } from "@expo/vector-icons";
 
 export default function Results() {
   const [response, setResponse] = useState(null);
   const [regenerate, setRegenerate] = useState("");
+  const [expandedIndex, setExpandedIndex] = useState(null);
+  const [regenerating, setRegenerating] = useState(false); // [1
   let { data } = useLocalSearchParams();
   data = data ? JSON.parse(data) : {};
   console.log(data);
@@ -41,6 +59,7 @@ export default function Results() {
         try {
           const parsedResult = JSON.parse(result); // Ensure the result is parsed
           setResponse(parsedResult); // Set the response from OpenAI
+          setRegenerating(false); // Set regenerating to false
         } catch (error) {
           console.error("Error parsing result:", error);
         }
@@ -50,12 +69,21 @@ export default function Results() {
     handleRequest();
   }, [regenerate]); // Empty dependency array ensures this effect runs once on mount
 
+  const toggleExpanded = (index) => {
+    setExpandedIndex(expandedIndex === index ? null : index);
+  };
+
   return (
     <>
       {response ? (
         <ScrollView style={{ flex: 1 }}>
+          <Stack.Screen
+            options={{
+              headerShown: false,
+            }}
+          />
           <View style={styles.container}>
-          {/* <View>
+            {/* <View>
             {response.plan.map((item, index) => (
               <View key={index}>
                 <Text>Place: {item.place}</Text>
@@ -75,64 +103,133 @@ export default function Results() {
             </TouchableOpacity>
           </View> */}
 
-          <Text style={styles.title}>All Done!</Text>
-          <Text style={styles.subtitle}>{response.title}</Text>
+            <Text style={styles.title}>All Done!</Text>
+            <Text style={styles.subtitle}>{response.title}</Text>
 
-          <View style={styles.timeline}>
+
             {response.plan.map((item, index) => (
-              <View key={index} style={styles.timelineItem}>
-                <Text style={styles.time}>{item.time}</Text>
-                <View style={styles.timelineContent}>
-                  {index !== response.plan.length - 1 && (
-                    <View style={styles.line} />
-                  )}
-                  <View style={styles.circle} />
-                  <Text style={styles.activityPlace}>{item.place}</Text>
-                  <Text style={styles.activityPlace}>{item.price}</Text>
-                  <Text style={styles.activityPlace}>{item.address}</Text>
-                  {/* <Ionicons name="chevron-down" size={24} color="black" /> */}
+              <TouchableOpacity
+                key={index}
+                onPress={() => toggleExpanded(index)}>
+                <View
+                  style={[
+                    styles.card,
+                    expandedIndex === index && styles.expandedCard,
+                  ]}>
+                  <View
+                    style={[
+                      styles.cardContent,
+                      expandedIndex === index
+                        ? styles.expandedCardContent
+                        : styles.collapsedCardContent,
+                    ]}>
+                    <View style={styles.titleAndIcon}>
+                      <Text style={styles.place}>{item.place}</Text>
+                      <View style={styles.actionsContainer}>
+                        <Ionicons
+                          name={
+                            expandedIndex === index
+                              ? "close-outline"
+                              : "chevron-down-outline"
+                          }
+                          size={24}
+                          color={black}
+                        />
+                      </View>
+                    </View>
+                    <View style={styles.flexIconsAndText}>
+                      <Ionicons
+                        name="time-outline"
+                        size={20}
+                        color={lowkey}
+                        paddingTop={5}
+                      />
+                      <Text style={styles.lowkeyStyling}>{item.time}</Text>
+                    </View>
+                    {expandedIndex === index && (
+                      <>
+                        <View style={styles.flexIconsAndText}>
+                          <Ionicons
+                            name="navigate-outline"
+                            size={20}
+                            color={lowkey}
+                            paddingTop={5}
+                          />
+                          <Text style={styles.lowkeyStyling}>
+                            {item.address}
+                          </Text>
+                        </View>
+                        <View style={styles.flexIconsAndText}>
+                          <Ionicons
+                            name="cash-outline"
+                            size={20}
+                            color={lowkey}
+                            paddingTop={5}
+                          />
+                          <Text style={styles.lowkeyStyling}>{item.price}</Text>
+                        </View>
+                        <Text style={styles.description}>
+                          {item.what_to_do}
+                        </Text>
+                      </>
+                    )}
+                  </View>
                 </View>
-              </View>
+              </TouchableOpacity>
             ))}
-          </View>
 
-          {response.tip ? (
-            <View style={styles.tipContainer}>
-              <Text style={styles.tipTitle}>Tip!</Text>
-              <Text style={styles.tipText}>
-                {response.tip}
-              </Text>
+
+            {response.tip ? (
+              <View style={styles.tipContainer}>
+                <Text style={styles.tipTitle}>Tip!</Text>
+                <Text style={styles.tipText}>{response.tip}</Text>
+              </View>
+            ) : null}
+
+            <Text style={styles.regenerateText}>
+              To get a new plan for your trip, click on{" "}
+              <Text style={styles.highlight}>Regenerate</Text> button
+            </Text>
+
+            <TouchableOpacity
+              style={styles.regenerateButton}
+              onPress={() => {
+                setRegenerate(regenerate + "1");
+                setRegenerating(true);
+              }}>
+
+              <Text style={styles.buttonText}>{regenerating ? "Regenerating..." : "Regenerate"}</Text>
+            </TouchableOpacity>
+
+            <View style={styles.buttonContainer}>
+              <TouchableOpacity style={styles.editButton} onPress={() => router.push("/(tabs)")}
+              >
+                <Text style={styles.editButtonText}>Home</Text>
+
+              </TouchableOpacity>
+              <TouchableOpacity
+                style={styles.saveButton}
+                onPress={() =>
+                  router.push({
+                    pathname: "/profile",
+                    params: { data: JSON.stringify(response) },
+                  })
+
+                }>
+
+                <Text style={styles.saveButtonText}>Save plan</Text>
+              </TouchableOpacity>
             </View>
-          ) : null}
-
-          <Text style={styles.regenerateText}>
-            To get a new plan for your trip, click on{" "}
-            <Text style={styles.highlight}>Regenerate</Text> button
-          </Text>
-
-          <TouchableOpacity style={styles.regenerateButton} onPress={() => {
-            setRegenerate(regenerate + "1")
-          }}>
-            <Text style={styles.buttonText}>Regenerate</Text>
-          </TouchableOpacity>
-
-          <View style={styles.buttonContainer}>
-            <TouchableOpacity style={styles.editButton}>
-              <Text style={styles.editButtonText}>Edit details</Text>
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.saveButton} onPress={() =>
-                router.push({
-                  pathname: "/profile",
-                  params: { data: JSON.stringify(response) },
-                })
-              }>
-              <Text style={styles.saveButtonText}>Save plan</Text>
-            </TouchableOpacity>
-          </View>
           </View>
         </ScrollView>
-      ) : (
-        <Loading title="Loading plan" />
+      ) : (<>
+          <Stack.Screen
+            options={{
+              headerShown: false,
+            }}
+          />
+          <Loading title="Loading plan" />
+            </>
       )}
     </>
   );
@@ -179,7 +276,7 @@ Response example:
             "address":   Av. Gustave Eiffel, 75007 Paris, France
         }
         // Add more entries as needed for the duration of the trip
-      "tip": "Remember to bring snacks to keep up with your budget!"
+      "tip": Something to keep in mind for the trip, e.g "Remember to bring snacks to keep up with your budget!"
     ]
 }
 
@@ -189,72 +286,79 @@ Response example:
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#F8FAFF",
-    padding: 20,
+    paddingHorizontal: 20,
+    paddingTop: 20,
+    backgroundColor: white,
   },
   title: {
     fontSize: 24,
     fontWeight: "bold",
     marginBottom: 10,
-    color: '#28A745'
+    color: black,
+    paddingTop: 20,
+    paddingBottom: 10,
   },
   subtitle: {
     fontSize: 16,
-    color: "#007BFF",
+    color: primary,
     marginBottom: 5,
+    fontWeight: "bold",
+    justifyContent: "flex-start",
+    alignSelf: "flex-start",
+    paddingBottom: 10,
   },
-  date: {
-    fontSize: 14,
-    color: "#888",
-    marginBottom: 20,
-  },
-  timeline: {
+  card: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    padding: 15,
     marginBottom: 10,
-    marginTop:10,
-    
+    borderRadius: 8,
+    backgroundColor: white,
   },
-  timelineItem: {
+  expandedCard: {
+    backgroundColor: secondary,
+  },
+  cardContent: {
+    flex: 1,
+    borderRadius: 10,
+  },
+  flexIconsAndText: {
     flexDirection: "row",
     alignItems: "center",
-    marginBottom: 40,
+    marginTop: 5,
+  },
+  titleAndIcon: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+  },
+  place: {
+    fontSize: 18,
+    fontWeight: "bold",
+  },
+  lowkeyStyling: {
+    fontSize: 14,
+    color: lowkey,
+    marginTop: 5,
+    paddingLeft: 5,
+  },
+  description: {
     marginTop: 10,
   },
-  time: {
-    width: 75,
-    fontSize: 12,
-    fontWeight: "bold",
-    marginRight: 10,
-  },
-  timelineContent: {
+  actionsContainer: {
     flexDirection: "row",
     alignItems: "center",
   },
-
-  line: {
-    position: "absolute",
-    top: 40,
-    left: 8,
-    height: "100%",
-    width: 2,
-    backgroundColor: "#007BFF",
+  arrow: {
+    fontSize: 20,
   },
-
-  circle: {
-    width: 15,
-    height: 15,
-    borderRadius: 20,
-
-    marginRight: 10,
-    borderColor: "#1D80C3",
-    borderWidth: 2,
-  },
-  activityPlace: {
-    flex: 1,
+  noPlansText: {
     fontSize: 16,
-    fontWeight: "bold",
+    color: lowkey,
   },
   tipContainer: {
-    backgroundColor: "#E9F1FB",
+    backgroundColor: secondary,
     padding: 15,
     borderRadius: 10,
     marginBottom: 0,
@@ -266,7 +370,7 @@ const styles = StyleSheet.create({
   },
   tipText: {
     fontSize: 14,
-    color: "#555",
+    color: lowkey,
   },
   regenerateText: {
     textAlign: "left",
@@ -279,12 +383,14 @@ const styles = StyleSheet.create({
     alignItems: "center",
     marginBottom: 15,
     marginTop: 10,
-    borderColor: "#F3A61E",
+    borderColor: button,
     borderWidth: 2,
+    width: "100%",
   },
   buttonText: {
-    color: "#000",
+    color: black,
     fontSize: 16,
+    fontWeight: "bold",
   },
   buttonContainer: {
     flexDirection: "row",
@@ -293,7 +399,7 @@ const styles = StyleSheet.create({
   },
   editButton: {
     flex: 1,
-    borderColor: "#000",
+    borderColor: black,
     borderWidth: 1,
     padding: 15,
     borderRadius: 30,
@@ -306,19 +412,18 @@ const styles = StyleSheet.create({
   },
   saveButton: {
     flex: 1,
-    backgroundColor: "#28A745",
+    backgroundColor: positive,
     padding: 15,
     borderRadius: 30,
     alignItems: "center",
   },
   saveButtonText: {
-    color: "#FFF",
+    color: white,
     fontSize: 16,
   },
 
   highlight: {
-    color: "#000",
+    color: black,
     fontWeight: "bold",
   },
 });
-
