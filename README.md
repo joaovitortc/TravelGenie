@@ -130,9 +130,12 @@ Distributed under the MIT License. See `LICENSE.txt` for more information.
 </br>
 
 <!-- ACKNOWLEDGMENTS -->
-## Acknowledgments
+## Contributors
 
-coantributors
+https://github.com/joaovitortc
+https://github.com/illumss - Alberte Illum Sørensen
+Dominik Satke[https://github.com/dominiksatke]
+https://github.com/Yanstart[]
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 </br>
