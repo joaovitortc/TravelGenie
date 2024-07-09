@@ -73,7 +73,7 @@ TravelGenie/
 │   └── screenshots/      
 │
 ├── app/
-│   ├── (tabs)/                #  where index.jsx can be found, home screen of the application  
+│   ├── (tabs)/                #  Where index.jsx can be found, home screen of the application  
 │   └── journey/               #  All the User Journey screens and logic when user press "Get Started"
 │   └── plans/                 #  My Plans and Plan Detail screens
 │   └── profile/               #  Login/Signup and Profile screens
@@ -81,7 +81,7 @@ TravelGenie/
 │   └── openai.js              #  Responsible for openai API config
 │   └── ...
 │
-├── components/                #  Several component can be found, main ones:
+├── components/                #  Several components can be found, main ones:
 │   ├── Loading.jsx            
 │   └── PlanCard.jsx
 │   └── NoPlansScreen.jsx
