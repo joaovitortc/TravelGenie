@@ -55,7 +55,6 @@
   <p align="right">(<a href="#readme-top">back to top</a>)</p>
 </div>
 
-<div>
 ## File Structure
 
 ```bash
@@ -91,7 +90,7 @@ KuKeen/
 ├── README.md                   # Project README file
 └── server.js                   # Project Entry point
 ```
-</div>
+
 <!-- USAGE EXAMPLES -->
 ## Usage
 
