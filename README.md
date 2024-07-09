@@ -96,7 +96,7 @@ TravelGenie/
 ```
 
 <!-- USAGE EXAMPLES -->
-## Usage
+## User Flow
 
 <div align="center">
   <img src="assets/screenshots/Step1.jpeg" width="300" height="650" alt="Screenshot 1" style="display: inline-block; margin-right: 10px;">
