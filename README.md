@@ -134,7 +134,7 @@ Distributed under the MIT License. See `LICENSE.txt` for more information.
 
 * [Joao Vitor Topanotti da Cunha](https://github.com/joaovitortc)
 * [Alberte Illum Sørensen](https://github.com/illumss)
-* [Dominik Satke](https://github.com/dominiksatke])
+* [Dominik Satke](https://github.com/dominiksatke)
 * [Noel Junior Yando](https://github.com/Yanstart)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
