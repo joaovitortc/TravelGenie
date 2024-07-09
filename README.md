@@ -11,7 +11,7 @@
   <h1 align="center">Travel Genie</h1>
 
   <p align="center">
-    A Travel AI Companion Mobile App
+    Your personalized travel planner powered by AI
     <br />
     <br />
   </p>
@@ -43,8 +43,8 @@
 
 <img src="assets/images/kukeen.png" alt="Logo" >
 
-TravelGenie is a revolutionary mobile app focused on simplifying travel planning. 
-Utilizing artificial intelligence, TravelGenie generates personalized travel plans tailored to each user's interests and current location. Users can save and revisit their plans, checking details and adjusting them effortlessly. Whether you're exploring new destinations or revisiting familiar ones, TravelGenie enhances your travel experience by providing intuitive, customizable travel plans at your fingertips.
+TravelGenie is a revolutionary mobile app focused on simplifying travel planning.<br/>
+Utilizing artificial intelligence, TravelGenie generates personalized travel plans tailored to each user's interests and current location. Users can save and revisit their plans, checking details and adjusting them effortlessly. <br/> Whether you're exploring new destinations or revisiting familiar ones, TravelGenie enhances your travel experience by providing intuitive, customizable travel plans at your fingertips.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
