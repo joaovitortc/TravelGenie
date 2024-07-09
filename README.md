@@ -100,12 +100,10 @@ TravelGenie/
 
 ## Usage
 
-<div>
+<div align="center">
   <img src="assets/screenshots/Home_Screen.PNG" width="300" height="650" alt="Screenshot 1" style="display: inline-block; margin-right: 10px;">
   <img src="assets/screenshots/Home_Screen.PNG" width="300" height="650" alt="Screenshot 2" style="display: inline-block; margin-right: 10px;">
   <img src="assets/screenshots/Home_Screen.PNG" width="300" height="650" alt="Screenshot 3" style="display: inline-block;">
-</div>
-<div>
   <img src="assets/screenshots/Home_Screen.PNG" width="300" height="650" alt="Screenshot 4" style="display: inline-block; margin-right: 10px;">
   <img src="assets/screenshots/Home_Screen.PNG" width="300" height="650" alt="Screenshot 5" style="display: inline-block; margin-right: 10px;">
   <img src="assets/screenshots/Home_Screen.PNG" width="300" height="650" alt="Screenshot 6" style="display: inline-block;">
