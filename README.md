@@ -98,12 +98,26 @@ TravelGenie/
 <!-- USAGE EXAMPLES -->
 ## Usage
 
-<img src="assets/screenshots/Home_Screen.PNG" width="300" height="650" alt="Logo"/>
-<img src="assets/screenshots/Home_Screen.PNG" width="300" height="650" alt="Logo"/>
-<img src="assets/screenshots/Home_Screen.PNG" width="300" height="650" alt="Logo"/>
-<img src="assets/screenshots/Home_Screen.PNG" width="300" height="650" alt="Logo"/>
-<img src="assets/screenshots/Home_Screen.PNG" width="300" height="650" alt="Logo"/>
-<img src="assets/screenshots/Home_Screen.PNG" width="300" height="650" alt="Logo"/>
+<div style="display: flex; flex-wrap: wrap;">
+  <div style="flex: 33.33%; padding: 5px;">
+    <img src="assets/screenshots/Home_Screen.PNG" width="300" height="650" alt="Screenshot 1" />
+  </div>
+  <div style="flex: 33.33%; padding: 5px;">
+    <img src="assets/screenshots/Home_Screen.PNG" width="300" height="650" alt="Screenshot 2" />
+  </div>
+  <div style="flex: 33.33%; padding: 5px;">
+    <img src="assets/screenshots/Home_Screen.PNG" width="300" height="650" alt="Screenshot 3" />
+  </div>
+  <div style="flex: 33.33%; padding: 5px;">
+    <img src="assets/screenshots/Home_Screen.PNG" width="300" height="650" alt="Screenshot 4" />
+  </div>
+  <div style="flex: 33.33%; padding: 5px;">
+    <img src="assets/screenshots/Home_Screen.PNG" width="300" height="650" alt="Screenshot 5" />
+  </div>
+  <div style="flex: 33.33%; padding: 5px;">
+    <img src="assets/screenshots/Home_Screen.PNG" width="300" height="650" alt="Screenshot 6" />
+  </div>
+</div>
 
 
 
