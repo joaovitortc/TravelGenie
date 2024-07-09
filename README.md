@@ -106,7 +106,7 @@ TravelGenie/
   <img src="assets/screenshots/Step5.jpeg" width="300" height="650" alt="Screenshot 5" style="display: inline-block; margin-right: 10px;">
   <img src="assets/screenshots/Step6.jpeg" width="300" height="650" alt="Screenshot 6" style="display: inline-block;">
   <img src="assets/screenshots/Loading.jpeg" width="300" height="650" alt="Screenshot 6" style="display: inline-block;">
-  <img src="assets/screenshots/Generated_Plan.jpeg" width="300" height="650" alt="Screenshot 6" style="display: inline-block;">
+  <img src="assets/screenshots/Generated_Plan.PNG" width="300" height="650" alt="Screenshot 6" style="display: inline-block;">
 </div>
 
 
