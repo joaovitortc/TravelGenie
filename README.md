@@ -132,10 +132,10 @@ Distributed under the MIT License. See `LICENSE.txt` for more information.
 <!-- ACKNOWLEDGMENTS -->
 ## Contributors
 
-https://github.com/joaovitortc
-https://github.com/illumss - Alberte Illum Sørensen
-(Dominik Satke)[https://github.com/dominiksatke]
-https://github.com/Yanstart[]
+[Joao Vitor Topanotti da Cunha](https://github.com/joaovitortc)
+[Alberte Illum Sørensen](https://github.com/illumss)
+[Dominik Satke](https://github.com/dominiksatke])
+[Noel Junior Yando](https://github.com/Yanstart)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 </br>
