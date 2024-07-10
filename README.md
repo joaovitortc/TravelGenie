@@ -29,9 +29,9 @@
       </ul>
     </li>
     <li><a href="#file-structure">File Structure</a></li>
-    <li><a href="#usage">Usage</a></li>
-    <li><a href="#contact">Contact</a></li>
-    <li><a href="#acknowledgments">Acknowledgments</a></li>
+    <li><a href="#user-flow">User Flow</a></li>
+    <li><a href="#video-demo">Video Demo</a></li>
+    <li><a href="#contributors">Contributors</a></li>
   </ol>
 </details>
 
